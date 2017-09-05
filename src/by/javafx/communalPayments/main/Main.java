@@ -12,11 +12,11 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/by/javafx/communalPayments/fxml/mainWindow.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Communal payments");
         primaryStage.setScene(new Scene(root, 635, 300));
         primaryStage.setMinWidth(635);
         primaryStage.setMinHeight(300);
-        Image ico = new Image("/by/javafx/communalPayments/ico/icon.png");
+        Image ico = new Image("/by/javafx/communalPayments/ico/counter.png");
         primaryStage.getIcons().add(ico);
         //primaryStage.setResizable(false);
         primaryStage.show();

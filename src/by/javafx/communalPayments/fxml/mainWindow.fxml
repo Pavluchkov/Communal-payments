@@ -18,7 +18,7 @@
       <content>
         <AnchorPane prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView layoutX="5.0" layoutY="19.0" prefHeight="145.0" prefWidth="595.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                  <TableView layoutX="13.0" layoutY="51.0" prefHeight="115.0" prefWidth="602.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="55.0">
                     <columns>
                       <TableColumn maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="-1.0" text="№ п/п" />
                         <TableColumn maxWidth="1.7976931348623157E308" minWidth="110.0" prefWidth="-1.0" text="Вид начисления" />
@@ -49,6 +49,12 @@
                         </Button>
                      </children>
                   </Group>
+                  <Label layoutX="20.0" layoutY="20.0" prefHeight="20.0" prefWidth="90.0" text="Объект учета" AnchorPane.topAnchor="22.0">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox layoutX="128.0" layoutY="20.0" prefHeight="25.0" prefWidth="190.0" promptText="Моя квартира" AnchorPane.topAnchor="20.0" />
                </children></AnchorPane>
       </content>
     </Tab>
