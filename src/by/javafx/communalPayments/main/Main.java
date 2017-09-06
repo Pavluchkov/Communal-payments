@@ -13,10 +13,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/by/javafx/communalPayments/fxml/mainWindow.fxml"));
         primaryStage.setTitle("Communal payments");
-        primaryStage.setScene(new Scene(root, 635, 300));
-        primaryStage.setMinWidth(635);
-        primaryStage.setMinHeight(300);
-        Image ico = new Image("/by/javafx/communalPayments/ico/counter.png");
+        primaryStage.setScene(new Scene(root, 605, 450));
+        primaryStage.setMinWidth(605);
+        primaryStage.setMinHeight(450);
+        Image ico = new Image("/by/javafx/communalPayments/ico/icon.png");
         primaryStage.getIcons().add(ico);
         //primaryStage.setResizable(false);
         primaryStage.show();
