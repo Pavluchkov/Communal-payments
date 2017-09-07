@@ -1,6 +1,7 @@
 package by.javafx.communalPayments.objects;
 
-public abstract class TabObject {
+public class ServiceList {
     private int id;
     private String name;
+    private double rate;
 }

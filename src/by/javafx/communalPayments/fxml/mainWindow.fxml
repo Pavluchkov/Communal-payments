@@ -145,49 +145,6 @@
                </children></AnchorPane>
          </content>
       </Tab>
-      <Tab text="Тарифы">
-         <content>
-            <AnchorPane prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-                     <children>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Добавить">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="25.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Изменить">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                        </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Удалить">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="25.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
-                  <TableView layoutX="20.0" layoutY="66.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                     <columns>
-                        <TableColumn maxWidth="-1.0" minWidth="60.0" prefWidth="-1.0" text="№ п/п" />
-                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="140.0" prefWidth="-1.0" text="Название услуги" />
-                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="70.0" prefWidth="-1.0" text="Ед. изм." />
-                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="Тариф, руб." />
-                     </columns>
-                  </TableView>
-               </children></AnchorPane>
-         </content>
-      </Tab>
       <Tab text="Платежи">
          <content>
             <AnchorPane prefHeight="180.0" prefWidth="200.0">
