@@ -1,5 +1,6 @@
 package by.javafx.communalPayments.main;
 
+import by.javafx.communalPayments.controllers.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +12,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/by/javafx/communalPayments/fxml/mainWindow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/by/javafx/communalPayments/fxml/mainWindow.fxml"));
+        fxmlLoader.setController(new MainController());
+        Parent root = fxmlLoader.load();
+        //Parent root = FXMLLoader.load(getClass().getResource("/by/javafx/communalPayments/fxml/mainWindow.fxml"));
         primaryStage.setTitle("Communal payments");
         primaryStage.setScene(new Scene(root, 605, 450));
         primaryStage.setMinWidth(605);
@@ -21,7 +26,6 @@ public class Main extends Application {
         //primaryStage.setResizable(false);
         primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);
