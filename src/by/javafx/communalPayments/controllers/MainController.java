@@ -22,12 +22,13 @@ public class MainController {
     }
 
     public void changeClicked(){
-        System.out.println("changeClicked");
+        dialogWindow(new CountersController(), "/by/javafx/communalPayments/fxml/countersDialog/changeCounters.fxml",
+                "Изменение счетчика", 520, 230);
     }
 
     public void deleteClicked(){
         dialogWindow(new CountersController(), "/by/javafx/communalPayments/fxml/countersDialog/deleteCounters.fxml",
-                "Удаление счетчика", 400, 190);
+                "Удаление счетчика", 450, 190);
     }
 
     public void dialogWindow(Controller controller, String resource, String title, int width, int height){
