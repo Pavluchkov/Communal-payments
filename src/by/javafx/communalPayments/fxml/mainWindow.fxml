@@ -12,7 +12,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<TabPane prefHeight="450.0" prefWidth="605.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane fx:id="tabPane" prefHeight="450.0" prefWidth="605.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
     <Tab text="Объект учета">
       <content>
@@ -33,7 +33,7 @@
                   </TableView>
                   <HBox alignment="CENTER" layoutX="20.0" layoutY="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <children>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Добавить">
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#objAccountAdd" prefHeight="30.0" prefWidth="95.0" text="Добавить">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -41,12 +41,12 @@
                               <Insets right="25.0" />
                            </HBox.margin>
                         </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Изменить">
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#objAccountChange" prefHeight="30.0" prefWidth="95.0" text="Изменить">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Удалить">
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#objAccountDelete" prefHeight="30.0" prefWidth="95.0" text="Удалить">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -77,7 +77,7 @@
                   </TableView>
                   <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <children>
-                        <Button fx:id="btnAdd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addClicked" prefHeight="30.0" prefWidth="95.0" text="Добавить">
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#countersAdd" prefHeight="30.0" prefWidth="95.0" text="Добавить">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -85,12 +85,12 @@
                               <Insets right="25.0" />
                            </HBox.margin>
                         </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#changeClicked" prefHeight="30.0" prefWidth="95.0" text="Изменить">
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#countersChange" prefHeight="30.0" prefWidth="95.0" text="Изменить">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deleteClicked" prefHeight="30.0" prefWidth="95.0" text="Удалить">
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#countersDelete" prefHeight="30.0" prefWidth="95.0" text="Удалить">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -109,7 +109,7 @@
                <children>
                   <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <children>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Добавить">
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#servListAdd" prefHeight="30.0" prefWidth="95.0" text="Добавить">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -117,12 +117,12 @@
                               <Insets right="25.0" />
                            </HBox.margin>
                         </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Изменить">
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#servListChange" prefHeight="30.0" prefWidth="95.0" text="Изменить">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Удалить">
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#servListDelete" prefHeight="30.0" prefWidth="95.0" text="Удалить">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>

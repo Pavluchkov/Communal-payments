@@ -23,7 +23,6 @@ public class Main extends Application {
         primaryStage.setMinHeight(450);
         Image ico = new Image("/by/javafx/communalPayments/ico/icon.png");
         primaryStage.getIcons().add(ico);
-        //primaryStage.setResizable(false);
         primaryStage.show();
     }
 
