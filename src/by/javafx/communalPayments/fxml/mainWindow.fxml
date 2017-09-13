@@ -71,7 +71,6 @@
                         <TableColumn maxWidth="-1.0" minWidth="60.0" prefWidth="-1.0" text="№ п/п" />
                         <TableColumn maxWidth="1.7976931348623157E308" minWidth="160.0" prefWidth="-1.0" text="Название счетчика" />
                         <TableColumn maxWidth="1.7976931348623157E308" minWidth="70.0" prefWidth="-1.0" text="Ед. изм" />
-                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Предыдущие показания" />
                         <TableColumn maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Текущие показания" />
                      </columns>
                   </TableView>
