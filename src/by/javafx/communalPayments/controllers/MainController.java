@@ -2,6 +2,7 @@ package by.javafx.communalPayments.controllers;
 
 import by.javafx.communalPayments.controllers.counters.CountersController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjAccountController;
+import by.javafx.communalPayments.controllers.serviceList.ServiceListController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,11 +24,13 @@ public class MainController {
 
     @FXML
     public void objAccountChange(){
-
+        dialogWindow(new ObjAccountController(), "/by/javafx/communalPayments/fxml/objAccountDialog/changeObjAccount.fxml",
+                "Изменение объекта учета", 570, 310);
     }
     @FXML
     public void objAccountDelete(){
-
+        dialogWindow(new ObjAccountController(), "/by/javafx/communalPayments/fxml/objAccountDialog/deleteObjAccount.fxml",
+                "Удаление объекта учета", 450, 190);
     }
 
     @FXML
@@ -50,17 +53,20 @@ public class MainController {
 
     @FXML
     public void servListAdd(){
-
+        dialogWindow(new ServiceListController(), "/by/javafx/communalPayments/fxml/serviceListDialog/addServiceList.fxml",
+                "Добавление услуги", 570, 225);
     }
 
     @FXML
     public void servListChange() {
-
+        dialogWindow(new ServiceListController(), "/by/javafx/communalPayments/fxml/serviceListDialog/changeServiceList.fxml",
+                "Изменение услуги", 570, 225);
     }
 
     @FXML
     public void servListDelete(){
-
+        dialogWindow(new ServiceListController(), "/by/javafx/communalPayments/fxml/serviceListDialog/deleteServiceList.fxml",
+                "Удаление услуги", 450, 190);
     }
 
     public void dialogWindow(Controller controller, String resource, String title, int width, int height){

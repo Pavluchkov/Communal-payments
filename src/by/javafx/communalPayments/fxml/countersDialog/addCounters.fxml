@@ -18,7 +18,7 @@
    <children>
       <HBox alignment="CENTER" layoutY="6.0" prefHeight="40.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
          <children>
-            <Label text="Введите данные нового счетчика">
+            <Label text="Параметры счетчика">
                <font>
                   <Font name="Lucida Sans Demibold" size="18.0" />
                </font>
@@ -27,7 +27,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutY="60.0" prefHeight="30.0" prefWidth="477.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
          <children>
-            <Label prefHeight="20.0" prefWidth="170.0" text="Название счетчика">
+            <Label prefHeight="20.0" prefWidth="170.0" text="Название счетчика *">
                <font>
                   <Font name="Lucida Bright Regular" size="14.0" />
                </font>
