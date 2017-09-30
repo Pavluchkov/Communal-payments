@@ -36,7 +36,7 @@ public class MainController {
     @FXML
     public void countersAdd(){
         dialogWindow(new CountersController(), "/by/javafx/communalPayments/fxml/countersDialog/addCounters.fxml",
-                  "Добавление счетчика", 520, 230);
+                  "Добавление счетчика", 400, 310);
     }
 
     @FXML
