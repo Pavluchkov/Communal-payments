@@ -19,7 +19,7 @@ public class MainController {
     @FXML
     public void objAccountAdd(){
         dialogWindow(new ObjAccountController(), "/by/javafx/communalPayments/fxml/objAccountDialog/addObjAccount.fxml",
-                "Добавление объекта учета", 570, 310);
+                "Добавление объекта учета", 565, 350);
     }
 
     @FXML
