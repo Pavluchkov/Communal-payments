@@ -76,7 +76,7 @@
             </Label>
             <TextField prefHeight="30.0" prefWidth="220.0">
                <font>
-                  <Font name="Arial Italic" size="14.0" />
+                  <Font name="Arial" size="14.0" />
                </font>
             </TextField>
          </children>
@@ -93,7 +93,7 @@
             </Label>
             <TextField prefHeight="30.0" prefWidth="220.0">
                <font>
-                  <Font name="Arial Italic" size="14.0" />
+                  <Font name="Arial" size="14.0" />
                </font>
             </TextField>
          </children>
