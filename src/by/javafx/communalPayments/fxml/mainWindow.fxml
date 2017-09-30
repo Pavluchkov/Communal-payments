@@ -20,11 +20,11 @@
                <children>
                   <TableView layoutX="20.0" layoutY="60.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
                     <columns>
-                        <TableColumn maxWidth="-1.0" minWidth="60.0" prefWidth="-1.0" text="№ п/п" />
+                        <TableColumn maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Лицевой счет" />
                       <TableColumn maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="Имя объекта" />
                       <TableColumn maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="-1.0" text="Ф.И.О. владельца" />
                         <TableColumn maxWidth="1.7976931348623157E308" minWidth="80.0" prefWidth="-1.0" text="Адрес" />
-                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="180.0" prefWidth="-1.0" text="Кол-во проживающих" />
+                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="180.0" prefWidth="-1.0" text="Кол-во жильцов" />
                         <TableColumn maxWidth="1.7976931348623157E308" minWidth="190.0" prefWidth="-1.0" text="Общая площадь, кв. м" />
                     </columns>
                      <columnResizePolicy>
@@ -68,10 +68,11 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                      <columns>
-                        <TableColumn maxWidth="-1.0" minWidth="60.0" prefWidth="-1.0" text="№ п/п" />
-                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="160.0" prefWidth="-1.0" text="Название счетчика" />
-                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="70.0" prefWidth="-1.0" text="Ед. изм" />
-                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Текущие показания" />
+                        <TableColumn maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Код счетчика" />
+                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="160.0" prefWidth="-1.0" text="Объект учета" />
+                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="70.0" prefWidth="-1.0" text="Услуга" />
+                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Название счетчика" />
+                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Показания" />
                      </columns>
                   </TableView>
                   <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
@@ -136,9 +137,11 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                      <columns>
-                        <TableColumn maxWidth="-1.0" minWidth="60.0" prefWidth="-1.0" text="№ п/п" />
+                        <TableColumn maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Код услуги" />
                         <TableColumn maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Название услуги" />
+                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Ед. изм. услуги" />
                         <TableColumn maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="Тариф, руб." />
+                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="Форма оплаты" />
                      </columns>
                   </TableView>
                </children></AnchorPane>
@@ -153,10 +156,10 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                      <columns>
-                        <TableColumn maxWidth="-1.0" minWidth="60.0" prefWidth="-1.0" text="№ п/п" />
-                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="-1.0" text="Название платежа" />
-                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="Дата платежа" />
+                        <TableColumn maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Код платежа" />
+                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="-1.0" text="Услуга" />
                         <TableColumn maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="Сумма, рубл." />
+                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="Дата платежа" />
                      </columns>
                   </TableView>
                   <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
