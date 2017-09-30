@@ -54,7 +54,7 @@ public class MainController {
     @FXML
     public void servListAdd(){
         dialogWindow(new ServiceListController(), "/by/javafx/communalPayments/fxml/serviceListDialog/addServiceList.fxml",
-                "Добавление услуги", 570, 225);
+                "Добавление услуги", 400, 310);
     }
 
     @FXML
