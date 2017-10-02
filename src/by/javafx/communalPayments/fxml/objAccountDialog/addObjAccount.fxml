@@ -41,7 +41,7 @@
             </TextField>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="20.0" layoutY="319.0" prefWidth="480.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="290.0">
+      <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="319.0" prefWidth="480.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="290.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" text="Подтвердить">
                <font>
@@ -49,7 +49,7 @@
                </font></Button>
             <Button fx:id="btnCancel" layoutX="180.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnCancelClicked" prefHeight="30.0" prefWidth="110.0" text="Отмена">
                <HBox.margin>
-                  <Insets left="60.0" />
+                  <Insets left="30.0" />
                </HBox.margin>
                <font>
                   <Font name="Arial" size="14.0" />
