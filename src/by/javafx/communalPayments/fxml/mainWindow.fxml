@@ -72,12 +72,11 @@
                         <TableColumn maxWidth="1.7976931348623157E308" minWidth="160.0" prefWidth="-1.0" text="Объект учета" />
                         <TableColumn maxWidth="1.7976931348623157E308" minWidth="70.0" prefWidth="-1.0" text="Услуга" />
                         <TableColumn maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Название счетчика" />
-                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Показания" />
                      </columns>
                   </TableView>
                   <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <children>
-                        <Button fx:id="inputMeters" mnemonicParsing="false" onAction="#inputMetersClicked" prefHeight="30.0" prefWidth="140.0" text="Внести показания">
+                        <Button mnemonicParsing="false" onAction="#inputValueCounterClicked" prefHeight="30.0" prefWidth="140.0" text="Внести показания">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>

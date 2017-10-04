@@ -70,7 +70,7 @@ public class MainController {
     }
 
     @FXML
-    public void inputMetersClicked(){
+    public void inputValueCounterClicked(){
         dialogWindow(new CountersController(), "/by/javafx/communalPayments/fxml/countersDialog/inputCounterValue.fxml",
                 "Ввод показаний счетчика", 400, 265);
     }
