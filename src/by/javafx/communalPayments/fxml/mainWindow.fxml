@@ -77,12 +77,17 @@
                   </TableView>
                   <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <children>
+                        <Button fx:id="inputMeters" mnemonicParsing="false" onAction="#inputMetersClicked" prefHeight="30.0" prefWidth="140.0" text="Внести показания">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Button>
                         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#countersAdd" prefHeight="30.0" prefWidth="95.0" text="Добавить">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                            <HBox.margin>
-                              <Insets right="25.0" />
+                              <Insets left="25.0" right="25.0" />
                            </HBox.margin>
                         </Button>
                         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#countersChange" prefHeight="30.0" prefWidth="95.0" text="Изменить">

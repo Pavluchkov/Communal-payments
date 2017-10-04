@@ -36,7 +36,7 @@ public class MainController {
     @FXML
     public void countersAdd(){
         dialogWindow(new CountersController(), "/by/javafx/communalPayments/fxml/countersDialog/addCounters.fxml",
-                  "Добавление счетчика", 400, 310);
+                  "Добавление счетчика", 400, 265);
     }
 
     @FXML
@@ -67,6 +67,11 @@ public class MainController {
     public void servListDelete(){
         dialogWindow(new ServiceListController(), "/by/javafx/communalPayments/fxml/serviceListDialog/deleteServiceList.fxml",
                 "Удаление услуги", 450, 190);
+    }
+
+    @FXML
+    public void inputMetersClicked(){
+        System.out.println("InputMetersClicked");
     }
 
     public void dialogWindow(Controller controller, String resource, String title, int width, int height){
