@@ -71,7 +71,8 @@ public class MainController {
 
     @FXML
     public void inputMetersClicked(){
-        System.out.println("InputMetersClicked");
+        dialogWindow(new CountersController(), "/by/javafx/communalPayments/fxml/countersDialog/inputCounterValue.fxml",
+                "Ввод показаний счетчика", 400, 265);
     }
 
     public void dialogWindow(Controller controller, String resource, String title, int width, int height){
