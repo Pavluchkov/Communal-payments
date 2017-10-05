@@ -2,6 +2,7 @@ package by.javafx.communalPayments.objects;
 
 import by.javafx.communalPayments.interfaces.IDatabase;
 import com.healthmarketscience.jackcess.Database;
+import com.healthmarketscience.jackcess.DatabaseBuilder;
 import com.healthmarketscience.jackcess.Row;
 import com.healthmarketscience.jackcess.Table;
 import com.healthmarketscience.jackcess.impl.DatabaseImpl;
@@ -11,17 +12,18 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+
 public class AccessDatabase implements IDatabase {
 
-    private ArrayList<String> list = new ArrayList<String>();
-
     private DatabaseImpl open;
+    private ArrayList<String> list = new ArrayList<>();
 
     @Override
     public void setConnectDatabase(String connectionString) throws IOException {
 
         open = DatabaseImpl.open(new File(connectionString), true, null,
-                Database.DEFAULT_AUTO_SYNC, Charset.availableCharsets().get("windows-1251"), null, null);
+                Database.DEFAULT_AUTO_SYNC, null, null, null);
+
     }
 
     @Override
@@ -31,20 +33,12 @@ public class AccessDatabase implements IDatabase {
 
     @Override
     public ArrayList<String> getData(String tableName) throws IOException {
-        open = DatabaseImpl.open(new File("/home/juanantonio/Database_CommunalPayments/communalPayments.accdb"), true, null,
-                Database.DEFAULT_AUTO_SYNC, Charset.availableCharsets().get("windows-1251"), null, null);
 
-        //if (open == null) return;
-
-        //Table table = DatabaseBuilder.open(new File("/home/anton/BD/ps.mdb")).getTable("Analog"); //Первоначальный вариант
-
-        //Table table = open.getTable("Analog");
         Table table = open.getTable(tableName);
 
         for (Row row : table) {
-
-           list.add((String) row.get("objectName"));
-
+            //s = s + String.valueOf(row.values()) + '\n';
+            list.add(String.valueOf(row.values()));
 //            if (row.get("Shifr").equals(shifrString)) {
 //                shifr = row.getString("Shifr");
 //
@@ -75,7 +69,8 @@ public class AccessDatabase implements IDatabase {
 //                }
 //            }
        }
-        open.close();
+
+       open.close();
         return list;
     }
 
