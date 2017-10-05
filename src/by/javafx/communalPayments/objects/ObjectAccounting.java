@@ -3,19 +3,31 @@ package by.javafx.communalPayments.objects;
 import java.util.ArrayList;
 
 public class ObjectAccounting {
-    private int id;
+    private int personalAccount;
     private String objectName;
-    private String fio;
+    private String owner;
     private String address;
-    private int residentNumber;
-    private double totalArea;
+    private int residents;
+    private double area;
 
-    public int getId() {
-        return id;
+    public ObjectAccounting(int personalAccount, String objectName, String owner, String address, int residents, double area) {
+        this.personalAccount = personalAccount;
+        this.objectName = objectName;
+        this.owner = owner;
+        this.address = address;
+        this.residents = residents;
+        this.area = area;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public ObjectAccounting() {
+    }
+
+    public int getPersonalAccount() {
+        return personalAccount;
+    }
+
+    public void setPersonalAccount(int personalAccount) {
+        this.personalAccount = personalAccount;
     }
 
     public String getObjectName() {
@@ -26,12 +38,12 @@ public class ObjectAccounting {
         this.objectName = objectName;
     }
 
-    public String getFio() {
-        return fio;
+    public String getOwner() {
+        return owner;
     }
 
-    public void setFio(String fio) {
-        this.fio = fio;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public String getAddress() {
@@ -42,19 +54,19 @@ public class ObjectAccounting {
         this.address = address;
     }
 
-    public int getResidentNumber() {
-        return residentNumber;
+    public int getResidents() {
+        return residents;
     }
 
-    public void setResidentNumber(int residentNumber) {
-        this.residentNumber = residentNumber;
+    public void setResidents(int residents) {
+        this.residents = residents;
     }
 
-    public double getTotalArea() {
-        return totalArea;
+    public double getArea() {
+        return area;
     }
 
-    public void setTotalArea(double totalArea) {
-        this.totalArea = totalArea;
+    public void setArea(double area) {
+        this.area = area;
     }
 }

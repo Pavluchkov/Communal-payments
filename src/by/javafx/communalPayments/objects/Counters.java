@@ -1,50 +1,52 @@
 package by.javafx.communalPayments.objects;
 
 public class Counters {
-    private int id;
-    private String Name;
-    private String edIzm;
-    private double currentReadings;
 
-    public Counters(int id, String name, String edIzm, double currentReadings) {
-        this.id = id;
-        Name = name;
-        this.edIzm = edIzm;
-        this.currentReadings = currentReadings;
+    private int id_counter;
+    private String objectName;
+    private String serviceName;
+    private String counterName;
+
+    public Counters(int id_counter, String objectName, String serviceName, String counterName) {
+        this.id_counter = id_counter;
+        this.objectName = objectName;
+        this.serviceName = serviceName;
+        this.counterName = counterName;
     }
 
-    public Counters() {
+    public Counters(){
+
     }
 
-    public int getId() {
-        return id;
+    public int getId_counter() {
+        return id_counter;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId_counter(int id_counter) {
+        this.id_counter = id_counter;
     }
 
-    public String getName() {
-        return Name;
+    public String getObjectName() {
+        return objectName;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
     }
 
-    public String getEdIzm() {
-        return edIzm;
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public void setEdIzm(String edIzm) {
-        this.edIzm = edIzm;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
-    public double getCurrentReadings() {
-        return currentReadings;
+    public String getCounterName() {
+        return counterName;
     }
 
-    public void setCurrentReadings(double currentReadings) {
-        this.currentReadings = currentReadings;
+    public void setCounterName(String counterName) {
+        this.counterName = counterName;
     }
 }

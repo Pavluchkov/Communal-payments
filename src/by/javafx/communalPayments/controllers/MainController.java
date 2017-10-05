@@ -3,18 +3,72 @@ package by.javafx.communalPayments.controllers;
 import by.javafx.communalPayments.controllers.counters.CountersController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjAccountController;
 import by.javafx.communalPayments.controllers.serviceList.ServiceListController;
+import by.javafx.communalPayments.objects.AccessDatabase;
+import by.javafx.communalPayments.objects.ObjectAccounting;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class MainController {
+
+    private ObservableList<ObjectAccounting> objectAccountingsList = FXCollections.observableArrayList();
+
     @FXML
     private TabPane tabPane;
+
+    @FXML
+    private TableView <ObjectAccounting> T1_objAccounting;
+
+    @FXML
+    private TableColumn <ObjectAccounting, Integer> T1_personalAccountColumn;
+
+    @FXML
+    private TableColumn <ObjectAccounting, String> T1_nameObjColumn;
+
+    @FXML
+    private TableColumn <ObjectAccounting, String> T1_ownerColumn;
+
+    @FXML
+    private TableColumn <ObjectAccounting, String> T1_addressColumn;
+
+    @FXML
+    private TableColumn <ObjectAccounting, Integer> T1_residentsColumn;
+
+    @FXML
+    private TableColumn <ObjectAccounting, Double> T1_areaColumn;
+
+    @FXML
+    private void initialize(){
+        initData();
+// устанавливаем тип и значение которое должно хранится в колонке
+        T1_personalAccountColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, Integer>("personalAccount"));
+        T1_nameObjColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, String>("objectName"));
+        T1_ownerColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, String>("owner"));
+        T1_addressColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, String>("address"));
+        T1_residentsColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, Integer>("residents"));
+        T1_areaColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, Double>("area"));
+        // заполняем таблицу данными
+        T1_objAccounting.setItems(objectAccountingsList);
+    }
+
+    public void initData(){
+        objectAccountingsList.add(new ObjectAccounting(123, "Квартира", "Павлючков А.В.", "Б.Дружбы 1Б", 4, 80));
+        objectAccountingsList.add(new ObjectAccounting(127, "Дача", "Павлючков А.В.", "Ульяновская 10/2", 3, 60));
+        objectAccountingsList.add(new ObjectAccounting(120, "Гараж", "Иванов А.В.", "Б.Дружбы 1Б", 4, 62));
+
+    }
 
     @FXML
     public void objAccountAdd(){
