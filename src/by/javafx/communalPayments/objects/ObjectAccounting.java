@@ -1,17 +1,13 @@
 package by.javafx.communalPayments.objects;
 
-import java.util.ArrayList;
-
 public class ObjectAccounting extends TabObjects{
-    private int personalAccount;
     private String objectName;
     private String owner;
     private String address;
     private int residents;
     private double area;
 
-    public ObjectAccounting(int personalAccount, String objectName, String owner, String address, int residents, double area) {
-        this.personalAccount = personalAccount;
+    public ObjectAccounting(String objectName, String owner, String address, int residents, double area) {
         this.objectName = objectName;
         this.owner = owner;
         this.address = address;
@@ -20,14 +16,6 @@ public class ObjectAccounting extends TabObjects{
     }
 
     public ObjectAccounting() {
-    }
-
-    public int getPersonalAccount() {
-        return personalAccount;
-    }
-
-    public void setPersonalAccount(int personalAccount) {
-        this.personalAccount = personalAccount;
     }
 
     public String getObjectName() {

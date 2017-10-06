@@ -1,12 +1,14 @@
 package by.javafx.communalPayments.objects;
 
 import by.javafx.communalPayments.interfaces.IDatabase;
-import com.healthmarketscience.jackcess.*;
+import com.healthmarketscience.jackcess.CursorBuilder;
+import com.healthmarketscience.jackcess.Database;
+import com.healthmarketscience.jackcess.Row;
+import com.healthmarketscience.jackcess.Table;
 import com.healthmarketscience.jackcess.impl.DatabaseImpl;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -29,24 +31,23 @@ public class AccessDatabase implements IDatabase {
     }
 
     @Override
-    public ArrayList<String[]> getData(String tableName) throws IOException {
+    public ArrayList<String[]> getDataTable(String tableName) throws IOException {
         ArrayList<String> list = new ArrayList<String>();
 
         Table table = open.getTable(tableName);
 
         for (Row row : table) {
             list.add(String.valueOf(row.values()));
-       }
+        }
 
-       //open.close();
         return parseList(list);
     }
 
-    private ArrayList<String[]> parseList(ArrayList<String> list){
+    private ArrayList<String[]> parseList(ArrayList<String> list) {
 
         ArrayList<String[]> ls = new ArrayList<String[]>();
 
-        for (String s : list){
+        for (String s : list) {
             s = s.replace("[", "");
             s = s.replace("]", "");
             String delims = ", ";
@@ -57,13 +58,13 @@ public class AccessDatabase implements IDatabase {
         return ls;
     }
 
-    public String getValueColumn(String tableName, String columnName, String value) throws IOException{
+    public String getValueColumn(String tableName, String columnName, String value) throws IOException {
         Table table = open.getTable(tableName);
         String s = "";
 
         Row row = CursorBuilder.findRow(table, Collections.singletonMap(columnName, value));
 
-        if(row != null) {
+        if (row != null) {
             s = String.valueOf(row.getString("form"));
         }
 

@@ -2,11 +2,11 @@ package by.javafx.communalPayments.objects;
 
 public class Counters extends TabObjects {
 
-    private int object;
-    private String service;
     private String counterName;
+    private String service;
+    private String object;
 
-    public Counters(int object, String service, String counterName) {
+    public Counters(String counterName, String service, String object) {
         this.object = object;
         this.service = service;
         this.counterName = counterName;
@@ -15,11 +15,11 @@ public class Counters extends TabObjects {
     public Counters() {
     }
 
-    public int getObject() {
+    public String getObject() {
         return object;
     }
 
-    public void setObject(int object) {
+    public void setObject(String object) {
         this.object = object;
     }
 

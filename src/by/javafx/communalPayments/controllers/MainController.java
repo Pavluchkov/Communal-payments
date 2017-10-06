@@ -30,10 +30,9 @@ public class MainController {
 
     @FXML
     private TabPane tabPane;
+
     @FXML
     private TableView <TabObjects> T1_objAccounting;
-    @FXML
-    private TableColumn <TabObjects, Integer> T1_personalAccountColumn;
     @FXML
     private TableColumn <TabObjects, String> T1_nameObjColumn;
     @FXML
@@ -48,26 +47,27 @@ public class MainController {
     @FXML
     private TableView <TabObjects> T2_counters;
     @FXML
-    private TableColumn <TabObjects, Integer> T2_id_objAccountColumn;
+    private TableColumn <TabObjects, String> T2_counterNameColumn;
     @FXML
     private TableColumn <TabObjects, String> T2_serviceColumn;
     @FXML
-    private TableColumn <TabObjects, String> T2_counterNameColumn;
+    private TableColumn <TabObjects, String> T2_nameObjColumn;
+
 
     @FXML
     private void initialize(){
 
 // устанавливаем тип и значение которое должно хранится в колонке
-        T1_personalAccountColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("personalAccount"));
+
         T1_nameObjColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("objectName"));
         T1_ownerColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("owner"));
         T1_addressColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("address"));
         T1_residentsColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("residents"));
         T1_areaColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Double>("area"));
 
-        T2_id_objAccountColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("object"));
-        T2_serviceColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("service"));
         T2_counterNameColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("counterName"));
+        T2_serviceColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("service"));
+        T2_nameObjColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("object"));
 
     }
 
@@ -78,9 +78,9 @@ public class MainController {
         objectList.clear();
 
         try {
-            accessDatabase.setConnectDatabase("/home/juanantonio/Database_CommunalPayments/communalPayments.mdb");
-            //accessDatabase.setConnectDatabase("E:\\OneDrive\\Учеба ГГУ\\DB_CommunalPayments\\communalPayments.mdb");
-            list = accessDatabase.getData(tableName);
+            //accessDatabase.setConnectDatabase("/home/juanantonio/Database_CommunalPayments/communalPayments.mdb");
+            accessDatabase.setConnectDatabase("E:\\OneDrive\\Учеба ГГУ\\DB_CommunalPayments\\DB_New\\communalPayments.mdb");
+            list = accessDatabase.getDataTable(tableName);
             accessDatabase.closeConnect();
         } catch (IOException e) {
             e.printStackTrace();
@@ -89,12 +89,12 @@ public class MainController {
         switch (tableName){
             case "accountingObject":
                 for (String[] s : list){
-                    objectList.add(new ObjectAccounting(Integer.parseInt(s[0]), s[1], s[2], s[3], Integer.parseInt(s[4]), Double.parseDouble(s[5])));
+                    objectList.add(new ObjectAccounting(s[0], s[1], s[2], Integer.parseInt(s[3]), Double.parseDouble(s[4])));
                 }
                 break;
             case "counters":
                 for (String[] s : list){
-                    objectList.add(new Counters(Integer.parseInt(s[0]), s[2], s[1]));
+                    objectList.add(new Counters(s[0], s[1], s[2]));
                 }
                 break;
         }

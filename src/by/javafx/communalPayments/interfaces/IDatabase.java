@@ -11,6 +11,6 @@ public interface IDatabase {
 
     void closeConnect() throws IOException;
 
-    ArrayList<String[]> getData(String tableName) throws IOException;
+    ArrayList<String[]> getDataTable(String tableName) throws IOException;
 
 }
