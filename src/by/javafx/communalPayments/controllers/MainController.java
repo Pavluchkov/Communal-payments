@@ -48,11 +48,9 @@ public class MainController {
     @FXML
     private TableView <TabObjects> T2_counters;
     @FXML
-    private TableColumn <TabObjects, Integer> T2_id_counterColumn;
-    @FXML
     private TableColumn <TabObjects, Integer> T2_id_objAccountColumn;
     @FXML
-    private TableColumn <TabObjects, Integer> T2_id_serviceColumn;
+    private TableColumn <TabObjects, String> T2_serviceColumn;
     @FXML
     private TableColumn <TabObjects, String> T2_counterNameColumn;
 
@@ -67,9 +65,8 @@ public class MainController {
         T1_residentsColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("residents"));
         T1_areaColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Double>("area"));
 
-        T2_id_counterColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("id_counter"));
-        T2_id_objAccountColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("id_object"));
-        T2_id_serviceColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("id_service"));
+        T2_id_objAccountColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("object"));
+        T2_serviceColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("service"));
         T2_counterNameColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("counterName"));
 
     }
@@ -97,7 +94,7 @@ public class MainController {
                 break;
             case "counters":
                 for (String[] s : list){
-                    objectList.add(new Counters(Integer.parseInt(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2]), s[3]));
+                    objectList.add(new Counters(Integer.parseInt(s[0]), s[2], s[1]));
                 }
                 break;
         }
