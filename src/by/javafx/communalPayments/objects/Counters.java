@@ -1,21 +1,20 @@
 package by.javafx.communalPayments.objects;
 
-public class Counters {
+public class Counters extends TabObjects {
 
     private int id_counter;
-    private String objectName;
-    private String serviceName;
+    private int id_object;
+    private int id_service;
     private String counterName;
 
-    public Counters(int id_counter, String objectName, String serviceName, String counterName) {
+    public Counters(int id_counter, int id_object, int id_service, String counterName) {
         this.id_counter = id_counter;
-        this.objectName = objectName;
-        this.serviceName = serviceName;
+        this.id_object = id_object;
+        this.id_service = id_service;
         this.counterName = counterName;
     }
 
-    public Counters(){
-
+    public Counters() {
     }
 
     public int getId_counter() {
@@ -26,20 +25,20 @@ public class Counters {
         this.id_counter = id_counter;
     }
 
-    public String getObjectName() {
-        return objectName;
+    public int getId_object() {
+        return id_object;
     }
 
-    public void setObjectName(String objectName) {
-        this.objectName = objectName;
+    public void setId_object(int id_object) {
+        this.id_object = id_object;
     }
 
-    public String getServiceName() {
-        return serviceName;
+    public int getId_service() {
+        return id_service;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setId_service(int id_service) {
+        this.id_service = id_service;
     }
 
     public String getCounterName() {

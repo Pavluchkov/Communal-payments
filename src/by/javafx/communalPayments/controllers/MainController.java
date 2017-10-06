@@ -4,7 +4,9 @@ import by.javafx.communalPayments.controllers.counters.CountersController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjAccountController;
 import by.javafx.communalPayments.controllers.serviceList.ServiceListController;
 import by.javafx.communalPayments.objects.AccessDatabase;
+import by.javafx.communalPayments.objects.Counters;
 import by.javafx.communalPayments.objects.ObjectAccounting;
+import by.javafx.communalPayments.objects.TabObjects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,74 +26,94 @@ import java.util.ArrayList;
 
 public class MainController {
 
-    private ObservableList<ObjectAccounting> objectAccountingsList = FXCollections.observableArrayList();
+    private ObservableList<TabObjects> objectList = FXCollections.observableArrayList();
 
     @FXML
     private TabPane tabPane;
+    @FXML
+    private TableView <TabObjects> T1_objAccounting;
+    @FXML
+    private TableColumn <TabObjects, Integer> T1_personalAccountColumn;
+    @FXML
+    private TableColumn <TabObjects, String> T1_nameObjColumn;
+    @FXML
+    private TableColumn <TabObjects, String> T1_ownerColumn;
+    @FXML
+    private TableColumn <TabObjects, String> T1_addressColumn;
+    @FXML
+    private TableColumn <TabObjects, Integer> T1_residentsColumn;
+    @FXML
+    private TableColumn <TabObjects, Double> T1_areaColumn;
 
     @FXML
-    private TableView <ObjectAccounting> T1_objAccounting;
-
+    private TableView <TabObjects> T2_counters;
     @FXML
-    private TableColumn <ObjectAccounting, Integer> T1_personalAccountColumn;
-
+    private TableColumn <TabObjects, Integer> T2_id_counterColumn;
     @FXML
-    private TableColumn <ObjectAccounting, String> T1_nameObjColumn;
-
+    private TableColumn <TabObjects, Integer> T2_id_objAccountColumn;
     @FXML
-    private TableColumn <ObjectAccounting, String> T1_ownerColumn;
-
+    private TableColumn <TabObjects, Integer> T2_id_serviceColumn;
     @FXML
-    private TableColumn <ObjectAccounting, String> T1_addressColumn;
-
-    @FXML
-    private TableColumn <ObjectAccounting, Integer> T1_residentsColumn;
-
-    @FXML
-    private TableColumn <ObjectAccounting, Double> T1_areaColumn;
+    private TableColumn <TabObjects, String> T2_counterNameColumn;
 
     @FXML
     private void initialize(){
 
 // устанавливаем тип и значение которое должно хранится в колонке
-        T1_personalAccountColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, Integer>("personalAccount"));
-        T1_nameObjColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, String>("objectName"));
-        T1_ownerColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, String>("owner"));
-        T1_addressColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, String>("address"));
-        T1_residentsColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, Integer>("residents"));
-        T1_areaColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, Double>("area"));
-        // заполняем таблицу данными
-        initData();
-        T1_objAccounting.setItems(objectAccountingsList);
+        T1_personalAccountColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("personalAccount"));
+        T1_nameObjColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("objectName"));
+        T1_ownerColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("owner"));
+        T1_addressColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("address"));
+        T1_residentsColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("residents"));
+        T1_areaColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Double>("area"));
+
+        T2_id_counterColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("id_counter"));
+        T2_id_objAccountColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("id_object"));
+        T2_id_serviceColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("id_service"));
+        T2_counterNameColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("counterName"));
+
     }
 
-    public void initData(){
-
+    public void fillObjectsList(String tableName){
         AccessDatabase accessDatabase = new AccessDatabase();
-        ArrayList<String[]> objAccountList = new ArrayList<String[]>();
+        ArrayList<String[]> list = new ArrayList<String[]>();
+
+        objectList.clear();
 
         try {
             accessDatabase.setConnectDatabase("/home/juanantonio/Database_CommunalPayments/communalPayments.mdb");
             //accessDatabase.setConnectDatabase("E:\\OneDrive\\Учеба ГГУ\\DB_CommunalPayments\\communalPayments.mdb");
-            objAccountList = accessDatabase.getData("accountingObject");
+            list = accessDatabase.getData(tableName);
             accessDatabase.closeConnect();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        for (String[] s : objAccountList) {
-            int personalAccount = Integer.parseInt(s[0]);
-            String objectName = s[1];
-            String owner = s[2];
-            String address = s[3];
-            int residents = Integer.parseInt(s[4]);
-            double area = Double.parseDouble(s[5]);
-            objectAccountingsList.add(new ObjectAccounting(personalAccount, objectName, owner, address, residents, area));
+        switch (tableName){
+            case "accountingObject":
+                for (String[] s : list){
+                    objectList.add(new ObjectAccounting(Integer.parseInt(s[0]), s[1], s[2], s[3], Integer.parseInt(s[4]), Double.parseDouble(s[5])));
+                }
+                break;
+            case "counters":
+                for (String[] s : list){
+                    objectList.add(new Counters(Integer.parseInt(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2]), s[3]));
+                }
+                break;
         }
-//        objectAccountingsList.add(new ObjectAccounting(123, "Квартира", "Павлючков А.В.", "Б.Дружбы 1Б", 4, 80));
-//        objectAccountingsList.add(new ObjectAccounting(127, "Дача", "Павлючков А.В.", "Ульяновская 10/2", 3, 60));
-//        objectAccountingsList.add(new ObjectAccounting(120, "Гараж", "Иванов А.В.", "Б.Дружбы 1Б", 4, 62));
 
+    }
+
+    @FXML
+    public void tabObjAccountChange(){
+        fillObjectsList("accountingObject");
+        T1_objAccounting.setItems(objectList);
+    }
+
+    @FXML
+    public void tabCountersChange(){
+        fillObjectsList("counters");
+        T2_counters.setItems(objectList);
     }
 
     @FXML

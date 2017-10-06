@@ -2,7 +2,7 @@ package by.javafx.communalPayments.objects;
 
 import java.util.ArrayList;
 
-public class ObjectAccounting {
+public class ObjectAccounting extends TabObjects{
     private int personalAccount;
     private String objectName;
     private String owner;
