@@ -14,7 +14,6 @@ import java.util.Collections;
 public class AccessDatabase implements IDatabase {
 
     private DatabaseImpl open;
-    private ArrayList<String> list = new ArrayList<String>();
 
     @Override
     public void setConnectDatabase(String connectionString) throws IOException {
@@ -30,7 +29,8 @@ public class AccessDatabase implements IDatabase {
     }
 
     @Override
-    public ArrayList<String> getData(String tableName) throws IOException {
+    public ArrayList<String[]> getData(String tableName) throws IOException {
+        ArrayList<String> list = new ArrayList<String>();
 
         Table table = open.getTable(tableName);
 
@@ -39,8 +39,22 @@ public class AccessDatabase implements IDatabase {
        }
 
        //open.close();
+        return parseList(list);
+    }
 
-        return list;
+    private ArrayList<String[]> parseList(ArrayList<String> list){
+
+        ArrayList<String[]> ls = new ArrayList<String[]>();
+
+        for (String s : list){
+            s = s.replace("[", "");
+            s = s.replace("]", "");
+            String delims = ", ";
+            String[] str = s.split(delims);
+            ls.add(str);
+        }
+
+        return ls;
     }
 
     public String getValueColumn(String tableName, String columnName, String value) throws IOException{

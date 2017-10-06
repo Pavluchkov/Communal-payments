@@ -20,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainController {
 
@@ -51,7 +52,7 @@ public class MainController {
 
     @FXML
     private void initialize(){
-        initData();
+
 // устанавливаем тип и значение которое должно хранится в колонке
         T1_personalAccountColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, Integer>("personalAccount"));
         T1_nameObjColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, String>("objectName"));
@@ -60,13 +61,36 @@ public class MainController {
         T1_residentsColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, Integer>("residents"));
         T1_areaColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, Double>("area"));
         // заполняем таблицу данными
+        initData();
         T1_objAccounting.setItems(objectAccountingsList);
     }
 
     public void initData(){
-        objectAccountingsList.add(new ObjectAccounting(123, "Квартира", "Павлючков А.В.", "Б.Дружбы 1Б", 4, 80));
-        objectAccountingsList.add(new ObjectAccounting(127, "Дача", "Павлючков А.В.", "Ульяновская 10/2", 3, 60));
-        objectAccountingsList.add(new ObjectAccounting(120, "Гараж", "Иванов А.В.", "Б.Дружбы 1Б", 4, 62));
+
+        AccessDatabase accessDatabase = new AccessDatabase();
+        ArrayList<String[]> objAccountList = new ArrayList<String[]>();
+
+        try {
+            accessDatabase.setConnectDatabase("/home/juanantonio/Database_CommunalPayments/communalPayments.mdb");
+            //accessDatabase.setConnectDatabase("E:\\OneDrive\\Учеба ГГУ\\DB_CommunalPayments\\communalPayments.mdb");
+            objAccountList = accessDatabase.getData("accountingObject");
+            accessDatabase.closeConnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (String[] s : objAccountList) {
+            int personalAccount = Integer.parseInt(s[0]);
+            String objectName = s[1];
+            String owner = s[2];
+            String address = s[3];
+            int residents = Integer.parseInt(s[4]);
+            double area = Double.parseDouble(s[5]);
+            objectAccountingsList.add(new ObjectAccounting(personalAccount, objectName, owner, address, residents, area));
+        }
+//        objectAccountingsList.add(new ObjectAccounting(123, "Квартира", "Павлючков А.В.", "Б.Дружбы 1Б", 4, 80));
+//        objectAccountingsList.add(new ObjectAccounting(127, "Дача", "Павлючков А.В.", "Ульяновская 10/2", 3, 60));
+//        objectAccountingsList.add(new ObjectAccounting(120, "Гараж", "Иванов А.В.", "Б.Дружбы 1Б", 4, 62));
 
     }
 
