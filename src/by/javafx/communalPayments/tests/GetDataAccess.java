@@ -12,7 +12,6 @@ public class GetDataAccess {
 
         AccessDatabase accessDatabase = new AccessDatabase();
         ArrayList<String[]> list = new ArrayList<String[]>();
-        ArrayList<ObjectAccounting> objectAccountings = new ArrayList<ObjectAccounting>();
 
         try {
             //accessDatabase.setConnectDatabase("/home/juanantonio/Database_CommunalPayments/communalPayments.mdb");
@@ -29,9 +28,11 @@ public class GetDataAccess {
         }
 
         for (String[] s : list) {
-            for (int i = 0; i < s.length; i++)
-                System.out.print(s[i] + " ");
-            System.out.println("");
+            for(String str : s){
+                System.out.print(str + " ");
+            }
+
+            System.out.println("\n");
         }
 
         String s = "";
@@ -42,6 +43,7 @@ public class GetDataAccess {
         }
 
         System.out.println(s);
+
     }
 
 }

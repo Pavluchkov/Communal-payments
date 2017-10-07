@@ -1,10 +1,7 @@
 package by.javafx.communalPayments.objects;
 
 import by.javafx.communalPayments.interfaces.IDatabase;
-import com.healthmarketscience.jackcess.CursorBuilder;
-import com.healthmarketscience.jackcess.Database;
-import com.healthmarketscience.jackcess.Row;
-import com.healthmarketscience.jackcess.Table;
+import com.healthmarketscience.jackcess.*;
 import com.healthmarketscience.jackcess.impl.DatabaseImpl;
 
 import java.io.File;
@@ -32,15 +29,29 @@ public class AccessDatabase implements IDatabase {
 
     @Override
     public ArrayList<String[]> getDataTable(String tableName) throws IOException {
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String[]> list = new ArrayList<String[]>();
+        ArrayList<String> temp = new ArrayList<String>();
 
         Table table = open.getTable(tableName);
 
         for (Row row : table) {
-            list.add(String.valueOf(row.values()));
+            for(Column column : table.getColumns()) {
+                String columnName = column.getName();
+                Object value = row.get(columnName);
+                temp.add(String.valueOf(value));
+            }
+
+            String[] sTemp = new String[temp.size()];
+            int i = 0;
+
+            for (String st : temp){
+                sTemp[i++] = st;
+            }
+            list.add(sTemp);
+            temp.clear();
         }
 
-        return parseList(list);
+        return list;
     }
 
     @Override
@@ -48,20 +59,20 @@ public class AccessDatabase implements IDatabase {
 
     }
 
-    private ArrayList<String[]> parseList(ArrayList<String> list) {
-
-        ArrayList<String[]> ls = new ArrayList<String[]>();
-
-        for (String s : list) {
-            s = s.replace("[", "");
-            s = s.replace("]", "");
-            String delims = ", ";
-            String[] str = s.split(delims);
-            ls.add(str);
-        }
-
-        return ls;
-    }
+//    private ArrayList<String[]> parseList(ArrayList<String> list) {
+//
+//        ArrayList<String[]> ls = new ArrayList<String[]>();
+//
+//        for (String s : list) {
+//            s = s.replace("[", "");
+//            s = s.replace("]", "");
+//            String delims = ", ";
+//            String[] str = s.split(delims);
+//            ls.add(str);
+//        }
+//
+//        return ls;
+//    }
 
     public String getValueColumn(String tableName, String columnName, String value) throws IOException {
         Table table = open.getTable(tableName);

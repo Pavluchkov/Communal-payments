@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainController {
+public class MainController extends Controller{
 
     private ObservableList<TabObjects> objectList = FXCollections.observableArrayList();
     private IDatabase database = new AccessDatabase();
