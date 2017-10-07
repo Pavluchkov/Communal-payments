@@ -43,6 +43,11 @@ public class AccessDatabase implements IDatabase {
         return parseList(list);
     }
 
+    @Override
+    public void add() {
+
+    }
+
     private ArrayList<String[]> parseList(ArrayList<String> list) {
 
         ArrayList<String[]> ls = new ArrayList<String[]>();

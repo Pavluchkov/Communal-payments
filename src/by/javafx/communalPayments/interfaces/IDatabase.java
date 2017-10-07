@@ -13,4 +13,6 @@ public interface IDatabase {
 
     ArrayList<String[]> getDataTable(String tableName) throws IOException;
 
+    void add();
+
 }

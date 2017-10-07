@@ -3,10 +3,8 @@ package by.javafx.communalPayments.controllers;
 import by.javafx.communalPayments.controllers.counters.CountersController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjAccountController;
 import by.javafx.communalPayments.controllers.serviceList.ServiceListController;
-import by.javafx.communalPayments.objects.AccessDatabase;
-import by.javafx.communalPayments.objects.Counters;
-import by.javafx.communalPayments.objects.ObjectAccounting;
-import by.javafx.communalPayments.objects.TabObjects;
+import by.javafx.communalPayments.interfaces.IDatabase;
+import by.javafx.communalPayments.objects.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,6 +25,7 @@ import java.util.ArrayList;
 public class MainController {
 
     private ObservableList<TabObjects> objectList = FXCollections.observableArrayList();
+    private IDatabase database = new AccessDatabase();
 
     @FXML
     private TabPane tabPane;
@@ -53,6 +52,27 @@ public class MainController {
     @FXML
     private TableColumn <TabObjects, String> T2_nameObjColumn;
 
+    @FXML
+    private TableView <TabObjects> T3_service;
+    @FXML
+    private TableColumn <TabObjects, String> T3_serviceNameColumn;
+    @FXML
+    private TableColumn <TabObjects, String> T3_unitColumn;
+    @FXML
+    private TableColumn <TabObjects, Double> T3_rateColumn;
+    @FXML
+    private TableColumn <TabObjects, String> T3_formPaymentsColumn;
+
+    @FXML
+    private TableView <TabObjects> T4_payments;
+    @FXML
+    private TableColumn <TabObjects, Integer> T4_id_paymentsColumn;
+    @FXML
+    private TableColumn <TabObjects, String> T4_serviceColumn;
+    @FXML
+    private TableColumn <TabObjects, Double> T4_valuePaymentsColumn;
+    @FXML
+    private TableColumn <TabObjects, String> T4_datePaymentsColumn;
 
     @FXML
     private void initialize(){
@@ -69,19 +89,27 @@ public class MainController {
         T2_serviceColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("service"));
         T2_nameObjColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("object"));
 
+        T3_serviceNameColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("serviceName"));
+        T3_unitColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("unit"));
+        T3_rateColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Double>("rate"));
+        T3_formPaymentsColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("formPayments"));
+
+        T4_id_paymentsColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("id_payments"));
+        T4_serviceColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("service"));
+        T4_valuePaymentsColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Double>("valuePayments"));
+        T4_datePaymentsColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("datePayments"));
     }
 
     public void fillObjectsList(String tableName){
-        AccessDatabase accessDatabase = new AccessDatabase();
         ArrayList<String[]> list = new ArrayList<String[]>();
 
         objectList.clear();
 
         try {
             //accessDatabase.setConnectDatabase("/home/juanantonio/Database_CommunalPayments/communalPayments.mdb");
-            accessDatabase.setConnectDatabase("E:\\OneDrive\\Учеба ГГУ\\DB_CommunalPayments\\DB_New\\communalPayments.mdb");
-            list = accessDatabase.getDataTable(tableName);
-            accessDatabase.closeConnect();
+            database.setConnectDatabase("E:\\OneDrive\\Учеба ГГУ\\DB_CommunalPayments\\DB_New\\communalPayments.mdb");
+            list = database.getDataTable(tableName);
+            database.closeConnect();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -95,6 +123,16 @@ public class MainController {
             case "counters":
                 for (String[] s : list){
                     objectList.add(new Counters(s[0], s[1], s[2]));
+                }
+                break;
+            case "services":
+                for (String[] s : list){
+                    objectList.add(new ServiceList(s[0], s[1], Double.parseDouble(s[2]), s[3]));
+                }
+                break;
+            case "payments":
+                for (String[] s : list){
+                    objectList.add(new Payments(Integer.parseInt(s[0]), s[2], Double.parseDouble(s[1]), s[3]));
                 }
                 break;
         }
@@ -111,6 +149,18 @@ public class MainController {
     public void tabCountersChange(){
         fillObjectsList("counters");
         T2_counters.setItems(objectList);
+    }
+
+    @FXML
+    public void tabServiceChange(){
+        fillObjectsList("services");
+        T3_service.setItems(objectList);
+    }
+
+    @FXML
+    public void tabPaymentsChange(){
+        fillObjectsList("payments");
+        T4_payments.setItems(objectList);
     }
 
     @FXML

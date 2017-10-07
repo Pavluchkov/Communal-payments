@@ -4,9 +4,9 @@ public class Payments extends TabObjects{
     private int id_payments;
     private String service;
     private double valuePayments;
-    private double datePayments;
+    private String datePayments;
 
-    public Payments(int id_payments, String service, double valuePayments, double datePayments) {
+    public Payments(int id_payments, String service, double valuePayments, String datePayments) {
         this.id_payments = id_payments;
         this.service = service;
         this.valuePayments = valuePayments;
@@ -40,11 +40,11 @@ public class Payments extends TabObjects{
         this.valuePayments = valuePayments;
     }
 
-    public double getDatePayments() {
+    public String getDatePayments() {
         return datePayments;
     }
 
-    public void setDatePayments(double datePayments) {
+    public void setDatePayments(String datePayments) {
         this.datePayments = datePayments;
     }
 }

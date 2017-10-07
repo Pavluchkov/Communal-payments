@@ -22,7 +22,7 @@ public class GetDataAccess {
         }
 
         try {
-            list = accessDatabase.getDataTable("accountingObject");
+            list = accessDatabase.getDataTable("payments");
             //list = accessDatabase.getData("counters");
         } catch (IOException e) {
             e.printStackTrace();
@@ -36,7 +36,7 @@ public class GetDataAccess {
 
         String s = "";
         try {
-            s = accessDatabase.getValueColumn("formPayment", "id", "2");
+            s = accessDatabase.getValueColumn("formPayment", "form", "По счетчику");
         } catch (IOException e) {
             e.printStackTrace();
         }

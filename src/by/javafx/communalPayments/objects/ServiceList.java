@@ -1,14 +1,12 @@
 package by.javafx.communalPayments.objects;
 
 public class ServiceList extends TabObjects{
-    private int id_service;
     private String serviceName;
     private String unit;
     private double rate;
     private String formPayments;
 
-    public ServiceList(int id_service, String serviceName, String unit, double rate, String formPayments) {
-        this.id_service = id_service;
+    public ServiceList(String serviceName, String unit, double rate, String formPayments) {
         this.serviceName = serviceName;
         this.unit = unit;
         this.rate = rate;
@@ -16,14 +14,6 @@ public class ServiceList extends TabObjects{
     }
 
     public ServiceList() {
-    }
-
-    public int getId_service() {
-        return id_service;
-    }
-
-    public void setId_service(int id_service) {
-        this.id_service = id_service;
     }
 
     public String getServiceName() {
