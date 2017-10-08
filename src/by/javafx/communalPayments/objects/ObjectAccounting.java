@@ -1,13 +1,15 @@
 package by.javafx.communalPayments.objects;
 
-public class ObjectAccounting extends TabObjects{
+public class ObjectAccounting extends TabObjects {
+    private int id;
     private String objectName;
     private String owner;
     private String address;
     private int residents;
     private double area;
 
-    public ObjectAccounting(String objectName, String owner, String address, int residents, double area) {
+    public ObjectAccounting(int id, String objectName, String owner, String address, int residents, double area) {
+        this.id = id;
         this.objectName = objectName;
         this.owner = owner;
         this.address = address;
@@ -16,6 +18,14 @@ public class ObjectAccounting extends TabObjects{
     }
 
     public ObjectAccounting() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getObjectName() {

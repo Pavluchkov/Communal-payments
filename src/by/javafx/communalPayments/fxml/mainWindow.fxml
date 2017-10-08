@@ -20,6 +20,7 @@
                <children>
                   <TableView fx:id="T1_objAccounting" layoutX="20.0" layoutY="60.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
                     <columns>
+                        <TableColumn fx:id="T1_personalAccountColumn" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Лицевой счет" />
                       <TableColumn fx:id="T1_nameObjColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Имя объекта" />
                       <TableColumn fx:id="T1_ownerColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Ф.И.О. владельца" />
                         <TableColumn fx:id="T1_addressColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Адрес" />
@@ -67,6 +68,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                      <columns>
+                        <TableColumn fx:id="T2_id_counterColumn" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Код счетчика" />
                         <TableColumn fx:id="T2_counterNameColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Название счетчика" />
                         <TableColumn fx:id="T2_serviceColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Услуга" />
                         <TableColumn fx:id="T2_nameObjColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Объект учета" />
@@ -139,6 +141,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                      <columns>
+                        <TableColumn fx:id="T3_id_serviceColumn" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Код услуги" />
                         <TableColumn fx:id="T3_serviceNameColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Название услуги" />
                         <TableColumn fx:id="T3_unitColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Ед. изм. услуги" />
                         <TableColumn fx:id="T3_rateColumn" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="Тариф, руб." />
@@ -198,7 +201,7 @@
                <children>
                   <TableView layoutX="13.0" layoutY="60.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
                     <columns>
-                      <TableColumn maxWidth="-1.0" minWidth="60.0" prefWidth="-1.0" text="№ п/п" />
+                      <TableColumn maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="№ п/п" />
                         <TableColumn maxWidth="1.7976931348623157E308" minWidth="130.0" prefWidth="-1.0" text="Вид начисления" />
                         <TableColumn maxWidth="1.7976931348623157E308" minWidth="110.0" prefWidth="-1.0" text="Количество" />
                         <TableColumn maxWidth="1.7976931348623157E308" minWidth="70.0" prefWidth="-1.0" text="Ед. изм." />

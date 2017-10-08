@@ -2,11 +2,11 @@ package by.javafx.communalPayments.objects;
 
 public class Payments extends TabObjects{
     private int id_payments;
-    private String service;
+    private int service;
     private double valuePayments;
     private String datePayments;
 
-    public Payments(int id_payments, String service, double valuePayments, String datePayments) {
+    public Payments(int id_payments, int service, double valuePayments, String datePayments) {
         this.id_payments = id_payments;
         this.service = service;
         this.valuePayments = valuePayments;
@@ -24,11 +24,11 @@ public class Payments extends TabObjects{
         this.id_payments = id_payments;
     }
 
-    public String getService() {
+    public int getService() {
         return service;
     }
 
-    public void setService(String service) {
+    public void setService(int service) {
         this.service = service;
     }
 

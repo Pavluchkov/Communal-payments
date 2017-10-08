@@ -10,11 +10,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class AccessDatabase implements IDatabase {
+public class AccessDatabase {
 
     private DatabaseImpl open;
 
-    @Override
     public void setConnectDatabase(String connectionString) throws IOException {
 
         open = DatabaseImpl.open(new File(connectionString), false, null,
@@ -22,12 +21,10 @@ public class AccessDatabase implements IDatabase {
 
     }
 
-    @Override
     public void closeConnect() throws IOException {
         if (open != null) open.close();
     }
 
-    @Override
     public ArrayList<String[]> getDataTable(String tableName) throws IOException {
         ArrayList<String[]> list = new ArrayList<String[]>();
         ArrayList<String> temp = new ArrayList<String>();
@@ -54,7 +51,6 @@ public class AccessDatabase implements IDatabase {
         return list;
     }
 
-    @Override
     public void add() {
 
     }

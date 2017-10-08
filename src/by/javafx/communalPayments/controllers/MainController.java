@@ -20,186 +20,271 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class MainController extends Controller{
-
+public class MainController extends Controller {
+    private final String connectionString = "jdbc:mysql://localhost:3306/communalPayments";
+    //private final String connectionString = "/home/juanantonio/Database_CommunalPayments/communalPayments.mdb";
     private ObservableList<TabObjects> objectList = FXCollections.observableArrayList();
-    private IDatabase database = new AccessDatabase();
+    private IDatabase database = new MySQLDatabase();
 
     @FXML
     private TabPane tabPane;
 
     @FXML
-    private TableView <TabObjects> T1_objAccounting;
+    private TableView<TabObjects> T1_objAccounting;
     @FXML
-    private TableColumn <TabObjects, String> T1_nameObjColumn;
+    private TableColumn<TabObjects, Integer> T1_personalAccountColumn;
     @FXML
-    private TableColumn <TabObjects, String> T1_ownerColumn;
+    private TableColumn<TabObjects, String> T1_nameObjColumn;
     @FXML
-    private TableColumn <TabObjects, String> T1_addressColumn;
+    private TableColumn<TabObjects, String> T1_ownerColumn;
     @FXML
-    private TableColumn <TabObjects, Integer> T1_residentsColumn;
+    private TableColumn<TabObjects, String> T1_addressColumn;
     @FXML
-    private TableColumn <TabObjects, Double> T1_areaColumn;
+    private TableColumn<TabObjects, Integer> T1_residentsColumn;
+    @FXML
+    private TableColumn<TabObjects, Double> T1_areaColumn;
 
     @FXML
-    private TableView <TabObjects> T2_counters;
+    private TableView<TabObjects> T2_counters;
     @FXML
-    private TableColumn <TabObjects, String> T2_counterNameColumn;
+    private TableColumn<TabObjects, Integer> T2_id_counterColumn;
     @FXML
-    private TableColumn <TabObjects, String> T2_serviceColumn;
+    private TableColumn<TabObjects, String> T2_counterNameColumn;
     @FXML
-    private TableColumn <TabObjects, String> T2_nameObjColumn;
+    private TableColumn<TabObjects, Integer> T2_serviceColumn;
+    @FXML
+    private TableColumn<TabObjects, Integer> T2_nameObjColumn;
 
     @FXML
-    private TableView <TabObjects> T3_service;
+    private TableView<TabObjects> T3_service;
     @FXML
-    private TableColumn <TabObjects, String> T3_serviceNameColumn;
+    private TableColumn<TabObjects, Integer> T3_id_serviceColumn;
     @FXML
-    private TableColumn <TabObjects, String> T3_unitColumn;
+    private TableColumn<TabObjects, String> T3_serviceNameColumn;
     @FXML
-    private TableColumn <TabObjects, Double> T3_rateColumn;
+    private TableColumn<TabObjects, String> T3_unitColumn;
     @FXML
-    private TableColumn <TabObjects, String> T3_formPaymentsColumn;
+    private TableColumn<TabObjects, Double> T3_rateColumn;
+    @FXML
+    private TableColumn<TabObjects, Integer> T3_formPaymentsColumn;
 
     @FXML
-    private TableView <TabObjects> T4_payments;
+    private TableView<TabObjects> T4_payments;
     @FXML
-    private TableColumn <TabObjects, Integer> T4_id_paymentsColumn;
+    private TableColumn<TabObjects, Integer> T4_id_paymentsColumn;
     @FXML
-    private TableColumn <TabObjects, String> T4_serviceColumn;
+    private TableColumn<TabObjects, Integer> T4_serviceColumn;
     @FXML
-    private TableColumn <TabObjects, Double> T4_valuePaymentsColumn;
+    private TableColumn<TabObjects, Double> T4_valuePaymentsColumn;
     @FXML
-    private TableColumn <TabObjects, String> T4_datePaymentsColumn;
+    private TableColumn<TabObjects, String> T4_datePaymentsColumn;
 
     @FXML
-    private void initialize(){
+    private void initialize() {
 
 // устанавливаем тип и значение которое должно хранится в колонке
 
+        T1_personalAccountColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("id"));
         T1_nameObjColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("objectName"));
         T1_ownerColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("owner"));
         T1_addressColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("address"));
         T1_residentsColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("residents"));
         T1_areaColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Double>("area"));
 
+        T2_id_counterColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("id"));
         T2_counterNameColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("counterName"));
-        T2_serviceColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("service"));
-        T2_nameObjColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("object"));
+        T2_serviceColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("service"));
+        T2_nameObjColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("object"));
 
+        T3_id_serviceColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("id"));
         T3_serviceNameColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("serviceName"));
         T3_unitColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("unit"));
         T3_rateColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Double>("rate"));
-        T3_formPaymentsColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("formPayments"));
+        T3_formPaymentsColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("formPayments"));
 
         T4_id_paymentsColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("id_payments"));
-        T4_serviceColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("service"));
+        T4_serviceColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Integer>("service"));
         T4_valuePaymentsColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, Double>("valuePayments"));
         T4_datePaymentsColumn.setCellValueFactory(new PropertyValueFactory<TabObjects, String>("datePayments"));
     }
 
-    public void fillObjectsList(String tableName){
-        ArrayList<String[]> list = new ArrayList<String[]>();
-
+    public void fillObjectsList(String tableName) throws IOException, SQLException, ClassNotFoundException {
         objectList.clear();
 
-        try {
-            //accessDatabase.setConnectDatabase("/home/juanantonio/Database_CommunalPayments/communalPayments.mdb");
-            database.setConnectDatabase("E:\\OneDrive\\Учеба ГГУ\\DB_CommunalPayments\\DB_New\\communalPayments.mdb");
-            list = database.getDataTable(tableName);
-            database.closeConnect();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ResultSet rs;
+        database.setConnectDatabase(connectionString);
+        rs = database.getDataTable(tableName);
 
-        switch (tableName){
+        switch (tableName) {
             case "accountingObject":
-                for (String[] s : list){
-                    objectList.add(new ObjectAccounting(s[0], s[1], s[2], Integer.parseInt(s[3]), Double.parseDouble(s[4])));
+                int id;
+                String objectName;
+                String owner;
+                String address;
+                int residents;
+                double area;
+
+                while (rs.next()) {
+                    id = rs.getInt(1);
+                    objectName = rs.getString(2);
+                    owner = rs.getString(3);
+                    address = rs.getString(4);
+                    residents = rs.getInt(5);
+                    area = rs.getDouble(6);
+                    objectList.add(new ObjectAccounting(id, objectName, owner, address, residents, area));
                 }
                 break;
             case "counters":
-                for (String[] s : list){
-                    objectList.add(new Counters(s[0], s[1], s[2]));
+                int idCounters;
+                String counterName;
+                int service;
+                int object;
+
+                while (rs.next()) {
+                    idCounters = rs.getInt(1);
+                    counterName = rs.getString(2);
+                    service = rs.getInt(3);
+                    object = rs.getInt(4);
+                    objectList.add(new Counters(idCounters, counterName, service, object));
                 }
                 break;
             case "services":
-                for (String[] s : list){
-                    objectList.add(new ServiceList(s[0], s[1], Double.parseDouble(s[2]), s[3]));
+                int idService;
+                String serviceName;
+                String unit;
+                double rate;
+                int formPayments;
+
+                while (rs.next()) {
+                    idService = rs.getInt(1);
+                    serviceName = rs.getString(2);
+                    unit = rs.getString(3);
+                    rate = rs.getDouble(4);
+                    formPayments = rs.getInt(5);
+                    objectList.add(new ServiceList(idService, serviceName, unit, rate, formPayments));
                 }
                 break;
             case "payments":
-                for (String[] s : list){
-                    objectList.add(new Payments(Integer.parseInt(s[0]), s[2], Double.parseDouble(s[1]), s[3]));
+                int id_payments;
+                int service_id;
+                double valuePayments;
+                String datePayments;
+
+                while (rs.next()) {
+                    id_payments = rs.getInt(1);
+                    service_id = rs.getInt(2);
+                    valuePayments = rs.getDouble(3);
+                    datePayments = rs.getString(4);
+                    objectList.add(new Payments(id_payments, service_id, valuePayments, datePayments));
                 }
                 break;
         }
 
+        database.closeConnect();
+
+        if (rs != null) {
+            rs.close();
+        }
     }
 
     @FXML
-    public void tabObjAccountChange(){
-        fillObjectsList("accountingObject");
+    public void tabObjAccountChange() {
+        try {
+            fillObjectsList("accountingObject");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         T1_objAccounting.setItems(objectList);
     }
 
     @FXML
-    public void tabCountersChange(){
-        fillObjectsList("counters");
+    public void tabCountersChange() {
+        try {
+            fillObjectsList("counters");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         T2_counters.setItems(objectList);
     }
 
     @FXML
-    public void tabServiceChange(){
-        fillObjectsList("services");
+    public void tabServiceChange() {
+        try {
+            fillObjectsList("services");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         T3_service.setItems(objectList);
     }
 
     @FXML
-    public void tabPaymentsChange(){
-        fillObjectsList("payments");
+    public void tabPaymentsChange() {
+        try {
+            fillObjectsList("payments");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         T4_payments.setItems(objectList);
     }
 
     @FXML
-    public void objAccountAdd(){
+    public void objAccountAdd() {
         dialogWindow(new ObjAccountController(), "/by/javafx/communalPayments/fxml/objAccountDialog/addObjAccount.fxml",
                 "Добавление объекта учета", 565, 350);
     }
 
     @FXML
-    public void objAccountChange(){
+    public void objAccountChange() {
         dialogWindow(new ObjAccountController(), "/by/javafx/communalPayments/fxml/objAccountDialog/changeObjAccount.fxml",
                 "Изменение объекта учета", 570, 310);
     }
+
     @FXML
-    public void objAccountDelete(){
+    public void objAccountDelete() {
         dialogWindow(new ObjAccountController(), "/by/javafx/communalPayments/fxml/objAccountDialog/deleteObjAccount.fxml",
                 "Удаление объекта учета", 450, 190);
     }
 
     @FXML
-    public void countersAdd(){
+    public void countersAdd() {
         dialogWindow(new CountersController(), "/by/javafx/communalPayments/fxml/countersDialog/addCounters.fxml",
-                  "Добавление счетчика", 400, 265);
+                "Добавление счетчика", 400, 265);
     }
 
     @FXML
-    public void countersChange(){
+    public void countersChange() {
         dialogWindow(new CountersController(), "/by/javafx/communalPayments/fxml/countersDialog/changeCounters.fxml",
                 "Изменение счетчика", 520, 230);
     }
 
     @FXML
-    public void countersDelete(){
+    public void countersDelete() {
         dialogWindow(new CountersController(), "/by/javafx/communalPayments/fxml/countersDialog/deleteCounters.fxml",
                 "Удаление счетчика", 450, 190);
     }
 
     @FXML
-    public void servListAdd(){
+    public void servListAdd() {
         dialogWindow(new ServiceListController(), "/by/javafx/communalPayments/fxml/serviceListDialog/addServiceList.fxml",
                 "Добавление услуги", 400, 310);
     }
@@ -211,18 +296,18 @@ public class MainController extends Controller{
     }
 
     @FXML
-    public void servListDelete(){
+    public void servListDelete() {
         dialogWindow(new ServiceListController(), "/by/javafx/communalPayments/fxml/serviceListDialog/deleteServiceList.fxml",
                 "Удаление услуги", 450, 190);
     }
 
     @FXML
-    public void inputValueCounterClicked(){
+    public void inputValueCounterClicked() {
         dialogWindow(new CountersController(), "/by/javafx/communalPayments/fxml/countersDialog/inputCounterValue.fxml",
                 "Ввод показаний счетчика", 400, 265);
     }
 
-    public void dialogWindow(Controller controller, String resource, String title, int width, int height){
+    public void dialogWindow(Controller controller, String resource, String title, int width, int height) {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource(resource));
