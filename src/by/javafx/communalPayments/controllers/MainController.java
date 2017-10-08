@@ -120,7 +120,7 @@ public class MainController extends Controller {
         rs = database.getDataTable(tableName);
 
         switch (tableName) {
-            case "accountingObject":
+            case "accountingobject":
                 int id;
                 String objectName;
                 String owner;
@@ -194,7 +194,7 @@ public class MainController extends Controller {
     @FXML
     public void tabObjAccountChange() {
         try {
-            fillObjectsList("accountingObject");
+            fillObjectsList("accountingobject");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

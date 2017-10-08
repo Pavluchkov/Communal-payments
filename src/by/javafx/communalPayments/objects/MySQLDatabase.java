@@ -14,7 +14,8 @@ public class MySQLDatabase implements IDatabase {
 
         Class.forName("com.mysql.jdbc.Driver");
         String url = connectionString;
-        con = DriverManager.getConnection(url, "root", "root");
+        //con = DriverManager.getConnection(url, "root", "root");
+        con = DriverManager.getConnection(url, "root", "Nikitenko");
 
     }
 
@@ -53,8 +54,4 @@ public class MySQLDatabase implements IDatabase {
         return rs;
     }
 
-
-    public void add() {
-
-    }
 }
