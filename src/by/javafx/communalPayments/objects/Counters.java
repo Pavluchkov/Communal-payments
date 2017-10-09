@@ -1,6 +1,6 @@
 package by.javafx.communalPayments.objects;
 
-public class Counters extends TabObjects {
+public class Counters {
     private int id;
     private String counterName;
     private int service;

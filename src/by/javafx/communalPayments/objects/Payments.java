@@ -1,6 +1,6 @@
 package by.javafx.communalPayments.objects;
 
-public class Payments extends TabObjects{
+public class Payments {
     private int id_payments;
     private int service;
     private double valuePayments;

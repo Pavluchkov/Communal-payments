@@ -1,6 +1,6 @@
 package by.javafx.communalPayments.objects;
 
-public class ObjectAccounting extends TabObjects {
+public class ObjectAccounting {
     private int id;
     private String objectName;
     private String owner;

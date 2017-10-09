@@ -31,7 +31,7 @@
                   <Font name="Arial Italic" size="14.0" />
                </font>
             </Label>
-            <TextField prefHeight="30.0" prefWidth="320.0">
+            <TextField fx:id="personalAccount" prefHeight="30.0" prefWidth="320.0">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
@@ -43,7 +43,7 @@
       </HBox>
       <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="319.0" prefWidth="480.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="290.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" text="Подтвердить">
+            <Button mnemonicParsing="false" onAction="#btnOkClicked" prefHeight="30.0" prefWidth="110.0" text="Подтвердить">
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Button>
@@ -64,7 +64,7 @@
                   <Font name="Arial Italic" size="14.0" />
                </font>
             </Label>
-            <TextField prefHeight="30.0" prefWidth="320.0">
+            <TextField fx:id="nameObject" prefHeight="30.0" prefWidth="320.0">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
@@ -81,7 +81,7 @@
                   <Font name="Arial Italic" size="14.0" />
                </font>
             </Label>
-            <TextField prefHeight="30.0" prefWidth="320.0">
+            <TextField fx:id="owner" prefHeight="30.0" prefWidth="320.0">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
@@ -98,7 +98,7 @@
                   <Font name="Arial Italic" size="14.0" />
                </font>
             </Label>
-            <TextField prefHeight="30.0" prefWidth="50.0">
+            <TextField fx:id="residents" prefHeight="30.0" prefWidth="50.0">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
@@ -114,7 +114,7 @@
                   <Insets left="30.0" />
                </HBox.margin>
             </Label>
-            <TextField prefHeight="30.0" prefWidth="70.0">
+            <TextField fx:id="area" prefHeight="30.0" prefWidth="70.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -131,7 +131,7 @@
                   <Font name="Arial Italic" size="14.0" />
                </font>
             </Label>
-            <TextField prefHeight="30.0" prefWidth="320.0">
+            <TextField fx:id="address" prefHeight="30.0" prefWidth="320.0">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>

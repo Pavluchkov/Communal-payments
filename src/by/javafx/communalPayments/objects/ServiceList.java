@@ -1,6 +1,6 @@
 package by.javafx.communalPayments.objects;
 
-public class ServiceList extends TabObjects{
+public class ServiceList {
     private int id;
     private String serviceName;
     private String unit;
