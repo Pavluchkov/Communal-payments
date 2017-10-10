@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -123,6 +124,7 @@ public class MainController extends Controller {
 
         try {
             T1_objAccounting.setItems(database.getObjectsList());
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -167,13 +169,18 @@ public class MainController extends Controller {
     @FXML
     public void objAccountChange() {
         dialogWindow(new ObjAccountController(), "/by/javafx/communalPayments/fxml/objAccountDialog/changeObjAccount.fxml",
-                "Изменение объекта учета", 570, 310);
+                "Изменение объекта учета", 565, 350);
     }
 
     @FXML
     public void objAccountDelete() {
-        dialogWindow(new ObjAccountController(), "/by/javafx/communalPayments/fxml/objAccountDialog/deleteObjAccount.fxml",
-                "Удаление объекта учета", 450, 190);
+        ObjectAccounting object = (ObjectAccounting)T1_objAccounting.getSelectionModel().getSelectedItem();
+        if(object != null) {
+            dialogWindow(new ObjAccountController(object), "/by/javafx/communalPayments/fxml/objAccountDialog/deleteObjAccount.fxml",
+                    "Удаление объекта учета", 380, 200);
+        } else{
+            printDialogError("Ошибка удаления объекта", "Ошибка !", "Не выбран удаляемый объект ! ");
+        }
     }
 
     @FXML
@@ -226,6 +233,7 @@ public class MainController extends Controller {
         Parent root = null;
         try {
             root = fxmlLoader.load();
+
         } catch (Throwable e) {
             System.out.println(e.getMessage());
         }
@@ -237,5 +245,16 @@ public class MainController extends Controller {
         stage.getIcons().add(ico);
         stage.setResizable(false);
         stage.show();
+    }
+
+    void printDialogError(String title, String headerText, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/by/javafx/communalPayments/ico/icon.png"));
+        alert.showAndWait();
+        alert.close();
     }
 }

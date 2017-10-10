@@ -160,21 +160,6 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public void addCounter(Counters objects) throws SQLException {
-
-    }
-
-    @Override
-    public void addPayment(Payments objects) throws SQLException {
-
-    }
-
-    @Override
-    public void addService(ServiceList objects) throws SQLException {
-
-    }
-
-    @Override
     public void addObject(ObjectAccounting object) throws SQLException {
 
         PreparedStatement stmt = con.prepareStatement("INSERT INTO accountingobject" +
@@ -191,6 +176,48 @@ public class MySQLDatabase implements IDatabase {
         if (stmt != null) {
             stmt.close();
         }
+
+    }
+
+    @Override
+    public void addCounter(Counters objects) throws SQLException {
+
+    }
+
+    @Override
+    public void addPayment(Payments objects) throws SQLException {
+
+    }
+
+    @Override
+    public void addService(ServiceList objects) throws SQLException {
+
+    }
+
+    @Override
+    public void deleteObject(ObjectAccounting object) throws SQLException {
+        PreparedStatement stmt = con.prepareStatement("DELETE FROM accountingobject WHERE personalAccount=?");
+        stmt.setInt(1, object.getId());
+
+        stmt.execute();
+
+        if (stmt != null) {
+            stmt.close();
+        }
+    }
+
+    @Override
+    public void deleteCounter(Counters objects) throws SQLException {
+
+    }
+
+    @Override
+    public void deletePayment(Payments objects) throws SQLException {
+
+    }
+
+    @Override
+    public void deleteService(ServiceList objects) throws SQLException {
 
     }
 
