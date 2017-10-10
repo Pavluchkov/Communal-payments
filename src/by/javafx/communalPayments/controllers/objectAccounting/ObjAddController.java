@@ -4,7 +4,6 @@ import by.javafx.communalPayments.controllers.Controller;
 import by.javafx.communalPayments.objects.ObjectAccounting;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
@@ -12,7 +11,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.function.UnaryOperator;
 
-public class ObjAccountController extends Controller {
+public class ObjAddController extends Controller {
 
     @FXML
     private TextField personalAccount;
@@ -26,20 +25,9 @@ public class ObjAccountController extends Controller {
     private TextField residents;
     @FXML
     private TextField area;
-    @FXML
-    private Label nameDeleteObject;
 
     @FXML
     private Button btnCancel;
-
-    private ObjectAccounting objectAccounting;
-
-    public ObjAccountController(ObjectAccounting objectAccounting) {
-        this.objectAccounting = objectAccounting;
-    }
-
-    public ObjAccountController() {
-    }
 
     private UnaryOperator<TextFormatter.Change> textFilter(String regexString) {
         UnaryOperator<TextFormatter.Change> Filter = change -> {
@@ -65,9 +53,6 @@ public class ObjAccountController extends Controller {
         residents.setTextFormatter(textFormatterResident);
         area.setTextFormatter(textFormatterArea);
 
-        //nameDeleteObject = new Label(objectAccounting.getObjectName());
-        //nameDeleteObject.setText(objectAccounting.getObjectName());
-
 //        personalAccount.addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<KeyEvent>() {
 //            @Override public void handle(KeyEvent keyEvent) {
 //                if (!"0123456789".contains(keyEvent.getCharacter())) {
@@ -78,7 +63,7 @@ public class ObjAccountController extends Controller {
     }
 
     @FXML
-    public void addBtnOkClicked() {
+    public void BtnOkClicked() {
 
         ObjectAccounting object = new ObjectAccounting(Integer.parseInt(personalAccount.getText()), nameObject.getText(),
                 owner.getText(), address.getText(), Integer.parseInt(residents.getText()), Double.parseDouble(area.getText()));
@@ -87,21 +72,6 @@ public class ObjAccountController extends Controller {
             database.addObject(object);
         } catch (SQLException e) {
             e.getMessage();
-        }
-
-        btnCancelClicked();
-
-    }
-
-    @FXML
-    public void deleteBtnOkClicked() {
-
-        if (objectAccounting != null) {
-            try {
-                database.deleteObject(objectAccounting);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
 
         btnCancelClicked();

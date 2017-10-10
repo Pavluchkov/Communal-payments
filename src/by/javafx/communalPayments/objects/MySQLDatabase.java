@@ -221,23 +221,38 @@ public class MySQLDatabase implements IDatabase {
 
     }
 
-    //@Override
-    //public ResultSet getDataTable(String tableName) throws IOException, SQLException {
+    @Override
+    public void changeObject(ObjectAccounting object, int id) throws SQLException {
+        PreparedStatement stmt = con.prepareStatement("UPDATE accountingobject SET" +
+                " personalAccount=?, objectName=?, owner=?, address=?, residents=?, area=?" +
+                " WHERE personalAccount=?");
+        stmt.setInt(1, object.getId());
+        stmt.setString(2, object.getObjectName());
+        stmt.setString(3, object.getOwner());
+        stmt.setString(4, object.getAddress());
+        stmt.setInt(5, object.getResidents());
+        stmt.setDouble(6, object.getArea());
+        stmt.setInt(7, id);
+        stmt.execute();
 
-    //stmt = con.prepareStatement("SELECT * FROM " + tableName);//createStatement();
-    //stmt.setString(1, tableName);
-    //rs = stmt.executeQuery();
-    //rs = stmt.executeQuery("SELECT * FROM accountingObject");
-    //while (rs.next()) {
+        if (stmt != null) {
+            stmt.close();
+        }
+    }
 
-//                String str = rs.getString(1) + " " + rs.getString(2) + rs.getString(3)
-//                        + rs.getString(4) + rs.getString(5) + rs.getString(6);
-//            System.out.println(str);
+    @Override
+    public void changeCounter(Counters objects) throws SQLException {
 
-    //printString(str);
-    //}
+    }
 
-    // return rs;
-    //}
+    @Override
+    public void changePayment(Payments objects) throws SQLException {
+
+    }
+
+    @Override
+    public void changeService(ServiceList objects) throws SQLException {
+
+    }
 
 }

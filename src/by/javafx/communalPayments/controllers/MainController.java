@@ -1,9 +1,14 @@
 package by.javafx.communalPayments.controllers;
 
 import by.javafx.communalPayments.controllers.counters.CountersController;
-import by.javafx.communalPayments.controllers.objectAccounting.ObjAccountController;
+import by.javafx.communalPayments.controllers.objectAccounting.ObjAddController;
+import by.javafx.communalPayments.controllers.objectAccounting.ObjChangeController;
+import by.javafx.communalPayments.controllers.objectAccounting.ObjDeleteController;
 import by.javafx.communalPayments.controllers.serviceList.ServiceListController;
-import by.javafx.communalPayments.objects.*;
+import by.javafx.communalPayments.objects.Counters;
+import by.javafx.communalPayments.objects.ObjectAccounting;
+import by.javafx.communalPayments.objects.Payments;
+import by.javafx.communalPayments.objects.ServiceList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -75,7 +80,7 @@ public class MainController extends Controller {
     @FXML
     private TableColumn<Payments, String> T4_datePaymentsColumn;
 
-    public MainController(){
+    public MainController() {
 
         String connectionString = "jdbc:mysql://localhost:3306/communalPayments";
 
@@ -162,23 +167,31 @@ public class MainController extends Controller {
 
     @FXML
     public void objAccountAdd() {
-        dialogWindow(new ObjAccountController(), "/by/javafx/communalPayments/fxml/objAccountDialog/addObjAccount.fxml",
+        dialogWindow(new ObjAddController(), "/by/javafx/communalPayments/fxml/objAccountDialog/addObjAccount.fxml",
                 "Добавление объекта учета", 565, 350);
     }
 
     @FXML
     public void objAccountChange() {
-        dialogWindow(new ObjAccountController(), "/by/javafx/communalPayments/fxml/objAccountDialog/changeObjAccount.fxml",
-                "Изменение объекта учета", 565, 350);
+        ObjectAccounting object = (ObjectAccounting) T1_objAccounting.getSelectionModel().getSelectedItem();
+
+        if (object != null) {
+            dialogWindow(new ObjChangeController(object), "/by/javafx/communalPayments/fxml/objAccountDialog/changeObjAccount.fxml",
+                    "Изменение объекта учета", 565, 350);
+        } else {
+            printDialogError("Ошибка изменения объекта", "Ошибка !", "Не выбран изменяемый объект ! ");
+        }
+
     }
 
     @FXML
     public void objAccountDelete() {
-        ObjectAccounting object = (ObjectAccounting)T1_objAccounting.getSelectionModel().getSelectedItem();
-        if(object != null) {
-            dialogWindow(new ObjAccountController(object), "/by/javafx/communalPayments/fxml/objAccountDialog/deleteObjAccount.fxml",
+        ObjectAccounting object = (ObjectAccounting) T1_objAccounting.getSelectionModel().getSelectedItem();
+
+        if (object != null) {
+            dialogWindow(new ObjDeleteController(object), "/by/javafx/communalPayments/fxml/objAccountDialog/deleteObjAccount.fxml",
                     "Удаление объекта учета", 380, 200);
-        } else{
+        } else {
             printDialogError("Ошибка удаления объекта", "Ошибка !", "Не выбран удаляемый объект ! ");
         }
     }

@@ -26,7 +26,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="50.0" prefHeight="30.0" prefWidth="477.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="477.0" text="Действительно хотите удалить этот объект?">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="477.0" text="Действительно хотите удалить этот объект ?">
                <font>
                   <Font name="Arial Italic" size="14.0" />
                </font>
@@ -35,7 +35,7 @@
       </HBox>
       <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="319.0" prefWidth="480.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="150.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#deleteBtnOkClicked" prefHeight="30.0" prefWidth="110.0" text="Подтвердить">
+            <Button mnemonicParsing="false" onAction="#btnOkClicked" prefHeight="30.0" prefWidth="110.0" text="Подтвердить">
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Button>

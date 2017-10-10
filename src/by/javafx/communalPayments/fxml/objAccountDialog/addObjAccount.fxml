@@ -43,7 +43,7 @@
       </HBox>
       <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="319.0" prefWidth="480.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="290.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#addBtnOkClicked" prefHeight="30.0" prefWidth="110.0" text="Подтвердить">
+            <Button mnemonicParsing="false" onAction="#BtnOkClicked" prefHeight="30.0" prefWidth="110.0" text="Подтвердить">
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Button>

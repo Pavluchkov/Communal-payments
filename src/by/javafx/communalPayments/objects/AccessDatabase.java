@@ -1,6 +1,5 @@
 package by.javafx.communalPayments.objects;
 
-import by.javafx.communalPayments.interfaces.IDatabase;
 import com.healthmarketscience.jackcess.*;
 import com.healthmarketscience.jackcess.impl.DatabaseImpl;
 
@@ -32,7 +31,7 @@ public class AccessDatabase {
         Table table = open.getTable(tableName);
 
         for (Row row : table) {
-            for(Column column : table.getColumns()) {
+            for (Column column : table.getColumns()) {
                 String columnName = column.getName();
                 Object value = row.get(columnName);
                 temp.add(String.valueOf(value));
@@ -41,7 +40,7 @@ public class AccessDatabase {
             String[] sTemp = new String[temp.size()];
             int i = 0;
 
-            for (String st : temp){
+            for (String st : temp) {
                 sTemp[i++] = st;
             }
             list.add(sTemp);

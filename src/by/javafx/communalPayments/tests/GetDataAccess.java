@@ -1,11 +1,9 @@
 package by.javafx.communalPayments.tests;
 
 import by.javafx.communalPayments.objects.AccessDatabase;
-import by.javafx.communalPayments.objects.ObjectAccounting;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class GetDataAccess {
     public static void main(String[] args) {
@@ -28,7 +26,7 @@ public class GetDataAccess {
         }
 
         for (String[] s : list) {
-            for(String str : s){
+            for (String str : s) {
                 System.out.print(str + " ");
             }
 

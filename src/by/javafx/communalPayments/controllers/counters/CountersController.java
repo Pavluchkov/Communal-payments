@@ -5,13 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
- public class CountersController extends Controller {
+public class CountersController extends Controller {
 
     @FXML
     private Button btnCancel;
 
     @FXML
-    void btnCancelClicked(){
+    void btnCancelClicked() {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }

@@ -17,7 +17,7 @@
    <children>
       <HBox alignment="CENTER" layoutY="6.0" prefHeight="40.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
          <children>
-            <Label text="Параметры объекта учета">
+            <Label text="Изменение объекта учета">
                <font>
                   <Font name="Arial Bold Italic" size="18.0" />
                </font>
