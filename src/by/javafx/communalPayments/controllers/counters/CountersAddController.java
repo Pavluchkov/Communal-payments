@@ -58,7 +58,7 @@ public class CountersAddController extends Controller {
         Counters counter = new Counters(0, nameField.getText(), serviceId, personalAccount);
 
         try {
-            database.addCounter(counter);
+            database.add(counter);
         } catch (SQLException e) {
             e.printStackTrace();
         }

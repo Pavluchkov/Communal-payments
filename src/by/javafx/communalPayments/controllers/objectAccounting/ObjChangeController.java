@@ -57,7 +57,7 @@ public class ObjChangeController extends Controller {
         objectAccounting.setArea(Double.parseDouble(area.getText()));
 
         try {
-            database.changeObject(objectAccounting, id);
+            database.change(objectAccounting, id);
         } catch (SQLException e) {
             e.getMessage();
         }

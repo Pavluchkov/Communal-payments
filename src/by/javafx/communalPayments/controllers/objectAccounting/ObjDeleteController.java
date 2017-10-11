@@ -34,7 +34,7 @@ public class ObjDeleteController extends Controller {
 
         if (objectAccounting != null) {
             try {
-                database.deleteObject(objectAccounting);
+                database.delete(objectAccounting);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

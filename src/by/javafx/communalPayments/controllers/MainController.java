@@ -1,14 +1,14 @@
 package by.javafx.communalPayments.controllers;
 
 import by.javafx.communalPayments.controllers.counters.CountersAddController;
+import by.javafx.communalPayments.controllers.counters.CountersChangeController;
+import by.javafx.communalPayments.controllers.counters.CountersDeleteController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjAddController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjChangeController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjDeleteController;
 import by.javafx.communalPayments.controllers.serviceList.ServiceListController;
-import by.javafx.communalPayments.objects.Counters;
-import by.javafx.communalPayments.objects.ObjectAccounting;
-import by.javafx.communalPayments.objects.Payments;
-import by.javafx.communalPayments.objects.ServiceList;
+import by.javafx.communalPayments.objects.*;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,7 +31,7 @@ public class MainController extends Controller {
     private TabPane tabPane;
 
     @FXML
-    private TableView<ObjectAccounting> T1_objAccounting;
+    private TableView<MyObjects> T1_objAccounting;
     @FXML
     private TableColumn<ObjectAccounting, Integer> T1_personalAccountColumn;
     @FXML
@@ -46,7 +46,7 @@ public class MainController extends Controller {
     private TableColumn<ObjectAccounting, Double> T1_areaColumn;
 
     @FXML
-    private TableView<Counters> T2_counters;
+    private TableView<MyObjects> T2_counters;
     @FXML
     private TableColumn<Counters, Integer> T2_id_counterColumn;
     @FXML
@@ -57,7 +57,7 @@ public class MainController extends Controller {
     private TableColumn<Counters, Integer> T2_nameObjColumn;
 
     @FXML
-    private TableView<ServiceList> T3_service;
+    private TableView<MyObjects> T3_service;
     @FXML
     private TableColumn<ServiceList, Integer> T3_id_serviceColumn;
     @FXML
@@ -70,7 +70,7 @@ public class MainController extends Controller {
     private TableColumn<ServiceList, Integer> T3_formPaymentsColumn;
 
     @FXML
-    private TableView<Payments> T4_payments;
+    private TableView<MyObjects> T4_payments;
     @FXML
     private TableColumn<Payments, Integer> T4_id_paymentsColumn;
     @FXML
@@ -128,7 +128,7 @@ public class MainController extends Controller {
     public void tabObjAccountChange() {
 
         try {
-            T1_objAccounting.setItems(database.getTableObjects());
+            T1_objAccounting.setItems(database.getTable(new ObjectAccounting()));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -139,7 +139,7 @@ public class MainController extends Controller {
     public void tabCountersChange() {
 
         try {
-            T2_counters.setItems(database.getTableCounters());
+            T2_counters.setItems(database.getTable(new Counters()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -149,7 +149,7 @@ public class MainController extends Controller {
     public void tabServiceChange() {
 
         try {
-            T3_service.setItems(database.getTableServices());
+            T3_service.setItems(database.getTable(new ServiceList()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -159,7 +159,7 @@ public class MainController extends Controller {
     public void tabPaymentsChange() {
 
         try {
-            T4_payments.setItems(database.getTablePayments());
+            T4_payments.setItems(database.getTable(new Payments()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -204,13 +204,13 @@ public class MainController extends Controller {
 
     @FXML
     public void countersChange() {
-        dialogWindow(new CountersAddController(), "/by/javafx/communalPayments/fxml/countersDialog/changeCounters.fxml",
+        dialogWindow(new CountersChangeController(), "/by/javafx/communalPayments/fxml/countersDialog/changeCounters.fxml",
                 "Изменение счетчика", 520, 230);
     }
 
     @FXML
     public void countersDelete() {
-        dialogWindow(new CountersAddController(), "/by/javafx/communalPayments/fxml/countersDialog/deleteCounters.fxml",
+        dialogWindow(new CountersDeleteController(), "/by/javafx/communalPayments/fxml/countersDialog/deleteCounters.fxml",
                 "Удаление счетчика", 450, 190);
     }
 

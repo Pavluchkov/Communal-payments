@@ -69,7 +69,7 @@ public class ObjAddController extends Controller {
                 owner.getText(), address.getText(), Integer.parseInt(residents.getText()), Double.parseDouble(area.getText()));
 
         try {
-            database.addObject(object);
+            database.add(object);
         } catch (SQLException e) {
             e.getMessage();
         }

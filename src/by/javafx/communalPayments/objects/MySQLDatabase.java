@@ -32,121 +32,89 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public ObservableList<ObjectAccounting> getTableObjects() throws SQLException {
+    public ObservableList<MyObjects> getTable(MyObjects myObject) throws SQLException {
 
-        ObservableList<ObjectAccounting> objectList = FXCollections.observableArrayList();
+        ObservableList<MyObjects> objectList = FXCollections.observableArrayList();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM accountingobject");
-        ResultSet rs = stmt.executeQuery();
+        if(myObject instanceof ObjectAccounting){
+            int id;
+            String objectName;
+            String owner;
+            String address;
+            int residents;
+            double area;
 
-        int id;
-        String objectName;
-        String owner;
-        String address;
-        int residents;
-        double area;
+            stmt = con.prepareStatement("SELECT * FROM " + "accountingobject");
+            rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            id = rs.getInt(1);
-            objectName = rs.getString(2);
-            owner = rs.getString(3);
-            address = rs.getString(4);
-            residents = rs.getInt(5);
-            area = rs.getDouble(6);
-            objectList.add(new ObjectAccounting(id, objectName, owner, address, residents, area));
+            while (rs.next()) {
+                id = rs.getInt(1);
+                objectName = rs.getString(2);
+                owner = rs.getString(3);
+                address = rs.getString(4);
+                residents = rs.getInt(5);
+                area = rs.getDouble(6);
+                objectList.add(new ObjectAccounting(id, objectName, owner, address, residents, area));
+            }
+
         }
 
+        if(myObject instanceof Counters){
+            int idCounters;
+            String counterName;
+            int service;
+            int object;
 
-        if (rs != null) {
-            rs.close();
+            stmt = con.prepareStatement("SELECT * FROM " + "counters");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                idCounters = rs.getInt(1);
+                counterName = rs.getString(2);
+                service = rs.getInt(3);
+                object = rs.getInt(4);
+                objectList.add(new Counters(idCounters, counterName, service, object));
+            }
         }
 
-        if (stmt != null) {
-            stmt.close();
+        if(myObject instanceof Payments){
+            int id_payments;
+            int service_id;
+            double valuePayments;
+            String datePayments;
+
+            stmt = con.prepareStatement("SELECT * FROM " + "payments");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                id_payments = rs.getInt(1);
+                service_id = rs.getInt(2);
+                valuePayments = rs.getDouble(3);
+                datePayments = rs.getString(4);
+                objectList.add(new Payments(id_payments, service_id, valuePayments, datePayments));
+            }
         }
 
-        return objectList;
-    }
+        if(myObject instanceof ServiceList){
+            int idService;
+            String serviceName;
+            String unit;
+            double rate;
+            int formPayments;
 
-    @Override
-    public ObservableList<Counters> getTableCounters() throws SQLException {
-        ObservableList<Counters> objectList = FXCollections.observableArrayList();
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM counters");
-        ResultSet rs = stmt.executeQuery();
+            stmt = con.prepareStatement("SELECT * FROM " + "services");
+            rs = stmt.executeQuery();
 
-        int idCounters;
-        String counterName;
-        int service;
-        int object;
-
-        while (rs.next()) {
-            idCounters = rs.getInt(1);
-            counterName = rs.getString(2);
-            service = rs.getInt(3);
-            object = rs.getInt(4);
-            objectList.add(new Counters(idCounters, counterName, service, object));
-        }
-
-        if (rs != null) {
-            rs.close();
-        }
-
-        if (stmt != null) {
-            stmt.close();
-        }
-
-        return objectList;
-    }
-
-    @Override
-    public ObservableList<Payments> getTablePayments() throws SQLException {
-        ObservableList<Payments> objectList = FXCollections.observableArrayList();
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM payments");
-        ResultSet rs = stmt.executeQuery();
-
-        int id_payments;
-        int service_id;
-        double valuePayments;
-        String datePayments;
-
-        while (rs.next()) {
-            id_payments = rs.getInt(1);
-            service_id = rs.getInt(2);
-            valuePayments = rs.getDouble(3);
-            datePayments = rs.getString(4);
-            objectList.add(new Payments(id_payments, service_id, valuePayments, datePayments));
-        }
-
-        if (rs != null) {
-            rs.close();
-        }
-
-        if (stmt != null) {
-            stmt.close();
-        }
-
-        return objectList;
-    }
-
-    @Override
-    public ObservableList<ServiceList> getTableServices() throws SQLException {
-        ObservableList<ServiceList> objectList = FXCollections.observableArrayList();
-        PreparedStatement stmt = con.prepareStatement("SELECT * FROM services");
-        ResultSet rs = stmt.executeQuery();
-
-        int idService;
-        String serviceName;
-        String unit;
-        double rate;
-        int formPayments;
-
-        while (rs.next()) {
-            idService = rs.getInt(1);
-            serviceName = rs.getString(2);
-            unit = rs.getString(3);
-            rate = rs.getDouble(4);
-            formPayments = rs.getInt(5);
-            objectList.add(new ServiceList(idService, serviceName, unit, rate, formPayments));
+            while (rs.next()) {
+                idService = rs.getInt(1);
+                serviceName = rs.getString(2);
+                unit = rs.getString(3);
+                rate = rs.getDouble(4);
+                formPayments = rs.getInt(5);
+                objectList.add(new ServiceList(idService, serviceName, unit, rate, formPayments));
+            }
         }
 
         if (rs != null) {
@@ -205,7 +173,7 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public void addObject(ObjectAccounting object) throws SQLException {
+    public void add(ObjectAccounting object) throws SQLException {
 
         PreparedStatement stmt = con.prepareStatement("INSERT INTO accountingobject" +
                 "(personalAccount, objectName, owner, address, residents, area) VALUES (?, ?, ?, ?, ?, ?)");
@@ -225,7 +193,7 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public void addCounter(Counters object) throws SQLException {
+    public void add(Counters object) throws SQLException {
         PreparedStatement stmt = con.prepareStatement("INSERT INTO counters" +
                 "(counterName, service, object) VALUES (?, ?, ?)");
 
@@ -242,17 +210,17 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public void addPayment(Payments objects) throws SQLException {
+    public void add(Payments objects) throws SQLException {
 
     }
 
     @Override
-    public void addService(ServiceList objects) throws SQLException {
+    public void add(ServiceList objects) throws SQLException {
 
     }
 
     @Override
-    public void deleteObject(ObjectAccounting object) throws SQLException {
+    public void delete(ObjectAccounting object) throws SQLException {
         PreparedStatement stmt = con.prepareStatement("DELETE FROM accountingobject WHERE personalAccount=?");
         stmt.setInt(1, object.getId());
 
@@ -264,22 +232,22 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public void deleteCounter(Counters objects) throws SQLException {
+    public void delete(Counters objects) throws SQLException {
 
     }
 
     @Override
-    public void deletePayment(Payments objects) throws SQLException {
+    public void delete(Payments objects) throws SQLException {
 
     }
 
     @Override
-    public void deleteService(ServiceList objects) throws SQLException {
+    public void delete(ServiceList objects) throws SQLException {
 
     }
 
     @Override
-    public void changeObject(ObjectAccounting object, int id) throws SQLException {
+    public void change(ObjectAccounting object, int id) throws SQLException {
         PreparedStatement stmt = con.prepareStatement("UPDATE accountingobject SET" +
                 " personalAccount=?, objectName=?, owner=?, address=?, residents=?, area=?" +
                 " WHERE personalAccount=?");
@@ -298,17 +266,17 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public void changeCounter(Counters objects) throws SQLException {
+    public void change(Counters objects) throws SQLException {
 
     }
 
     @Override
-    public void changePayment(Payments objects) throws SQLException {
+    public void change(Payments objects) throws SQLException {
 
     }
 
     @Override
-    public void changeService(ServiceList objects) throws SQLException {
+    public void change(ServiceList objects) throws SQLException {
 
     }
 

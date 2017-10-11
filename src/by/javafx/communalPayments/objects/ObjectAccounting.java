@@ -1,6 +1,6 @@
 package by.javafx.communalPayments.objects;
 
-public class ObjectAccounting {
+public class ObjectAccounting extends MyObjects{
     private int id;
     private String objectName;
     private String owner;

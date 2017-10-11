@@ -1,6 +1,6 @@
 package by.javafx.communalPayments.objects;
 
-public class Payments {
+public class Payments extends MyObjects{
     private int id_payments;
     private int service;
     private double valuePayments;
