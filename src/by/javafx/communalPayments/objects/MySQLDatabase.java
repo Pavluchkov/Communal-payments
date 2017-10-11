@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class MySQLDatabase implements IDatabase {
@@ -31,7 +32,7 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public ObservableList<ObjectAccounting> getObjectsList() throws SQLException {
+    public ObservableList<ObjectAccounting> getTableObjects() throws SQLException {
 
         ObservableList<ObjectAccounting> objectList = FXCollections.observableArrayList();
 
@@ -68,7 +69,7 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public ObservableList<Counters> getCountersList() throws SQLException {
+    public ObservableList<Counters> getTableCounters() throws SQLException {
         ObservableList<Counters> objectList = FXCollections.observableArrayList();
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM counters");
         ResultSet rs = stmt.executeQuery();
@@ -98,7 +99,7 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public ObservableList<Payments> getPaymentsList() throws SQLException {
+    public ObservableList<Payments> getTablePayments() throws SQLException {
         ObservableList<Payments> objectList = FXCollections.observableArrayList();
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM payments");
         ResultSet rs = stmt.executeQuery();
@@ -128,7 +129,7 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public ObservableList<ServiceList> getServiceList() throws SQLException {
+    public ObservableList<ServiceList> getTableServices() throws SQLException {
         ObservableList<ServiceList> objectList = FXCollections.observableArrayList();
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM services");
         ResultSet rs = stmt.executeQuery();
@@ -160,6 +161,50 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
+    public ObservableList<String> getColumn(String tableName, String columnName) throws SQLException {
+        ObservableList<String> column = FXCollections.observableArrayList();
+        PreparedStatement stmt = con.prepareStatement("SELECT " + columnName + " FROM " + tableName);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            column.add(rs.getString(1));
+        }
+
+        if (rs != null) {
+            rs.close();
+        }
+
+        if (stmt != null) {
+            stmt.close();
+        }
+
+        return column;
+    }
+
+    @Override
+        public String getValueColumn(String tableName, String columnName, int rowIndex) throws SQLException {
+        ArrayList<String> list = new ArrayList<>();
+        PreparedStatement stmt = con.prepareStatement("SELECT " + columnName + " FROM " + tableName);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            list.add(rs.getString(1));
+        }
+
+        if (rs != null) {
+            rs.close();
+        }
+
+        if (stmt != null) {
+            stmt.close();
+        }
+
+        return list.get(rowIndex);
+    }
+
+    @Override
     public void addObject(ObjectAccounting object) throws SQLException {
 
         PreparedStatement stmt = con.prepareStatement("INSERT INTO accountingobject" +
@@ -180,7 +225,19 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public void addCounter(Counters objects) throws SQLException {
+    public void addCounter(Counters object) throws SQLException {
+        PreparedStatement stmt = con.prepareStatement("INSERT INTO counters" +
+                "(counterName, service, object) VALUES (?, ?, ?)");
+
+        stmt.setString(1, object.getCounterName());
+        stmt.setInt(2, object.getService());
+        stmt.setInt(3, object.getObject());
+
+        stmt.execute();
+
+        if (stmt != null) {
+            stmt.close();
+        }
 
     }
 

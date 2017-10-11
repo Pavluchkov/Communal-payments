@@ -15,36 +15,42 @@ public interface IDatabase {
 
     void closeConnect() throws SQLException;
 
-    ObservableList<ObjectAccounting> getObjectsList() throws SQLException;
+    ObservableList<ObjectAccounting> getTableObjects() throws SQLException;
 
-    ObservableList<Counters> getCountersList() throws SQLException;
+    ObservableList<Counters> getTableCounters() throws SQLException;
 
-    ObservableList<Payments> getPaymentsList() throws SQLException;
+    ObservableList<Payments> getTablePayments() throws SQLException;
 
-    ObservableList<ServiceList> getServiceList() throws SQLException;
+    ObservableList<ServiceList> getTableServices() throws SQLException;
+
+    ObservableList<String> getColumn(String tableName, String columnName) throws SQLException;
+    String getValueColumn(String tableName, String columnName, int rowIndex) throws SQLException;
+//    ObservableList<String> getListServices() throws SQLException;
+//    ObservableList<String> getListCounters() throws SQLException;
+//    ObservableList<String> getListPayments() throws SQLException;
 
     void addObject(ObjectAccounting object) throws SQLException;
 
-    void addCounter(Counters objects) throws SQLException;
+    void addCounter(Counters object) throws SQLException;
 
-    void addPayment(Payments objects) throws SQLException;
+    void addPayment(Payments object) throws SQLException;
 
-    void addService(ServiceList objects) throws SQLException;
+    void addService(ServiceList object) throws SQLException;
 
     void deleteObject(ObjectAccounting object) throws SQLException;
 
-    void deleteCounter(Counters objects) throws SQLException;
+    void deleteCounter(Counters object) throws SQLException;
 
-    void deletePayment(Payments objects) throws SQLException;
+    void deletePayment(Payments object) throws SQLException;
 
-    void deleteService(ServiceList objects) throws SQLException;
+    void deleteService(ServiceList object) throws SQLException;
 
     void changeObject(ObjectAccounting object, int id) throws SQLException;
 
-    void changeCounter(Counters objects) throws SQLException;
+    void changeCounter(Counters object) throws SQLException;
 
-    void changePayment(Payments objects) throws SQLException;
+    void changePayment(Payments object) throws SQLException;
 
-    void changeService(ServiceList objects) throws SQLException;
+    void changeService(ServiceList object) throws SQLException;
 
 }

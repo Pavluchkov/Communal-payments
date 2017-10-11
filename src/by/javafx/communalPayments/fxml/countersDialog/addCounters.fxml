@@ -32,7 +32,7 @@
                   <Font name="Arial Italic" size="14.0" />
                </font>
             </Label>
-            <ComboBox prefHeight="30.0" prefWidth="220.0" />
+            <ComboBox fx:id="objectCombo" prefHeight="30.0" prefWidth="220.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="4.0" layoutY="90.0" prefHeight="30.0" prefWidth="477.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
@@ -45,12 +45,12 @@
                   <Insets />
                </HBox.margin>
             </Label>
-            <ComboBox prefHeight="30.0" prefWidth="220.0" />
+            <ComboBox fx:id="serviceCombo" prefHeight="30.0" prefWidth="220.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER_RIGHT" layoutX="12.0" layoutY="233.0" prefHeight="30.0" prefWidth="521.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="210.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" text="Подтвердить">
+            <Button mnemonicParsing="false" onAction="#btnOkClicked" prefHeight="30.0" prefWidth="110.0" text="Подтвердить">
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Button>
@@ -74,7 +74,7 @@
                   <Insets />
                </HBox.margin>
             </Label>
-            <TextField prefHeight="30.0" prefWidth="220.0">
+            <TextField fx:id="nameField" prefHeight="30.0" prefWidth="220.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
