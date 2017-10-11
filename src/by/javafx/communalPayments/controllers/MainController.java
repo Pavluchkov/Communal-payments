@@ -128,7 +128,7 @@ public class MainController extends Controller {
     public void tabObjAccountChange() {
 
         try {
-            T1_objAccounting.setItems(database.getTable(new ObjectAccounting()));
+            T1_objAccounting.setItems(database.getListObjects(new ObjectAccounting()));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -139,7 +139,7 @@ public class MainController extends Controller {
     public void tabCountersChange() {
 
         try {
-            T2_counters.setItems(database.getTable(new Counters()));
+            T2_counters.setItems(database.getListObjects(new Counters()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -149,7 +149,7 @@ public class MainController extends Controller {
     public void tabServiceChange() {
 
         try {
-            T3_service.setItems(database.getTable(new ServiceList()));
+            T3_service.setItems(database.getListObjects(new ServiceList()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -159,7 +159,7 @@ public class MainController extends Controller {
     public void tabPaymentsChange() {
 
         try {
-            T4_payments.setItems(database.getTable(new Payments()));
+            T4_payments.setItems(database.getListObjects(new Payments()));
         } catch (SQLException e) {
             e.printStackTrace();
         }

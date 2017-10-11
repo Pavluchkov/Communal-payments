@@ -12,7 +12,7 @@ public interface IDatabase {
 
     void closeConnect() throws SQLException;
 
-    ObservableList<MyObjects> getTable(MyObjects myObject) throws SQLException;
+    ObservableList<MyObjects> getListObjects(MyObjects myObject) throws SQLException;
 
     ObservableList<String> getColumn(String tableName, String columnName) throws SQLException;
     String getValueColumn(String tableName, String columnName, int rowIndex) throws SQLException;

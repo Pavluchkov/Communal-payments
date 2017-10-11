@@ -32,7 +32,7 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public ObservableList<MyObjects> getTable(MyObjects myObject) throws SQLException {
+    public ObservableList<MyObjects> getListObjects(MyObjects myObject) throws SQLException {
 
         ObservableList<MyObjects> objectList = FXCollections.observableArrayList();
         PreparedStatement stmt = null;
