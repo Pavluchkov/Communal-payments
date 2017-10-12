@@ -1,6 +1,5 @@
 package by.javafx.communalPayments.main;
 
-import by.javafx.communalPayments.controllers.Controller;
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.objects.MySQLDatabase;
 import javafx.application.Application;

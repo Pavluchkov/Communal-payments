@@ -1,6 +1,6 @@
 package by.javafx.communalPayments.controllers.counters;
 
-import by.javafx.communalPayments.controllers.Controller;
+import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.objects.Counters;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-public class CountersAddController extends Controller {
+public class CountersAddController extends MainController {
     private ObservableList<String> listObjects = FXCollections.observableArrayList();
     private ObservableList<String> listServices = FXCollections.observableArrayList();
 

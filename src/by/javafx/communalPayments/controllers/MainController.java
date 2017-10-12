@@ -7,6 +7,7 @@ import by.javafx.communalPayments.controllers.objectAccounting.ObjAddController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjChangeController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjDeleteController;
 import by.javafx.communalPayments.controllers.serviceList.ServiceListController;
+import by.javafx.communalPayments.interfaces.IDatabase;
 import by.javafx.communalPayments.objects.*;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,7 +26,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class MainController extends Controller {
+public class MainController {
+    protected IDatabase database = new MySQLDatabase();
 
     @FXML
     private TabPane tabPane;
@@ -238,7 +240,7 @@ public class MainController extends Controller {
                 "Ввод показаний счетчика", 400, 265);
     }
 
-    public void dialogWindow(Controller controller, String resource, String title, int width, int height) {
+    public void dialogWindow(MainController controller, String resource, String title, int width, int height) {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource(resource));

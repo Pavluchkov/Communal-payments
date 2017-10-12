@@ -1,6 +1,6 @@
 package by.javafx.communalPayments.controllers.objectAccounting;
 
-import by.javafx.communalPayments.controllers.Controller;
+import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.objects.ObjectAccounting;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-public class ObjChangeController extends Controller {
+public class ObjChangeController extends MainController {
     private ObjectAccounting objectAccounting;
 
     @FXML

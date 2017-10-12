@@ -1,6 +1,6 @@
 package by.javafx.communalPayments.controllers.objectAccounting;
 
-import by.javafx.communalPayments.controllers.Controller;
+import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.objects.ObjectAccounting;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.function.UnaryOperator;
 
-public class ObjAddController extends Controller {
+public class ObjAddController extends MainController {
 
     @FXML
     private TextField personalAccount;

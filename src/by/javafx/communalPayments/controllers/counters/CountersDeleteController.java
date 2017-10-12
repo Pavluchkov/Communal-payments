@@ -1,6 +1,6 @@
 package by.javafx.communalPayments.controllers.counters;
 
-import by.javafx.communalPayments.controllers.Controller;
+import by.javafx.communalPayments.controllers.MainController;
 
-public class CountersDeleteController extends Controller{
+public class CountersDeleteController extends MainController{
 }
