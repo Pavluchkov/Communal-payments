@@ -297,8 +297,20 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public void change(Counters objects) throws SQLException {
+    public void change(Counters object) throws SQLException {
+        PreparedStatement stmt = con.prepareStatement("UPDATE counters SET" +
+                " id=?, counterName=?, service=?, object=?" +
+                " WHERE id=?");
+        stmt.setInt(1, object.getId());
+        stmt.setString(2, object.getCounterName());
+        stmt.setInt(3, object.getService());
+        stmt.setInt(4, object.getObject());
+        stmt.setInt(5, object.getId());
+        stmt.execute();
 
+        if (stmt != null) {
+            stmt.close();
+        }
     }
 
     @Override

@@ -9,7 +9,6 @@ import by.javafx.communalPayments.controllers.objectAccounting.ObjDeleteControll
 import by.javafx.communalPayments.controllers.serviceList.ServiceListController;
 import by.javafx.communalPayments.interfaces.IDatabase;
 import by.javafx.communalPayments.objects.*;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,30 +32,30 @@ public class MainController {
     private TabPane tabPane;
 
     @FXML
-    private TableView<ObjectAccounting> T1_objAccounting;
+    protected TableView<ObjectAccounting> T1_objAccounting;
     @FXML
-    private TableColumn<ObjectAccounting, Integer> T1_personalAccountColumn;
+    protected TableColumn<ObjectAccounting, Integer> T1_personalAccountColumn;
     @FXML
-    private TableColumn<ObjectAccounting, String> T1_nameObjColumn;
+    protected TableColumn<ObjectAccounting, String> T1_nameObjColumn;
     @FXML
-    private TableColumn<ObjectAccounting, String> T1_ownerColumn;
+    protected TableColumn<ObjectAccounting, String> T1_ownerColumn;
     @FXML
-    private TableColumn<ObjectAccounting, String> T1_addressColumn;
+    protected TableColumn<ObjectAccounting, String> T1_addressColumn;
     @FXML
-    private TableColumn<ObjectAccounting, Integer> T1_residentsColumn;
+    protected TableColumn<ObjectAccounting, Integer> T1_residentsColumn;
     @FXML
-    private TableColumn<ObjectAccounting, Double> T1_areaColumn;
+    protected TableColumn<ObjectAccounting, Double> T1_areaColumn;
 
     @FXML
-    private TableView<Counters> T2_counters;
+    protected TableView<Counters> T2_counters;
     @FXML
-    private TableColumn<Counters, Integer> T2_id_counterColumn;
+    protected TableColumn<Counters, Integer> T2_id_counterColumn;
     @FXML
-    private TableColumn<Counters, String> T2_counterNameColumn;
+    protected TableColumn<Counters, String> T2_counterNameColumn;
     @FXML
-    private TableColumn<Counters, Integer> T2_serviceColumn;
+    protected TableColumn<Counters, Integer> T2_serviceColumn;
     @FXML
-    private TableColumn<Counters, Integer> T2_nameObjColumn;
+    protected TableColumn<Counters, Integer> T2_nameObjColumn;
 
     @FXML
     private TableView<ServiceList> T3_service;
@@ -200,19 +199,26 @@ public class MainController {
 
     @FXML
     public void countersAdd() {
-        dialogWindow(new CountersAddController(), "/by/javafx/communalPayments/fxml/countersDialog/addCounters.fxml",
+        dialogWindow(new CountersAddController(), "/by/javafx/communalPayments/fxml/countersDialog/CountersAdd.fxml",
                 "Добавление счетчика", 400, 265);
     }
 
     @FXML
     public void countersChange() {
-        dialogWindow(new CountersChangeController(), "/by/javafx/communalPayments/fxml/countersDialog/changeCounters.fxml",
-                "Изменение счетчика", 520, 230);
+        Counters object = (Counters) T2_counters.getSelectionModel().getSelectedItem();
+
+        if (object != null) {
+            dialogWindow(new CountersChangeController(object), "/by/javafx/communalPayments/fxml/countersDialog/CountersChange.fxml",
+                    "Изменение счетчика", 400, 265);
+        } else {
+            printDialogError("Ошибка изменения объекта", "Ошибка !", "Не выбран изменяемый объект ! ");
+        }
+
     }
 
     @FXML
     public void countersDelete() {
-        dialogWindow(new CountersDeleteController(), "/by/javafx/communalPayments/fxml/countersDialog/deleteCounters.fxml",
+        dialogWindow(new CountersDeleteController(), "/by/javafx/communalPayments/fxml/countersDialog/CountersDelete.fxml",
                 "Удаление счетчика", 450, 190);
     }
 
