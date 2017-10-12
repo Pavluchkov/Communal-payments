@@ -263,8 +263,15 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public void delete(Counters objects) throws SQLException {
+    public void delete(Counters object) throws SQLException {
+        PreparedStatement stmt = con.prepareStatement("DELETE FROM counters WHERE id=?");
+        stmt.setInt(1, object.getId());
 
+        stmt.execute();
+
+        if (stmt != null) {
+            stmt.close();
+        }
     }
 
     @Override

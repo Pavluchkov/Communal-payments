@@ -32,30 +32,30 @@ public class MainController {
     private TabPane tabPane;
 
     @FXML
-    protected TableView<ObjectAccounting> T1_objAccounting;
+    private TableView<ObjectAccounting> T1_objAccounting;
     @FXML
-    protected TableColumn<ObjectAccounting, Integer> T1_personalAccountColumn;
+    private TableColumn<ObjectAccounting, Integer> T1_personalAccountColumn;
     @FXML
-    protected TableColumn<ObjectAccounting, String> T1_nameObjColumn;
+    private TableColumn<ObjectAccounting, String> T1_nameObjColumn;
     @FXML
-    protected TableColumn<ObjectAccounting, String> T1_ownerColumn;
+    private TableColumn<ObjectAccounting, String> T1_ownerColumn;
     @FXML
-    protected TableColumn<ObjectAccounting, String> T1_addressColumn;
+    private TableColumn<ObjectAccounting, String> T1_addressColumn;
     @FXML
-    protected TableColumn<ObjectAccounting, Integer> T1_residentsColumn;
+    private TableColumn<ObjectAccounting, Integer> T1_residentsColumn;
     @FXML
-    protected TableColumn<ObjectAccounting, Double> T1_areaColumn;
+    private TableColumn<ObjectAccounting, Double> T1_areaColumn;
 
     @FXML
-    protected TableView<Counters> T2_counters;
+    private TableView<Counters> T2_counters;
     @FXML
-    protected TableColumn<Counters, Integer> T2_id_counterColumn;
+    private TableColumn<Counters, Integer> T2_id_counterColumn;
     @FXML
-    protected TableColumn<Counters, String> T2_counterNameColumn;
+    private TableColumn<Counters, String> T2_counterNameColumn;
     @FXML
-    protected TableColumn<Counters, Integer> T2_serviceColumn;
+    private TableColumn<Counters, Integer> T2_serviceColumn;
     @FXML
-    protected TableColumn<Counters, Integer> T2_nameObjColumn;
+    private TableColumn<Counters, Integer> T2_nameObjColumn;
 
     @FXML
     private TableView<ServiceList> T3_service;
@@ -190,8 +190,8 @@ public class MainController {
         ObjectAccounting object = (ObjectAccounting) T1_objAccounting.getSelectionModel().getSelectedItem();
 
         if (object != null) {
-            dialogWindow(new ObjDeleteController(object), "/by/javafx/communalPayments/fxml/objAccountDialog/deleteObjAccount.fxml",
-                    "Удаление объекта учета", 380, 200);
+            dialogWindow(new ObjDeleteController(object), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
+                    "Удаление объекта", 380, 200);
         } else {
             printDialogError("Ошибка удаления объекта", "Ошибка !", "Не выбран удаляемый объект ! ");
         }
@@ -218,8 +218,15 @@ public class MainController {
 
     @FXML
     public void countersDelete() {
-        dialogWindow(new CountersDeleteController(), "/by/javafx/communalPayments/fxml/countersDialog/CountersDelete.fxml",
-                "Удаление счетчика", 450, 190);
+        Counters object = (Counters) T2_counters.getSelectionModel().getSelectedItem();
+
+        if (object != null) {
+            dialogWindow(new CountersDeleteController(object), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
+                    "Удаление объекта", 380, 200);
+        } else {
+            printDialogError("Ошибка удаления объекта", "Ошибка !", "Не выбран удаляемый объект ! ");
+        }
+
     }
 
     @FXML

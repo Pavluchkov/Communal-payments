@@ -2,6 +2,8 @@ package by.javafx.communalPayments.controllers.counters;
 
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.objects.Counters;
+import by.javafx.communalPayments.objects.ObjectAccounting;
+import by.javafx.communalPayments.objects.ServiceList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,8 +15,8 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 
 public class CountersAddController extends MainController {
-    private ObservableList<String> listObjects = FXCollections.observableArrayList();
-    private ObservableList<String> listServices = FXCollections.observableArrayList();
+    private ObservableList<ObjectAccounting> tableObject = FXCollections.observableArrayList();
+    private ObservableList<ServiceList> tableService = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox<String> objectCombo;
@@ -26,36 +28,55 @@ public class CountersAddController extends MainController {
     private Button btnCancel;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         try {
-            this.listObjects = database.getColumn("accountingobject", "objectName");
-            this.listServices = database.getColumn("services", "serviceName");
+            tableObject = database.getListObjects(new ObjectAccounting());
+            tableService = database.getListObjects(new ServiceList());
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-       if((listObjects != null) && (listServices != null)){
-            objectCombo.setItems(listObjects);
-            serviceCombo.setItems(listServices);
+        ObservableList<String> listObjects = FXCollections.observableArrayList();
+        ObservableList<String> listServices = FXCollections.observableArrayList();
+
+        for (ObjectAccounting obj : tableObject) {
+            listObjects.add(obj.getObjectName());
         }
+
+        for (ServiceList obj : tableService) {
+            listServices.add(obj.getServiceName());
+        }
+
+        objectCombo.setItems(listObjects);
+        serviceCombo.setItems(listServices);
+        objectCombo.setValue(listObjects.get(0));
+        serviceCombo.setValue(listServices.get(0));
     }
 
     @FXML
-    void btnOkClicked(){
-
-        int selectedIndexObj = objectCombo.getSelectionModel().getSelectedIndex();
-        int selectedIndexService = serviceCombo.getSelectionModel().getSelectedIndex();
-        int personalAccount = 0;
+    void btnOkClicked() {
+        int id = 0;
+        int objectId = 0;
         int serviceId = 0;
+        String counterName = nameField.getText();
 
-        try {
-            personalAccount = Integer.parseInt(database.getValueColumn("accountingobject", "personalAccount", selectedIndexObj));
-            serviceId = Integer.parseInt(database.getValueColumn("services", "id", selectedIndexService));
-        } catch (SQLException e) {
-            e.printStackTrace();
+        String selectedItemObj = objectCombo.getSelectionModel().getSelectedItem();
+        String selectedItemService = serviceCombo.getSelectionModel().getSelectedItem();
+
+        for (ObjectAccounting obj : tableObject) {
+            if (selectedItemObj.equals(obj.getObjectName())) {
+                objectId = obj.getId();
+            }
         }
 
-        Counters counter = new Counters(0, nameField.getText(), serviceId, personalAccount);
+        for (ServiceList obj : tableService) {
+            if (selectedItemService.equals(obj.getServiceName())) {
+                serviceId = obj.getId();
+            }
+        }
+
+        Counters counter = new Counters(id, counterName, serviceId, objectId);
 
         try {
             database.add(counter);

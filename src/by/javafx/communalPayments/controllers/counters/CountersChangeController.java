@@ -16,8 +16,6 @@ import java.sql.SQLException;
 
 public class CountersChangeController extends MainController {
     private Counters object;
-    private ObservableList<String> listObjects = FXCollections.observableArrayList();
-    private ObservableList<String> listServices = FXCollections.observableArrayList();
     private ObservableList<ObjectAccounting> tableObject = FXCollections.observableArrayList();
     private ObservableList<ServiceList> tableService = FXCollections.observableArrayList();
 
@@ -39,6 +37,7 @@ public class CountersChangeController extends MainController {
 
     @FXML
     public void initialize() {
+
         try {
             tableObject = database.getListObjects(new ObjectAccounting());
             tableService = database.getListObjects(new ServiceList());
@@ -46,6 +45,9 @@ public class CountersChangeController extends MainController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        ObservableList<String> listObjects = FXCollections.observableArrayList();
+        ObservableList<String> listServices = FXCollections.observableArrayList();
 
         for (ObjectAccounting obj : tableObject) {
             listObjects.add(obj.getObjectName());
@@ -64,7 +66,6 @@ public class CountersChangeController extends MainController {
         nameField.setText(object.getCounterName());
         objectCombo.setItems(listObjects);
         serviceCombo.setItems(listServices);
-
     }
 
     @FXML
@@ -78,13 +79,13 @@ public class CountersChangeController extends MainController {
         String selectedItemService = serviceCombo.getSelectionModel().getSelectedItem();
 
         for (ObjectAccounting obj : tableObject) {
-            if (selectedItemObj == obj.getObjectName()) {
+            if (selectedItemObj.equals(obj.getObjectName())) {
                 objectId = obj.getId();
             }
         }
 
         for (ServiceList obj : tableService) {
-            if (selectedItemService == obj.getServiceName()) {
+            if (selectedItemService.equals(obj.getServiceName())) {
                 serviceId = obj.getId();
             }
         }
@@ -97,27 +98,7 @@ public class CountersChangeController extends MainController {
             e.printStackTrace();
         }
 
-//        int selectedIndexObj = objectCombo.getSelectionModel().getSelectedIndex();
-//        int selectedIndexService = serviceCombo.getSelectionModel().getSelectedIndex();
-//        int personalAccount = 0;
-//        int serviceId = 0;
-//
-//        try {
-//            personalAccount = Integer.parseInt(database.getValueColumn("accountingobject", "personalAccount", selectedIndexObj));
-//            serviceId = Integer.parseInt(database.getValueColumn("services", "id", selectedIndexService));
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        Counters counter = new Counters(0, nameField.getText(), serviceId, personalAccount);
-//
-//        try {
-//            database.add(counter);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        btnCancelClicked();
+        btnCancelClicked();
     }
 
     @FXML
