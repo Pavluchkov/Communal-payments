@@ -32,103 +32,6 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public ObservableList<MyObjects> getListObjects(MyObjects myObject) throws SQLException {
-
-        ObservableList<MyObjects> objectList = FXCollections.observableArrayList();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        if(myObject instanceof ObjectAccounting){
-            int id;
-            String objectName;
-            String owner;
-            String address;
-            int residents;
-            double area;
-
-            stmt = con.prepareStatement("SELECT * FROM " + "accountingobject");
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                id = rs.getInt(1);
-                objectName = rs.getString(2);
-                owner = rs.getString(3);
-                address = rs.getString(4);
-                residents = rs.getInt(5);
-                area = rs.getDouble(6);
-                objectList.add(new ObjectAccounting(id, objectName, owner, address, residents, area));
-            }
-
-        }
-
-        if(myObject instanceof Counters){
-            int idCounters;
-            String counterName;
-            int service;
-            int object;
-
-            stmt = con.prepareStatement("SELECT * FROM " + "counters");
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                idCounters = rs.getInt(1);
-                counterName = rs.getString(2);
-                service = rs.getInt(3);
-                object = rs.getInt(4);
-                objectList.add(new Counters(idCounters, counterName, service, object));
-            }
-        }
-
-        if(myObject instanceof Payments){
-            int id_payments;
-            int service_id;
-            double valuePayments;
-            String datePayments;
-
-            stmt = con.prepareStatement("SELECT * FROM " + "payments");
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                id_payments = rs.getInt(1);
-                service_id = rs.getInt(2);
-                valuePayments = rs.getDouble(3);
-                datePayments = rs.getString(4);
-                objectList.add(new Payments(id_payments, service_id, valuePayments, datePayments));
-            }
-        }
-
-        if(myObject instanceof ServiceList){
-            int idService;
-            String serviceName;
-            String unit;
-            double rate;
-            int formPayments;
-
-            stmt = con.prepareStatement("SELECT * FROM " + "services");
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                idService = rs.getInt(1);
-                serviceName = rs.getString(2);
-                unit = rs.getString(3);
-                rate = rs.getDouble(4);
-                formPayments = rs.getInt(5);
-                objectList.add(new ServiceList(idService, serviceName, unit, rate, formPayments));
-            }
-        }
-
-        if (rs != null) {
-            rs.close();
-        }
-
-        if (stmt != null) {
-            stmt.close();
-        }
-
-        return objectList;
-    }
-
-    @Override
     public ObservableList<String> getColumn(String tableName, String columnName) throws SQLException {
         ObservableList<String> column = FXCollections.observableArrayList();
         PreparedStatement stmt = con.prepareStatement("SELECT " + columnName + " FROM " + tableName);
@@ -151,7 +54,7 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-        public String getValueColumn(String tableName, String columnName, int rowIndex) throws SQLException {
+    public String getValueColumn(String tableName, String columnName, int rowIndex) throws SQLException {
         ArrayList<String> list = new ArrayList<>();
         PreparedStatement stmt = con.prepareStatement("SELECT " + columnName + " FROM " + tableName);
 
@@ -170,6 +73,134 @@ public class MySQLDatabase implements IDatabase {
         }
 
         return list.get(rowIndex);
+    }
+
+    @Override
+    public ObservableList<ObjectAccounting> getListObjects(ObjectAccounting object) throws SQLException {
+        ObservableList<ObjectAccounting> objectList = FXCollections.observableArrayList();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM " + "accountingobject");
+        ResultSet rs = stmt.executeQuery();
+
+        int id;
+        String objectName;
+        String owner;
+        String address;
+        int residents;
+        double area;
+
+        while (rs.next()) {
+            id = rs.getInt(1);
+            objectName = rs.getString(2);
+            owner = rs.getString(3);
+            address = rs.getString(4);
+            residents = rs.getInt(5);
+            area = rs.getDouble(6);
+            objectList.add(new ObjectAccounting(id, objectName, owner, address, residents, area));
+        }
+
+        if (rs != null) {
+            rs.close();
+        }
+
+        if (stmt != null) {
+            stmt.close();
+        }
+
+        return objectList;
+
+    }
+
+    @Override
+    public ObservableList<Counters> getListObjects(Counters object) throws SQLException {
+        ObservableList<Counters> objectList = FXCollections.observableArrayList();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM " + "counters");
+        ResultSet rs = stmt.executeQuery();
+
+        int idCounters;
+        String counterName;
+        int service;
+        int objectId;
+
+        while (rs.next()) {
+            idCounters = rs.getInt(1);
+            counterName = rs.getString(2);
+            service = rs.getInt(3);
+            objectId = rs.getInt(4);
+            objectList.add(new Counters(idCounters, counterName, service, objectId));
+        }
+
+        if (rs != null) {
+            rs.close();
+        }
+
+        if (stmt != null) {
+            stmt.close();
+        }
+
+        return objectList;
+    }
+
+    @Override
+    public ObservableList<Payments> getListObjects(Payments object) throws SQLException {
+        ObservableList<Payments> objectList = FXCollections.observableArrayList();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM " + "payments");
+        ResultSet rs = stmt.executeQuery();
+
+        int id_payments;
+        int service_id;
+        double valuePayments;
+        String datePayments;
+
+        while (rs.next()) {
+            id_payments = rs.getInt(1);
+            service_id = rs.getInt(2);
+            valuePayments = rs.getDouble(3);
+            datePayments = rs.getString(4);
+            objectList.add(new Payments(id_payments, service_id, valuePayments, datePayments));
+        }
+
+        if (rs != null) {
+            rs.close();
+        }
+
+        if (stmt != null) {
+            stmt.close();
+        }
+
+        return objectList;
+    }
+
+    @Override
+    public ObservableList<ServiceList> getListObjects(ServiceList object) throws SQLException {
+        ObservableList<ServiceList> objectList = FXCollections.observableArrayList();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM " + "services");
+        ResultSet rs = stmt.executeQuery();
+
+        int idService;
+        String serviceName;
+        String unit;
+        double rate;
+        int formPayments;
+
+        while (rs.next()) {
+            idService = rs.getInt(1);
+            serviceName = rs.getString(2);
+            unit = rs.getString(3);
+            rate = rs.getDouble(4);
+            formPayments = rs.getInt(5);
+            objectList.add(new ServiceList(idService, serviceName, unit, rate, formPayments));
+        }
+
+
+        if (rs != null) {
+            rs.close();
+        }
+
+        if (stmt != null) {
+            stmt.close();
+        }
+
+        return objectList;
     }
 
     @Override

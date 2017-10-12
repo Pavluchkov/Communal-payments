@@ -12,33 +12,27 @@ public interface IDatabase {
 
     void closeConnect() throws SQLException;
 
-    ObservableList<MyObjects> getListObjects(MyObjects myObject) throws SQLException;
-
     ObservableList<String> getColumn(String tableName, String columnName) throws SQLException;
     String getValueColumn(String tableName, String columnName, int rowIndex) throws SQLException;
 
+    ObservableList<ObjectAccounting> getListObjects(ObjectAccounting object) throws SQLException;
+    ObservableList<Counters> getListObjects(Counters object) throws SQLException;
+    ObservableList<Payments> getListObjects(Payments object) throws SQLException;
+    ObservableList<ServiceList> getListObjects(ServiceList object) throws SQLException;
+
     void add(ObjectAccounting object) throws SQLException;
-
     void add(Counters object) throws SQLException;
-
     void add(Payments object) throws SQLException;
-
     void add(ServiceList object) throws SQLException;
 
     void delete(ObjectAccounting object) throws SQLException;
-
     void delete(Counters object) throws SQLException;
-
     void delete(Payments object) throws SQLException;
-
     void delete(ServiceList object) throws SQLException;
 
     void change(ObjectAccounting object, int id) throws SQLException;
-
     void change(Counters object) throws SQLException;
-
     void change(Payments object) throws SQLException;
-
     void change(ServiceList object) throws SQLException;
 
 }

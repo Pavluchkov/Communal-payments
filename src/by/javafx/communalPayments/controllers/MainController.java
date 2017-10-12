@@ -31,7 +31,7 @@ public class MainController extends Controller {
     private TabPane tabPane;
 
     @FXML
-    private TableView<MyObjects> T1_objAccounting;
+    private TableView<ObjectAccounting> T1_objAccounting;
     @FXML
     private TableColumn<ObjectAccounting, Integer> T1_personalAccountColumn;
     @FXML
@@ -46,7 +46,7 @@ public class MainController extends Controller {
     private TableColumn<ObjectAccounting, Double> T1_areaColumn;
 
     @FXML
-    private TableView<MyObjects> T2_counters;
+    private TableView<Counters> T2_counters;
     @FXML
     private TableColumn<Counters, Integer> T2_id_counterColumn;
     @FXML
@@ -57,7 +57,7 @@ public class MainController extends Controller {
     private TableColumn<Counters, Integer> T2_nameObjColumn;
 
     @FXML
-    private TableView<MyObjects> T3_service;
+    private TableView<ServiceList> T3_service;
     @FXML
     private TableColumn<ServiceList, Integer> T3_id_serviceColumn;
     @FXML
@@ -70,7 +70,7 @@ public class MainController extends Controller {
     private TableColumn<ServiceList, Integer> T3_formPaymentsColumn;
 
     @FXML
-    private TableView<MyObjects> T4_payments;
+    private TableView<Payments> T4_payments;
     @FXML
     private TableColumn<Payments, Integer> T4_id_paymentsColumn;
     @FXML
