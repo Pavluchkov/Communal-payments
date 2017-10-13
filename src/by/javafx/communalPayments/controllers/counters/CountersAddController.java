@@ -45,7 +45,11 @@ public class CountersAddController extends MainController {
         }
 
         for (ServiceList obj : tableService) {
-            listServices.add(obj.getServiceName());
+
+            if(obj.getFormPayments() == 1){
+                listServices.add(obj.getServiceName());
+            }
+
         }
 
         objectCombo.setItems(listObjects);
