@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 
 public class CountersDeleteController extends MainController {
+    private MainController mainController;
     private Counters object;
 
     @FXML
@@ -18,8 +19,8 @@ public class CountersDeleteController extends MainController {
     @FXML
     private Button btnCancel;
 
-    public CountersDeleteController(Counters object) {
-        this.object = object;
+    public CountersDeleteController(MainController mainController) {
+        this.mainController = mainController;
     }
 
     public CountersDeleteController() {
@@ -27,6 +28,7 @@ public class CountersDeleteController extends MainController {
 
     @FXML
     public void initialize() {
+        object = (Counters)mainController.getSelectedObject();
         nameDeleteObject.setText("\"" + object.getCounterName() + "\"");
     }
 
@@ -41,6 +43,7 @@ public class CountersDeleteController extends MainController {
             }
         }
 
+        mainController.fillTable(object);
         btnCancelClicked();
 
     }

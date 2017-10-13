@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 
 public class CountersAddController extends MainController {
+    private MainController mainController;
     private ObservableList<ObjectAccounting> tableObject = FXCollections.observableArrayList();
     private ObservableList<ServiceList> tableService = FXCollections.observableArrayList();
 
@@ -26,6 +27,13 @@ public class CountersAddController extends MainController {
     private TextField nameField;
     @FXML
     private Button btnCancel;
+
+    public CountersAddController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
+    public CountersAddController() {
+    }
 
     @FXML
     public void initialize() {
@@ -88,6 +96,7 @@ public class CountersAddController extends MainController {
             e.printStackTrace();
         }
 
+        mainController.fillTable(new Counters());
         btnCancelClicked();
     }
 

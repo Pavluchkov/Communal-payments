@@ -2,6 +2,8 @@ package by.javafx.communalPayments.controllers.objectAccounting;
 
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.objects.ObjectAccounting;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -12,6 +14,7 @@ import java.sql.SQLException;
 import java.util.function.UnaryOperator;
 
 public class ObjAddController extends MainController {
+    private MainController mainController;
 
     @FXML
     private TextField personalAccount;
@@ -28,6 +31,13 @@ public class ObjAddController extends MainController {
 
     @FXML
     private Button btnCancel;
+
+    public ObjAddController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
+    public ObjAddController() {
+    }
 
     private UnaryOperator<TextFormatter.Change> textFilter(String regexString) {
         UnaryOperator<TextFormatter.Change> Filter = change -> {
@@ -73,6 +83,8 @@ public class ObjAddController extends MainController {
         } catch (SQLException e) {
             e.getMessage();
         }
+
+        mainController.fillTable(new ObjectAccounting());
 
         btnCancelClicked();
 

@@ -9,6 +9,8 @@ import by.javafx.communalPayments.controllers.objectAccounting.ObjDeleteControll
 import by.javafx.communalPayments.controllers.serviceList.ServiceListController;
 import by.javafx.communalPayments.interfaces.IDatabase;
 import by.javafx.communalPayments.objects.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,6 +29,7 @@ import java.sql.SQLException;
 
 public class MainController {
     protected IDatabase database = new MySQLDatabase();
+    private MyObjects selectedObject;
 
     @FXML
     private TabPane tabPane;
@@ -125,50 +128,68 @@ public class MainController {
         T4_datePaymentsColumn.setCellValueFactory(new PropertyValueFactory<Payments, String>("datePayments"));
     }
 
-    @FXML
-    public void tabObjAccountChange() {
-
+    public void fillTable(MyObjects object) {
         try {
-            T1_objAccounting.setItems(database.getListObjects(new ObjectAccounting()));
+            if (object instanceof ObjectAccounting) {
+                ObservableList<ObjectAccounting> list = FXCollections.observableArrayList();
+                list = database.getListObjects(new ObjectAccounting());
+                T1_objAccounting.setItems(list);
+            }
+
+            if (object instanceof Counters) {
+                ObservableList<Counters> list = FXCollections.observableArrayList();
+                list = database.getListObjects(new Counters());
+                T2_counters.setItems(list);
+            }
+
+            if (object instanceof ServiceList) {
+                ObservableList<ServiceList> list = FXCollections.observableArrayList();
+                list = database.getListObjects(new ServiceList());
+                T3_service.setItems(list);
+            }
+
+            if (object instanceof Payments) {
+                ObservableList<Payments> list = FXCollections.observableArrayList();
+                list = database.getListObjects(new Payments());
+                T4_payments.setItems(list);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setSelectedObject(MyObjects object){
+        selectedObject = object;
+    }
+
+    public MyObjects getSelectedObject(){
+        return selectedObject;
+    }
+
+    @FXML
+    public void tabObjAccountChange() {
+        fillTable(new ObjectAccounting());
     }
 
     @FXML
     public void tabCountersChange() {
-
-        try {
-            T2_counters.setItems(database.getListObjects(new Counters()));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        fillTable(new Counters());
     }
 
     @FXML
     public void tabServiceChange() {
-
-        try {
-            T3_service.setItems(database.getListObjects(new ServiceList()));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        fillTable(new ServiceList());
     }
 
     @FXML
     public void tabPaymentsChange() {
-
-        try {
-            T4_payments.setItems(database.getListObjects(new Payments()));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        fillTable(new Payments());
     }
 
     @FXML
     public void objAccountAdd() {
-        dialogWindow(new ObjAddController(), "/by/javafx/communalPayments/fxml/objAccountDialog/addObjAccount.fxml",
+        dialogWindow(new ObjAddController(this), "/by/javafx/communalPayments/fxml/objAccountDialog/addObjAccount.fxml",
                 "Добавление объекта учета", 565, 350);
     }
 
@@ -177,7 +198,8 @@ public class MainController {
         ObjectAccounting object = (ObjectAccounting) T1_objAccounting.getSelectionModel().getSelectedItem();
 
         if (object != null) {
-            dialogWindow(new ObjChangeController(object), "/by/javafx/communalPayments/fxml/objAccountDialog/changeObjAccount.fxml",
+            setSelectedObject(object);
+            dialogWindow(new ObjChangeController(this), "/by/javafx/communalPayments/fxml/objAccountDialog/changeObjAccount.fxml",
                     "Изменение объекта учета", 565, 350);
         } else {
             printDialogError("Ошибка изменения объекта", "Ошибка !", "Не выбран изменяемый объект ! ");
@@ -190,7 +212,8 @@ public class MainController {
         ObjectAccounting object = (ObjectAccounting) T1_objAccounting.getSelectionModel().getSelectedItem();
 
         if (object != null) {
-            dialogWindow(new ObjDeleteController(object), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
+            setSelectedObject(object);
+            dialogWindow(new ObjDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
                     "Удаление объекта", 380, 200);
         } else {
             printDialogError("Ошибка удаления объекта", "Ошибка !", "Не выбран удаляемый объект ! ");
@@ -199,7 +222,7 @@ public class MainController {
 
     @FXML
     public void countersAdd() {
-        dialogWindow(new CountersAddController(), "/by/javafx/communalPayments/fxml/countersDialog/CountersAdd.fxml",
+        dialogWindow(new CountersAddController(this), "/by/javafx/communalPayments/fxml/countersDialog/CountersAdd.fxml",
                 "Добавление счетчика", 400, 265);
     }
 
@@ -208,7 +231,8 @@ public class MainController {
         Counters object = (Counters) T2_counters.getSelectionModel().getSelectedItem();
 
         if (object != null) {
-            dialogWindow(new CountersChangeController(object), "/by/javafx/communalPayments/fxml/countersDialog/CountersChange.fxml",
+            setSelectedObject(object);
+            dialogWindow(new CountersChangeController(this), "/by/javafx/communalPayments/fxml/countersDialog/CountersChange.fxml",
                     "Изменение счетчика", 400, 265);
         } else {
             printDialogError("Ошибка изменения объекта", "Ошибка !", "Не выбран изменяемый объект ! ");
@@ -221,7 +245,8 @@ public class MainController {
         Counters object = (Counters) T2_counters.getSelectionModel().getSelectedItem();
 
         if (object != null) {
-            dialogWindow(new CountersDeleteController(object), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
+            setSelectedObject(object);
+            dialogWindow(new CountersDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
                     "Удаление объекта", 380, 200);
         } else {
             printDialogError("Ошибка удаления объекта", "Ошибка !", "Не выбран удаляемый объект ! ");

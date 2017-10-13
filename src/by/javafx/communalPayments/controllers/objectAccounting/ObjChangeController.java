@@ -1,6 +1,7 @@
 package by.javafx.communalPayments.controllers.objectAccounting;
 
 import by.javafx.communalPayments.controllers.MainController;
+import by.javafx.communalPayments.objects.MyObjects;
 import by.javafx.communalPayments.objects.ObjectAccounting;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 
 public class ObjChangeController extends MainController {
     private ObjectAccounting objectAccounting;
+    private MainController mainController;
 
     @FXML
     private TextField personalAccount;
@@ -28,8 +30,8 @@ public class ObjChangeController extends MainController {
     @FXML
     private Button btnCancel;
 
-    public ObjChangeController(ObjectAccounting objectAccounting) {
-        this.objectAccounting = objectAccounting;
+    public ObjChangeController(MainController mainController) {
+        this.mainController = mainController;
     }
 
     public ObjChangeController() {
@@ -37,6 +39,7 @@ public class ObjChangeController extends MainController {
 
     @FXML
     public void initialize() {
+        objectAccounting = (ObjectAccounting) mainController.getSelectedObject();
         personalAccount.setText(String.valueOf(objectAccounting.getId()));
         nameObject.setText(objectAccounting.getObjectName());
         owner.setText(objectAccounting.getOwner());
@@ -61,6 +64,8 @@ public class ObjChangeController extends MainController {
         } catch (SQLException e) {
             e.getMessage();
         }
+
+        mainController.fillTable(objectAccounting);
 
         btnCancelClicked();
 

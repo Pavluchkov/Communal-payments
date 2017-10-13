@@ -16,6 +16,7 @@ import java.sql.SQLException;
 
 public class CountersChangeController extends MainController {
     private Counters object;
+    private MainController mainController;
     private ObservableList<ObjectAccounting> tableObject = FXCollections.observableArrayList();
     private ObservableList<ServiceList> tableService = FXCollections.observableArrayList();
 
@@ -28,8 +29,8 @@ public class CountersChangeController extends MainController {
     @FXML
     private Button btnCancel;
 
-    public CountersChangeController(Counters object) {
-        this.object = object;
+    public CountersChangeController(MainController mainController) {
+        this.mainController = mainController;
     }
 
     public CountersChangeController() {
@@ -37,6 +38,7 @@ public class CountersChangeController extends MainController {
 
     @FXML
     public void initialize() {
+        object = (Counters) mainController.getSelectedObject();
 
         try {
             tableObject = database.getListObjects(new ObjectAccounting());
@@ -102,6 +104,7 @@ public class CountersChangeController extends MainController {
             e.printStackTrace();
         }
 
+        mainController.fillTable(object);
         btnCancelClicked();
     }
 

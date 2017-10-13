@@ -11,14 +11,15 @@ import java.sql.SQLException;
 
 public class ObjDeleteController extends MainController {
     private ObjectAccounting objectAccounting;
+    private MainController mainController;
 
     @FXML
     private Label nameDeleteObject;
     @FXML
     private Button btnCancel;
 
-    public ObjDeleteController(ObjectAccounting objectAccounting) {
-        this.objectAccounting = objectAccounting;
+    public ObjDeleteController(MainController mainController) {
+        this.mainController = mainController;
     }
 
     public ObjDeleteController() {
@@ -26,6 +27,7 @@ public class ObjDeleteController extends MainController {
 
     @FXML
     public void initialize() {
+        objectAccounting = (ObjectAccounting)mainController.getSelectedObject();
         nameDeleteObject.setText("\"" + objectAccounting.getObjectName() + "\"");
     }
 
@@ -40,6 +42,7 @@ public class ObjDeleteController extends MainController {
             }
         }
 
+        mainController.fillTable(objectAccounting);
         btnCancelClicked();
 
     }
