@@ -2,7 +2,6 @@ package by.javafx.communalPayments.controllers.services;
 
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.objects.FormPayment;
-import by.javafx.communalPayments.objects.ObjectAccounting;
 import by.javafx.communalPayments.objects.Services;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,7 +37,7 @@ public class ServiceAddController extends MainController {
     }
 
     @FXML
-    public void initialize(){
+    public void initialize() {
 
         try {
             tableForm = database.getListObjects(new FormPayment());
@@ -48,7 +47,7 @@ public class ServiceAddController extends MainController {
 
         ObservableList<String> formPayments = FXCollections.observableArrayList();
 
-        for (FormPayment obj : tableForm){
+        for (FormPayment obj : tableForm) {
             formPayments.add(obj.getForm());
         }
 
@@ -58,15 +57,15 @@ public class ServiceAddController extends MainController {
     }
 
     @FXML
-    public void btnOkClicked(){
+    public void btnOkClicked() {
 
         String serviceName = nameField.getText();
         String unit = unitField.getText();
         double rate = Double.parseDouble(rateField.getText());
         int formId = 0;
 
-        for (FormPayment obj : tableForm){
-            if(obj.getForm().equals(formPaymentCmb.getSelectionModel().getSelectedItem())){
+        for (FormPayment obj : tableForm) {
+            if (obj.getForm().equals(formPaymentCmb.getSelectionModel().getSelectedItem())) {
                 formId = obj.getId();
             }
         }
@@ -82,9 +81,9 @@ public class ServiceAddController extends MainController {
     }
 
     @FXML
-    public void btnCancelClicked(){
+    public void btnCancelClicked() {
         Stage stage = new Stage();
-        stage = (Stage)btnCancel.getScene().getWindow();
+        stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }
 }

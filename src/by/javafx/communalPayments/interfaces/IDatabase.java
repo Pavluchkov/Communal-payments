@@ -12,9 +12,6 @@ public interface IDatabase {
 
     void closeConnect() throws SQLException;
 
-    ObservableList<String> getColumn(String tableName, String columnName) throws SQLException;
-    String getValueColumn(String tableName, String columnName, int rowIndex) throws SQLException;
-
     ObservableList<ObjectAccounting> getListObjects(ObjectAccounting object) throws SQLException;
     ObservableList<Counters> getListObjects(Counters object) throws SQLException;
     ObservableList<Payments> getListObjects(Payments object) throws SQLException;

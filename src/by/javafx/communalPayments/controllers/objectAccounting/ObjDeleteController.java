@@ -27,7 +27,7 @@ public class ObjDeleteController extends MainController {
 
     @FXML
     public void initialize() {
-        objectAccounting = (ObjectAccounting)mainController.getSelectedObject();
+        objectAccounting = (ObjectAccounting) mainController.getSelectedObject();
         nameDeleteObject.setText("\"" + objectAccounting.getObjectName() + "\"");
     }
 

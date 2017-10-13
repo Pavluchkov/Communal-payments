@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Properties;
 
 public class MySQLDatabase implements IDatabase {
@@ -29,50 +28,6 @@ public class MySQLDatabase implements IDatabase {
         if (con != null) {
             con.close();
         }
-    }
-
-    @Override
-    public ObservableList<String> getColumn(String tableName, String columnName) throws SQLException {
-        ObservableList<String> column = FXCollections.observableArrayList();
-        PreparedStatement stmt = con.prepareStatement("SELECT " + columnName + " FROM " + tableName);
-
-        ResultSet rs = stmt.executeQuery();
-
-        while (rs.next()) {
-            column.add(rs.getString(1));
-        }
-
-        if (rs != null) {
-            rs.close();
-        }
-
-        if (stmt != null) {
-            stmt.close();
-        }
-
-        return column;
-    }
-
-    @Override
-    public String getValueColumn(String tableName, String columnName, int rowIndex) throws SQLException {
-        ArrayList<String> list = new ArrayList<>();
-        PreparedStatement stmt = con.prepareStatement("SELECT " + columnName + " FROM " + tableName);
-
-        ResultSet rs = stmt.executeQuery();
-
-        while (rs.next()) {
-            list.add(rs.getString(1));
-        }
-
-        if (rs != null) {
-            rs.close();
-        }
-
-        if (stmt != null) {
-            stmt.close();
-        }
-
-        return list.get(rowIndex);
     }
 
     @Override
@@ -319,8 +274,15 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public void delete(Services objects) throws SQLException {
+    public void delete(Services object) throws SQLException {
+        PreparedStatement stmt = con.prepareStatement("DELETE FROM services WHERE id=?");
+        stmt.setInt(1, object.getId());
 
+        stmt.execute();
+
+        if (stmt != null) {
+            stmt.close();
+        }
     }
 
     @Override
@@ -365,8 +327,21 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public void change(Services objects) throws SQLException {
+    public void change(Services object) throws SQLException {
+        PreparedStatement stmt = con.prepareStatement("UPDATE services SET" +
+                " id=?, serviceName=?, unit=?, rate=?, formPayments=?" +
+                " WHERE id=?");
+        stmt.setInt(1, object.getId());
+        stmt.setString(2, object.getServiceName());
+        stmt.setString(3, object.getUnit());
+        stmt.setDouble(4, object.getRate());
+        stmt.setInt(5, object.getFormPayments());
+        stmt.setInt(6, object.getId());
+        stmt.execute();
 
+        if (stmt != null) {
+            stmt.close();
+        }
     }
 
 }

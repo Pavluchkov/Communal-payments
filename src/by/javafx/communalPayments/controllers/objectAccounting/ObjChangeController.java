@@ -1,7 +1,6 @@
 package by.javafx.communalPayments.controllers.objectAccounting;
 
 import by.javafx.communalPayments.controllers.MainController;
-import by.javafx.communalPayments.objects.MyObjects;
 import by.javafx.communalPayments.objects.ObjectAccounting;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

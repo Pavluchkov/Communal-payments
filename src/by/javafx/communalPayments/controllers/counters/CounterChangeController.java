@@ -60,7 +60,7 @@ public class CounterChangeController extends MainController {
 
         for (Services obj : tableService) {
 
-            if(obj.getFormPayments() == 1){
+            if (obj.getFormPayments() == 1) {
                 listServices.add(obj.getServiceName());
             }
 

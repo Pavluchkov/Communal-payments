@@ -2,7 +2,6 @@ package by.javafx.communalPayments.controllers.counters;
 
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.objects.Counters;
-import by.javafx.communalPayments.objects.ObjectAccounting;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,7 +27,7 @@ public class CounterDeleteController extends MainController {
 
     @FXML
     public void initialize() {
-        object = (Counters)mainController.getSelectedObject();
+        object = (Counters) mainController.getSelectedObject();
         nameDeleteObject.setText("\"" + object.getCounterName() + "\"");
     }
 

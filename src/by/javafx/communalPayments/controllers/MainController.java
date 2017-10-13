@@ -7,6 +7,8 @@ import by.javafx.communalPayments.controllers.objectAccounting.ObjAddController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjChangeController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjDeleteController;
 import by.javafx.communalPayments.controllers.services.ServiceAddController;
+import by.javafx.communalPayments.controllers.services.ServiceChangeController;
+import by.javafx.communalPayments.controllers.services.ServiceDeleteController;
 import by.javafx.communalPayments.interfaces.IDatabase;
 import by.javafx.communalPayments.objects.*;
 import javafx.collections.FXCollections;
@@ -159,12 +161,12 @@ public class MainController {
         }
     }
 
-    public void setSelectedObject(MyObjects object){
-        selectedObject = object;
+    public MyObjects getSelectedObject() {
+        return selectedObject;
     }
 
-    public MyObjects getSelectedObject(){
-        return selectedObject;
+    public void setSelectedObject(MyObjects object) {
+        selectedObject = object;
     }
 
     @FXML
@@ -268,14 +270,29 @@ public class MainController {
 
     @FXML
     public void serviceChange() {
-        dialogWindow(new ServiceAddController(), "/by/javafx/communalPayments/fxml/servicesDialog/changeService.fxml",
-                "Изменение услуги", 570, 225);
+        Services object = (Services) T3_service.getSelectionModel().getSelectedItem();
+
+        if (object != null) {
+            setSelectedObject(object);
+            dialogWindow(new ServiceChangeController(this), "/by/javafx/communalPayments/fxml/servicesDialog/servicesChange.fxml",
+                    "Изменение услуги", 400, 305);
+        } else {
+            printDialogError("Ошибка изменения объекта", "Ошибка !", "Не выбран изменяемый объект ! ");
+        }
+
     }
 
     @FXML
     public void serviceDelete() {
-        dialogWindow(new ServiceAddController(), "/by/javafx/communalPayments/fxml/servicesDialog/deleteServiceList.fxml",
-                "Удаление услуги", 450, 190);
+        Services object = (Services) T3_service.getSelectionModel().getSelectedItem();
+
+        if (object != null) {
+            setSelectedObject(object);
+            dialogWindow(new ServiceDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
+                    "Удаление объекта", 380, 200);
+        } else {
+            printDialogError("Ошибка удаления объекта", "Ошибка !", "Не выбран удаляемый объект ! ");
+        }
     }
 
     public void dialogWindow(MainController controller, String resource, String title, int width, int height) {
