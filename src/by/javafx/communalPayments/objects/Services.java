@@ -1,13 +1,13 @@
 package by.javafx.communalPayments.objects;
 
-public class ServiceList extends MyObjects{
+public class Services extends MyObjects{
     private int id;
     private String serviceName;
     private String unit;
     private double rate;
     private int formPayments;
 
-    public ServiceList(int id, String serviceName, String unit, double rate, int formPayments) {
+    public Services(int id, String serviceName, String unit, double rate, int formPayments) {
         this.id = id;
         this.serviceName = serviceName;
         this.unit = unit;
@@ -15,7 +15,7 @@ public class ServiceList extends MyObjects{
         this.formPayments = formPayments;
     }
 
-    public ServiceList() {
+    public Services() {
     }
 
     public int getId() {

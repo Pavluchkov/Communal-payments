@@ -1,12 +1,12 @@
 package by.javafx.communalPayments.controllers;
 
-import by.javafx.communalPayments.controllers.counters.CountersAddController;
-import by.javafx.communalPayments.controllers.counters.CountersChangeController;
-import by.javafx.communalPayments.controllers.counters.CountersDeleteController;
+import by.javafx.communalPayments.controllers.counters.CounterAddController;
+import by.javafx.communalPayments.controllers.counters.CounterChangeController;
+import by.javafx.communalPayments.controllers.counters.CounterDeleteController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjAddController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjChangeController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjDeleteController;
-import by.javafx.communalPayments.controllers.serviceList.ServiceListController;
+import by.javafx.communalPayments.controllers.services.ServiceAddController;
 import by.javafx.communalPayments.interfaces.IDatabase;
 import by.javafx.communalPayments.objects.*;
 import javafx.collections.FXCollections;
@@ -61,17 +61,17 @@ public class MainController {
     private TableColumn<Counters, Integer> T2_nameObjColumn;
 
     @FXML
-    private TableView<ServiceList> T3_service;
+    private TableView<Services> T3_service;
     @FXML
-    private TableColumn<ServiceList, Integer> T3_id_serviceColumn;
+    private TableColumn<Services, Integer> T3_id_serviceColumn;
     @FXML
-    private TableColumn<ServiceList, String> T3_serviceNameColumn;
+    private TableColumn<Services, String> T3_serviceNameColumn;
     @FXML
-    private TableColumn<ServiceList, String> T3_unitColumn;
+    private TableColumn<Services, String> T3_unitColumn;
     @FXML
-    private TableColumn<ServiceList, Double> T3_rateColumn;
+    private TableColumn<Services, Double> T3_rateColumn;
     @FXML
-    private TableColumn<ServiceList, Integer> T3_formPaymentsColumn;
+    private TableColumn<Services, Integer> T3_formPaymentsColumn;
 
     @FXML
     private TableView<Payments> T4_payments;
@@ -116,11 +116,11 @@ public class MainController {
         T2_serviceColumn.setCellValueFactory(new PropertyValueFactory<Counters, Integer>("service"));
         T2_nameObjColumn.setCellValueFactory(new PropertyValueFactory<Counters, Integer>("object"));
 
-        T3_id_serviceColumn.setCellValueFactory(new PropertyValueFactory<ServiceList, Integer>("id"));
-        T3_serviceNameColumn.setCellValueFactory(new PropertyValueFactory<ServiceList, String>("serviceName"));
-        T3_unitColumn.setCellValueFactory(new PropertyValueFactory<ServiceList, String>("unit"));
-        T3_rateColumn.setCellValueFactory(new PropertyValueFactory<ServiceList, Double>("rate"));
-        T3_formPaymentsColumn.setCellValueFactory(new PropertyValueFactory<ServiceList, Integer>("formPayments"));
+        T3_id_serviceColumn.setCellValueFactory(new PropertyValueFactory<Services, Integer>("id"));
+        T3_serviceNameColumn.setCellValueFactory(new PropertyValueFactory<Services, String>("serviceName"));
+        T3_unitColumn.setCellValueFactory(new PropertyValueFactory<Services, String>("unit"));
+        T3_rateColumn.setCellValueFactory(new PropertyValueFactory<Services, Double>("rate"));
+        T3_formPaymentsColumn.setCellValueFactory(new PropertyValueFactory<Services, Integer>("formPayments"));
 
         T4_id_paymentsColumn.setCellValueFactory(new PropertyValueFactory<Payments, Integer>("id_payments"));
         T4_serviceColumn.setCellValueFactory(new PropertyValueFactory<Payments, Integer>("service"));
@@ -142,9 +142,9 @@ public class MainController {
                 T2_counters.setItems(list);
             }
 
-            if (object instanceof ServiceList) {
-                ObservableList<ServiceList> list = FXCollections.observableArrayList();
-                list = database.getListObjects(new ServiceList());
+            if (object instanceof Services) {
+                ObservableList<Services> list = FXCollections.observableArrayList();
+                list = database.getListObjects(new Services());
                 T3_service.setItems(list);
             }
 
@@ -179,7 +179,7 @@ public class MainController {
 
     @FXML
     public void tabServiceChange() {
-        fillTable(new ServiceList());
+        fillTable(new Services());
     }
 
     @FXML
@@ -189,7 +189,7 @@ public class MainController {
 
     @FXML
     public void objAccountAdd() {
-        dialogWindow(new ObjAddController(this), "/by/javafx/communalPayments/fxml/objAccountDialog/addObjAccount.fxml",
+        dialogWindow(new ObjAddController(this), "/by/javafx/communalPayments/fxml/objAccountDialog/objectAccountAdd.fxml",
                 "Добавление объекта учета", 565, 350);
     }
 
@@ -199,7 +199,7 @@ public class MainController {
 
         if (object != null) {
             setSelectedObject(object);
-            dialogWindow(new ObjChangeController(this), "/by/javafx/communalPayments/fxml/objAccountDialog/changeObjAccount.fxml",
+            dialogWindow(new ObjChangeController(this), "/by/javafx/communalPayments/fxml/objAccountDialog/objectAccountChange.fxml",
                     "Изменение объекта учета", 565, 350);
         } else {
             printDialogError("Ошибка изменения объекта", "Ошибка !", "Не выбран изменяемый объект ! ");
@@ -222,7 +222,7 @@ public class MainController {
 
     @FXML
     public void countersAdd() {
-        dialogWindow(new CountersAddController(this), "/by/javafx/communalPayments/fxml/countersDialog/CountersAdd.fxml",
+        dialogWindow(new CounterAddController(this), "/by/javafx/communalPayments/fxml/countersDialog/CountersAdd.fxml",
                 "Добавление счетчика", 400, 265);
     }
 
@@ -232,7 +232,7 @@ public class MainController {
 
         if (object != null) {
             setSelectedObject(object);
-            dialogWindow(new CountersChangeController(this), "/by/javafx/communalPayments/fxml/countersDialog/CountersChange.fxml",
+            dialogWindow(new CounterChangeController(this), "/by/javafx/communalPayments/fxml/countersDialog/CountersChange.fxml",
                     "Изменение счетчика", 400, 265);
         } else {
             printDialogError("Ошибка изменения объекта", "Ошибка !", "Не выбран изменяемый объект ! ");
@@ -246,7 +246,7 @@ public class MainController {
 
         if (object != null) {
             setSelectedObject(object);
-            dialogWindow(new CountersDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
+            dialogWindow(new CounterDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
                     "Удаление объекта", 380, 200);
         } else {
             printDialogError("Ошибка удаления объекта", "Ошибка !", "Не выбран удаляемый объект ! ");
@@ -255,27 +255,27 @@ public class MainController {
     }
 
     @FXML
-    public void servListAdd() {
-        dialogWindow(new ServiceListController(), "/by/javafx/communalPayments/fxml/serviceListDialog/addServiceList.fxml",
-                "Добавление услуги", 400, 310);
+    public void inputValueCounterClicked() {
+        dialogWindow(new CounterAddController(), "/by/javafx/communalPayments/fxml/countersDialog/inputCounterValue.fxml",
+                "Ввод показаний счетчика", 400, 265);
     }
 
     @FXML
-    public void servListChange() {
-        dialogWindow(new ServiceListController(), "/by/javafx/communalPayments/fxml/serviceListDialog/changeServiceList.fxml",
+    public void serviceAdd() {
+        dialogWindow(new ServiceAddController(this), "/by/javafx/communalPayments/fxml/servicesDialog/servicesAdd.fxml",
+                "Добавление услуги", 400, 305);
+    }
+
+    @FXML
+    public void serviceChange() {
+        dialogWindow(new ServiceAddController(), "/by/javafx/communalPayments/fxml/servicesDialog/changeService.fxml",
                 "Изменение услуги", 570, 225);
     }
 
     @FXML
-    public void servListDelete() {
-        dialogWindow(new ServiceListController(), "/by/javafx/communalPayments/fxml/serviceListDialog/deleteServiceList.fxml",
+    public void serviceDelete() {
+        dialogWindow(new ServiceAddController(), "/by/javafx/communalPayments/fxml/servicesDialog/deleteServiceList.fxml",
                 "Удаление услуги", 450, 190);
-    }
-
-    @FXML
-    public void inputValueCounterClicked() {
-        dialogWindow(new CountersAddController(), "/by/javafx/communalPayments/fxml/countersDialog/inputCounterValue.fxml",
-                "Ввод показаний счетчика", 400, 265);
     }
 
     public void dialogWindow(MainController controller, String resource, String title, int width, int height) {

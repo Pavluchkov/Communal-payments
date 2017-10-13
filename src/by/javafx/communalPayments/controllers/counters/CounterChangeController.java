@@ -3,7 +3,7 @@ package by.javafx.communalPayments.controllers.counters;
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.objects.Counters;
 import by.javafx.communalPayments.objects.ObjectAccounting;
-import by.javafx.communalPayments.objects.ServiceList;
+import by.javafx.communalPayments.objects.Services;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,11 +14,11 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-public class CountersChangeController extends MainController {
+public class CounterChangeController extends MainController {
     private Counters object;
     private MainController mainController;
     private ObservableList<ObjectAccounting> tableObject = FXCollections.observableArrayList();
-    private ObservableList<ServiceList> tableService = FXCollections.observableArrayList();
+    private ObservableList<Services> tableService = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox<String> objectCombo;
@@ -29,11 +29,11 @@ public class CountersChangeController extends MainController {
     @FXML
     private Button btnCancel;
 
-    public CountersChangeController(MainController mainController) {
+    public CounterChangeController(MainController mainController) {
         this.mainController = mainController;
     }
 
-    public CountersChangeController() {
+    public CounterChangeController() {
     }
 
     @FXML
@@ -42,7 +42,7 @@ public class CountersChangeController extends MainController {
 
         try {
             tableObject = database.getListObjects(new ObjectAccounting());
-            tableService = database.getListObjects(new ServiceList());
+            tableService = database.getListObjects(new Services());
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,7 +58,7 @@ public class CountersChangeController extends MainController {
             }
         }
 
-        for (ServiceList obj : tableService) {
+        for (Services obj : tableService) {
 
             if(obj.getFormPayments() == 1){
                 listServices.add(obj.getServiceName());
@@ -90,7 +90,7 @@ public class CountersChangeController extends MainController {
             }
         }
 
-        for (ServiceList obj : tableService) {
+        for (Services obj : tableService) {
             if (selectedItemService.equals(obj.getServiceName())) {
                 serviceId = obj.getId();
             }

@@ -113,7 +113,7 @@
                <children>
                   <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <children>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#servListAdd" prefHeight="30.0" prefWidth="95.0" text="Добавить">
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#serviceAdd" prefHeight="30.0" prefWidth="95.0" text="Добавить">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -121,12 +121,12 @@
                               <Insets right="25.0" />
                            </HBox.margin>
                         </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#servListChange" prefHeight="30.0" prefWidth="95.0" text="Изменить">
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#serviceChange" prefHeight="30.0" prefWidth="95.0" text="Изменить">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Button>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#servListDelete" prefHeight="30.0" prefWidth="95.0" text="Удалить">
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#serviceDelete" prefHeight="30.0" prefWidth="95.0" text="Удалить">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>

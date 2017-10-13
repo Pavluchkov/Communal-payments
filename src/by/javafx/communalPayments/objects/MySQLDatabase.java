@@ -171,8 +171,8 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public ObservableList<ServiceList> getListObjects(ServiceList object) throws SQLException {
-        ObservableList<ServiceList> objectList = FXCollections.observableArrayList();
+    public ObservableList<Services> getListObjects(Services object) throws SQLException {
+        ObservableList<Services> objectList = FXCollections.observableArrayList();
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM " + "services");
         ResultSet rs = stmt.executeQuery();
 
@@ -188,7 +188,34 @@ public class MySQLDatabase implements IDatabase {
             unit = rs.getString(3);
             rate = rs.getDouble(4);
             formPayments = rs.getInt(5);
-            objectList.add(new ServiceList(idService, serviceName, unit, rate, formPayments));
+            objectList.add(new Services(idService, serviceName, unit, rate, formPayments));
+        }
+
+
+        if (rs != null) {
+            rs.close();
+        }
+
+        if (stmt != null) {
+            stmt.close();
+        }
+
+        return objectList;
+    }
+
+    @Override
+    public ObservableList<FormPayment> getListObjects(FormPayment object) throws SQLException {
+        ObservableList<FormPayment> objectList = FXCollections.observableArrayList();
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM " + "formpayments");
+        ResultSet rs = stmt.executeQuery();
+
+        int id;
+        String form;
+
+        while (rs.next()) {
+            id = rs.getInt(1);
+            form = rs.getString(2);
+            objectList.add(new FormPayment(id, form));
         }
 
 
@@ -246,8 +273,20 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public void add(ServiceList objects) throws SQLException {
+    public void add(Services object) throws SQLException {
+        PreparedStatement stmt = con.prepareStatement("INSERT INTO services" +
+                "(serviceName, unit, rate, formPayments) VALUES (?, ?, ?, ?)");
 
+        stmt.setString(1, object.getServiceName());
+        stmt.setString(2, object.getUnit());
+        stmt.setDouble(3, object.getRate());
+        stmt.setInt(4, object.getFormPayments());
+
+        stmt.execute();
+
+        if (stmt != null) {
+            stmt.close();
+        }
     }
 
     @Override
@@ -280,7 +319,7 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public void delete(ServiceList objects) throws SQLException {
+    public void delete(Services objects) throws SQLException {
 
     }
 
@@ -326,7 +365,7 @@ public class MySQLDatabase implements IDatabase {
     }
 
     @Override
-    public void change(ServiceList objects) throws SQLException {
+    public void change(Services objects) throws SQLException {
 
     }
 
