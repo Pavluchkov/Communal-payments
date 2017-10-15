@@ -10,6 +10,8 @@ import by.javafx.communalPayments.controllers.services.ServiceAddController;
 import by.javafx.communalPayments.controllers.services.ServiceChangeController;
 import by.javafx.communalPayments.controllers.services.ServiceDeleteController;
 import by.javafx.communalPayments.interfaces.IDatabase;
+import by.javafx.communalPayments.interfaces.Observer;
+import by.javafx.communalPayments.interfaces.Subject;
 import by.javafx.communalPayments.objects.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,7 +31,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class MainController {
+public class MainController implements Observer{
     protected IDatabase database = new MySQLDatabase();
     private MyObjects selectedObject;
 
@@ -104,6 +106,9 @@ public class MainController {
     @FXML
     private void initialize() {
 
+        Subject subject = new MySQLDatabase();// Устанавливаем наблюдателя
+        subject.registerObserver(this);    //      за MySQLDatabase
+
 // устанавливаем тип и значение которое должно хранится в колонке
 
         T1_personalAccountColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, Integer>("id"));
@@ -128,9 +133,14 @@ public class MainController {
         T4_serviceColumn.setCellValueFactory(new PropertyValueFactory<Payments, Integer>("service"));
         T4_valuePaymentsColumn.setCellValueFactory(new PropertyValueFactory<Payments, Double>("valuePayments"));
         T4_datePaymentsColumn.setCellValueFactory(new PropertyValueFactory<Payments, String>("datePayments"));
+
+        fillTable(new ObjectAccounting());
+        fillTable(new Counters());
+        fillTable(new Services());
+        fillTable(new Payments());
     }
 
-    public void fillTable(MyObjects object) {
+    private void fillTable(MyObjects object) {
         try {
             if (object instanceof ObjectAccounting) {
                 ObservableList<ObjectAccounting> list = FXCollections.observableArrayList();
@@ -165,28 +175,28 @@ public class MainController {
         return selectedObject;
     }
 
-    public void setSelectedObject(MyObjects object) {
+    private void setSelectedObject(MyObjects object) {
         selectedObject = object;
     }
 
     @FXML
     public void tabObjAccountChange() {
-        fillTable(new ObjectAccounting());
+
     }
 
     @FXML
     public void tabCountersChange() {
-        fillTable(new Counters());
+
     }
 
     @FXML
     public void tabServiceChange() {
-        fillTable(new Services());
+
     }
 
     @FXML
     public void tabPaymentsChange() {
-        fillTable(new Payments());
+
     }
 
     @FXML
@@ -295,7 +305,7 @@ public class MainController {
         }
     }
 
-    public void dialogWindow(MainController controller, String resource, String title, int width, int height) {
+    private void dialogWindow(MainController controller, String resource, String title, int width, int height) {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource(resource));
@@ -303,21 +313,21 @@ public class MainController {
         Parent root = null;
         try {
             root = fxmlLoader.load();
-
+            stage.setTitle(title);
+            stage.setScene(new Scene(root, width, height));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(tabPane.getScene().getWindow());
+            javafx.scene.image.Image ico = new Image("/by/javafx/communalPayments/ico/icon.png");
+            stage.getIcons().add(ico);
+            stage.setResizable(false);
+            stage.show();
         } catch (Throwable e) {
             System.out.println(e.getMessage());
         }
-        stage.setTitle(title);
-        stage.setScene(new Scene(root, width, height));
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(tabPane.getScene().getWindow());
-        javafx.scene.image.Image ico = new Image("/by/javafx/communalPayments/ico/icon.png");
-        stage.getIcons().add(ico);
-        stage.setResizable(false);
-        stage.show();
+
     }
 
-    void printDialogError(String title, String headerText, String contentText) {
+    private void printDialogError(String title, String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
@@ -326,5 +336,14 @@ public class MainController {
         stage.getIcons().add(new Image("/by/javafx/communalPayments/ico/icon.png"));
         alert.showAndWait();
         alert.close();
+    }
+
+    @Override
+    public void update() {
+        //System.out.println("Metod Update MainController");
+        fillTable(new ObjectAccounting());
+        fillTable(new Counters());
+        fillTable(new Services());
+        fillTable(new Payments());
     }
 }

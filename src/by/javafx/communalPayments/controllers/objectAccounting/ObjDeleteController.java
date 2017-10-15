@@ -42,16 +42,13 @@ public class ObjDeleteController extends MainController {
             }
         }
 
-        mainController.fillTable(objectAccounting);
         btnCancelClicked();
 
     }
 
     @FXML
-    public void btnCancelClicked() {
-
-        Stage stage = new Stage();
-        stage = (Stage) btnCancel.getScene().getWindow();
+    private void btnCancelClicked() {
+        Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }
 

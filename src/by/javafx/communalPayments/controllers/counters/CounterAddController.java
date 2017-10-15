@@ -96,12 +96,11 @@ public class CounterAddController extends MainController {
             e.printStackTrace();
         }
 
-        mainController.fillTable(new Counters());
         btnCancelClicked();
     }
 
     @FXML
-    void btnCancelClicked() {
+    private void btnCancelClicked() {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }

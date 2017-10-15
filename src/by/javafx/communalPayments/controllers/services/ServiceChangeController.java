@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 
 public class ServiceChangeController extends MainController {
-    Services object;
+    private Services object;
     private MainController mainController;
     private ObservableList<FormPayment> tableForm = FXCollections.observableArrayList();
 
@@ -83,15 +83,12 @@ public class ServiceChangeController extends MainController {
             e.printStackTrace();
         }
 
-        mainController.fillTable(new Services());
-
         btnCancelClicked();
     }
 
     @FXML
-    public void btnCancelClicked() {
-        Stage stage = new Stage();
-        stage = (Stage) btnCancel.getScene().getWindow();
+    private void btnCancelClicked() {
+        Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }
 }

@@ -1,14 +1,18 @@
 package by.javafx.communalPayments.objects;
 
 import by.javafx.communalPayments.interfaces.IDatabase;
+import by.javafx.communalPayments.interfaces.Observer;
+import by.javafx.communalPayments.interfaces.Subject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Properties;
 
-public class MySQLDatabase implements IDatabase {
+public class MySQLDatabase implements IDatabase, Subject {
     private static Connection con;
+    private static ArrayList<Observer> observers = new ArrayList<Observer>();
 
     @Override
     public void setConnectDatabase(String connectionString) throws ClassNotFoundException, SQLException {
@@ -203,6 +207,7 @@ public class MySQLDatabase implements IDatabase {
             stmt.close();
         }
 
+        dataChange();
     }
 
     @Override
@@ -220,6 +225,7 @@ public class MySQLDatabase implements IDatabase {
             stmt.close();
         }
 
+        dataChange();
     }
 
     @Override
@@ -242,6 +248,8 @@ public class MySQLDatabase implements IDatabase {
         if (stmt != null) {
             stmt.close();
         }
+
+        dataChange();
     }
 
     @Override
@@ -254,6 +262,8 @@ public class MySQLDatabase implements IDatabase {
         if (stmt != null) {
             stmt.close();
         }
+
+        dataChange();
     }
 
     @Override
@@ -266,11 +276,13 @@ public class MySQLDatabase implements IDatabase {
         if (stmt != null) {
             stmt.close();
         }
+
+        dataChange();
     }
 
     @Override
     public void delete(Payments objects) throws SQLException {
-
+        dataChange();
     }
 
     @Override
@@ -283,6 +295,8 @@ public class MySQLDatabase implements IDatabase {
         if (stmt != null) {
             stmt.close();
         }
+
+        dataChange();
     }
 
     @Override
@@ -302,6 +316,8 @@ public class MySQLDatabase implements IDatabase {
         if (stmt != null) {
             stmt.close();
         }
+
+        dataChange();
     }
 
     @Override
@@ -319,11 +335,13 @@ public class MySQLDatabase implements IDatabase {
         if (stmt != null) {
             stmt.close();
         }
+
+        dataChange();
     }
 
     @Override
     public void change(Payments objects) throws SQLException {
-
+        dataChange();
     }
 
     @Override
@@ -342,6 +360,35 @@ public class MySQLDatabase implements IDatabase {
         if (stmt != null) {
             stmt.close();
         }
+
+        dataChange();
     }
 
+    @Override
+    public void registerObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        int i = observers.indexOf(o);
+
+        if(i >= 0){
+            observers.remove(i);
+        }
+    }
+
+    @Override
+    public void notifyObserver() {
+
+        for (int i = 0; i < observers.size(); i++) {
+            Observer observer = (Observer)observers.get(i);
+            observer.update();
+        }
+
+    }
+
+    public void dataChange(){
+        notifyObserver();
+    }
 }

@@ -40,16 +40,13 @@ public class ServiceDeleteController extends MainController {
             e.printStackTrace();
         }
 
-        mainController.fillTable(object);
         btnCancelClicked();
 
     }
 
     @FXML
-    public void btnCancelClicked() {
-
-        Stage stage = new Stage();
-        stage = (Stage) btnCancel.getScene().getWindow();
+    private void btnCancelClicked() {
+        Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }
 

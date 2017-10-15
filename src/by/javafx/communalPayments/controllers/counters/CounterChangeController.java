@@ -104,12 +104,11 @@ public class CounterChangeController extends MainController {
             e.printStackTrace();
         }
 
-        mainController.fillTable(object);
         btnCancelClicked();
     }
 
     @FXML
-    void btnCancelClicked() {
+    private void btnCancelClicked() {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }
