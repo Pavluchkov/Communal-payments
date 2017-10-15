@@ -96,28 +96,28 @@ public class MainController implements Observer {
         setConnection("jdbc:mysql://localhost:3306/communalPayments");
 
 // устанавливаем тип и значение которое должно хранится в колонке
-        T1_personalAccountColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, Integer>("id"));
-        T1_nameObjColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, String>("objectName"));
-        T1_ownerColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, String>("owner"));
-        T1_addressColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, String>("address"));
-        T1_residentsColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, Integer>("residents"));
-        T1_areaColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, Double>("area"));
+        T1_personalAccountColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        T1_nameObjColumn.setCellValueFactory(new PropertyValueFactory<>("objectName"));
+        T1_ownerColumn.setCellValueFactory(new PropertyValueFactory<>("owner"));
+        T1_addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        T1_residentsColumn.setCellValueFactory(new PropertyValueFactory<>("residents"));
+        T1_areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
 
-        T2_id_counterColumn.setCellValueFactory(new PropertyValueFactory<Counters, Integer>("id"));
-        T2_counterNameColumn.setCellValueFactory(new PropertyValueFactory<Counters, String>("counterName"));
-        T2_serviceColumn.setCellValueFactory(new PropertyValueFactory<Counters, Integer>("service"));
-        T2_nameObjColumn.setCellValueFactory(new PropertyValueFactory<Counters, Integer>("object"));
+        T2_id_counterColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        T2_counterNameColumn.setCellValueFactory(new PropertyValueFactory<>("counterName"));
+        T2_serviceColumn.setCellValueFactory(new PropertyValueFactory<>("service"));
+        T2_nameObjColumn.setCellValueFactory(new PropertyValueFactory<>("object"));
 
-        T3_id_serviceColumn.setCellValueFactory(new PropertyValueFactory<Services, Integer>("id"));
-        T3_serviceNameColumn.setCellValueFactory(new PropertyValueFactory<Services, String>("serviceName"));
-        T3_unitColumn.setCellValueFactory(new PropertyValueFactory<Services, String>("unit"));
-        T3_rateColumn.setCellValueFactory(new PropertyValueFactory<Services, Double>("rate"));
-        T3_formPaymentsColumn.setCellValueFactory(new PropertyValueFactory<Services, Integer>("formPayments"));
+        T3_id_serviceColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        T3_serviceNameColumn.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
+        T3_unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
+        T3_rateColumn.setCellValueFactory(new PropertyValueFactory<>("rate"));
+        T3_formPaymentsColumn.setCellValueFactory(new PropertyValueFactory<>("formPayments"));
 
-        T4_id_paymentsColumn.setCellValueFactory(new PropertyValueFactory<Payments, Integer>("id_payments"));
-        T4_serviceColumn.setCellValueFactory(new PropertyValueFactory<Payments, Integer>("service"));
-        T4_valuePaymentsColumn.setCellValueFactory(new PropertyValueFactory<Payments, Double>("valuePayments"));
-        T4_datePaymentsColumn.setCellValueFactory(new PropertyValueFactory<Payments, String>("datePayments"));
+        T4_id_paymentsColumn.setCellValueFactory(new PropertyValueFactory<>("id_payments"));
+        T4_serviceColumn.setCellValueFactory(new PropertyValueFactory<>("service"));
+        T4_valuePaymentsColumn.setCellValueFactory(new PropertyValueFactory<>("valuePayments"));
+        T4_datePaymentsColumn.setCellValueFactory(new PropertyValueFactory<>("datePayments"));
 
         update();
     }
