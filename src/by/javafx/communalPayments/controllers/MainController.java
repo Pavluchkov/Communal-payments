@@ -28,10 +28,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
-public class MainController implements Observer{
+public class MainController implements Observer {
     protected IDatabase database = new MySQLDatabase();
     private MyObjects selectedObject;
 
@@ -88,29 +87,15 @@ public class MainController implements Observer{
     @FXML
     private TableColumn<Payments, String> T4_datePaymentsColumn;
 
-    public MainController() {
-
-        String connectionString = "jdbc:mysql://localhost:3306/communalPayments";
-
-        try {
-            database.setConnectDatabase(connectionString);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     @FXML
     private void initialize() {
 
         Subject subject = new MySQLDatabase();// Устанавливаем наблюдателя
         subject.registerObserver(this);    //      за MySQLDatabase
 
-// устанавливаем тип и значение которое должно хранится в колонке
+        setConnection("jdbc:mysql://localhost:3306/communalPayments");
 
+// устанавливаем тип и значение которое должно хранится в колонке
         T1_personalAccountColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, Integer>("id"));
         T1_nameObjColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, String>("objectName"));
         T1_ownerColumn.setCellValueFactory(new PropertyValueFactory<ObjectAccounting, String>("owner"));
@@ -134,10 +119,16 @@ public class MainController implements Observer{
         T4_valuePaymentsColumn.setCellValueFactory(new PropertyValueFactory<Payments, Double>("valuePayments"));
         T4_datePaymentsColumn.setCellValueFactory(new PropertyValueFactory<Payments, String>("datePayments"));
 
-        fillTable(new ObjectAccounting());
-        fillTable(new Counters());
-        fillTable(new Services());
-        fillTable(new Payments());
+        update();
+    }
+
+    private void setConnection(String connectionString) {
+
+        try {
+            database.setConnectDatabase(connectionString);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void fillTable(MyObjects object) {
@@ -340,7 +331,6 @@ public class MainController implements Observer{
 
     @Override
     public void update() {
-        //System.out.println("Metod Update MainController");
         fillTable(new ObjectAccounting());
         fillTable(new Counters());
         fillTable(new Services());

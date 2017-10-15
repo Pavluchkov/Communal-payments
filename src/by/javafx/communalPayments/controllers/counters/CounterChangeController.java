@@ -53,6 +53,7 @@ public class CounterChangeController extends MainController {
 
         for (ObjectAccounting obj : tableObject) {
             listObjects.add(obj.getObjectName());
+
             if (obj.getId() == object.getObject()) {
                 objectCombo.setValue(obj.getObjectName());
             }
@@ -85,12 +86,14 @@ public class CounterChangeController extends MainController {
         String selectedItemService = serviceCombo.getSelectionModel().getSelectedItem();
 
         for (ObjectAccounting obj : tableObject) {
+
             if (selectedItemObj.equals(obj.getObjectName())) {
                 objectId = obj.getId();
             }
         }
 
         for (Services obj : tableService) {
+
             if (selectedItemService.equals(obj.getServiceName())) {
                 serviceId = obj.getId();
             }

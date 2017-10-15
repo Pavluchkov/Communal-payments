@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public interface IDatabase {
 
-    void setConnectDatabase(String connectionString) throws IOException, ClassNotFoundException, SQLException;
+    void setConnectDatabase(String connectionString) throws ClassNotFoundException, SQLException;
 
     void closeConnect() throws SQLException;
 

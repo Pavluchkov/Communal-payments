@@ -34,12 +34,10 @@ public class CounterDeleteController extends MainController {
     @FXML
     public void btnOkClicked() {
 
-        if (object != null) {
-            try {
-                database.delete(object);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        try {
+            database.delete(object);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         btnCancelClicked();

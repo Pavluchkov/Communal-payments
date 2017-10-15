@@ -12,7 +12,7 @@ import java.util.Properties;
 
 public class MySQLDatabase implements IDatabase, Subject {
     private static Connection con;
-    private static ArrayList<Observer> observers = new ArrayList<Observer>();
+    private static ArrayList<Observer> observers = new ArrayList<>();
 
     @Override
     public void setConnectDatabase(String connectionString) throws ClassNotFoundException, SQLException {
@@ -57,13 +57,8 @@ public class MySQLDatabase implements IDatabase, Subject {
             objectList.add(new ObjectAccounting(id, objectName, owner, address, residents, area));
         }
 
-        if (rs != null) {
-            rs.close();
-        }
-
-        if (stmt != null) {
-            stmt.close();
-        }
+        rs.close();
+        stmt.close();
 
         return objectList;
 
@@ -88,13 +83,8 @@ public class MySQLDatabase implements IDatabase, Subject {
             objectList.add(new Counters(idCounters, counterName, service, objectId));
         }
 
-        if (rs != null) {
-            rs.close();
-        }
-
-        if (stmt != null) {
-            stmt.close();
-        }
+        rs.close();
+        stmt.close();
 
         return objectList;
     }
@@ -118,13 +108,8 @@ public class MySQLDatabase implements IDatabase, Subject {
             objectList.add(new Payments(id_payments, service_id, valuePayments, datePayments));
         }
 
-        if (rs != null) {
-            rs.close();
-        }
-
-        if (stmt != null) {
-            stmt.close();
-        }
+        rs.close();
+        stmt.close();
 
         return objectList;
     }
@@ -150,14 +135,8 @@ public class MySQLDatabase implements IDatabase, Subject {
             objectList.add(new Services(idService, serviceName, unit, rate, formPayments));
         }
 
-
-        if (rs != null) {
-            rs.close();
-        }
-
-        if (stmt != null) {
-            stmt.close();
-        }
+        rs.close();
+        stmt.close();
 
         return objectList;
     }
@@ -177,14 +156,8 @@ public class MySQLDatabase implements IDatabase, Subject {
             objectList.add(new FormPayment(id, form));
         }
 
-
-        if (rs != null) {
-            rs.close();
-        }
-
-        if (stmt != null) {
-            stmt.close();
-        }
+        rs.close();
+        stmt.close();
 
         return objectList;
     }
@@ -203,10 +176,7 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.setDouble(6, object.getArea());
         stmt.execute();
 
-        if (stmt != null) {
-            stmt.close();
-        }
-
+        stmt.close();
         dataChange();
     }
 
@@ -221,10 +191,7 @@ public class MySQLDatabase implements IDatabase, Subject {
 
         stmt.execute();
 
-        if (stmt != null) {
-            stmt.close();
-        }
-
+        stmt.close();
         dataChange();
     }
 
@@ -245,10 +212,7 @@ public class MySQLDatabase implements IDatabase, Subject {
 
         stmt.execute();
 
-        if (stmt != null) {
-            stmt.close();
-        }
-
+        stmt.close();
         dataChange();
     }
 
@@ -259,10 +223,7 @@ public class MySQLDatabase implements IDatabase, Subject {
 
         stmt.execute();
 
-        if (stmt != null) {
-            stmt.close();
-        }
-
+        stmt.close();
         dataChange();
     }
 
@@ -273,10 +234,7 @@ public class MySQLDatabase implements IDatabase, Subject {
 
         stmt.execute();
 
-        if (stmt != null) {
-            stmt.close();
-        }
-
+        stmt.close();
         dataChange();
     }
 
@@ -292,10 +250,7 @@ public class MySQLDatabase implements IDatabase, Subject {
 
         stmt.execute();
 
-        if (stmt != null) {
-            stmt.close();
-        }
-
+        stmt.close();
         dataChange();
     }
 
@@ -313,10 +268,7 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.setInt(7, id);
         stmt.execute();
 
-        if (stmt != null) {
-            stmt.close();
-        }
-
+        stmt.close();
         dataChange();
     }
 
@@ -332,10 +284,7 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.setInt(5, object.getId());
         stmt.execute();
 
-        if (stmt != null) {
-            stmt.close();
-        }
-
+        stmt.close();
         dataChange();
     }
 
@@ -357,10 +306,7 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.setInt(6, object.getId());
         stmt.execute();
 
-        if (stmt != null) {
-            stmt.close();
-        }
-
+        stmt.close();
         dataChange();
     }
 
@@ -381,14 +327,13 @@ public class MySQLDatabase implements IDatabase, Subject {
     @Override
     public void notifyObserver() {
 
-        for (int i = 0; i < observers.size(); i++) {
-            Observer observer = (Observer)observers.get(i);
-            observer.update();
+        for (Observer o : observers){
+            o.update();
         }
 
     }
 
-    public void dataChange(){
+    private void dataChange(){
         notifyObserver();
     }
 }
