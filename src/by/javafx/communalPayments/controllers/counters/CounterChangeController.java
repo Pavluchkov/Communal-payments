@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -29,6 +30,8 @@ public class CounterChangeController extends MainController {
     @FXML
     private TextField recentField;
     @FXML
+    private Label measureLabel;
+    @FXML
     private Button btnCancel;
 
     public CounterChangeController(MainController mainController) {
@@ -41,6 +44,7 @@ public class CounterChangeController extends MainController {
     @FXML
     public void initialize() {
         object = (Counters) mainController.getSelectedObject();
+        measureLabel.setText("Последние показания");
 
         try {
             tableObject = database.getListObjects(new ObjectAccounting());

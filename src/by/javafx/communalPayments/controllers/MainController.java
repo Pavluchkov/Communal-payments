@@ -276,7 +276,7 @@ public class MainController implements Observer {
             dialogWindow(new MeasureController(this), "/by/javafx/communalPayments/fxml/countersDialog/inputMeasure.fxml",
                     "Ввод показаний счетчика", 400, 305);
         } else {
-            printDialogError("Ошибка !", "Ошибка !", "Не выбран счетчик ! ");
+            printDialogError("Внесение показаний", "Ошибка !", "Не выбран счетчик ! ");
         }
     }
 

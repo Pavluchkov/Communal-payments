@@ -84,8 +84,11 @@ public class MeasureController extends MainController{
         Date date = Date.valueOf(datePicker.getValue());
 
         Measurement measurement = new Measurement(0, counter, measure, date);
+        object.setRecentMeasure(measure);
+
         try {
             database.add(measurement);
+            database.change(object);
         } catch (SQLException e) {
             e.printStackTrace();
         }

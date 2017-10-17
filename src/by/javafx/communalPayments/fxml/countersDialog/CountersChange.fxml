@@ -83,7 +83,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="181.0" prefHeight="30.0" prefWidth="477.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="180.0">
          <children>
-            <Label prefHeight="30.0" prefWidth="155.0" text="Начальные показания">
+            <Label fx:id="measureLabel" prefHeight="30.0" prefWidth="155.0" text="Начальные показания">
                <font>
                   <Font name="Arial Italic" size="14.0" />
                </font>
