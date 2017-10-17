@@ -1,12 +1,15 @@
 package by.javafx.communalPayments.objects;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class Measurement extends MyObjects {
     private int id;
     private int counter;
     private double measure;
-    private String date;
+    private Date date;
 
-    public Measurement(int id, int counter, double measure, String date) {
+    public Measurement(int id, int counter, double measure, Date date) {
         this.id = id;
         this.counter = counter;
         this.measure = measure;
@@ -40,11 +43,11 @@ public class Measurement extends MyObjects {
         this.measure = measure;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

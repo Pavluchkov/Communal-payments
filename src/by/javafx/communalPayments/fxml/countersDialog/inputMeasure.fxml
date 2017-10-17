@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="265.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="305.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER" layoutY="6.0" prefHeight="40.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
          <children>
-            <Label text="Показания счетчика">
+            <Label fx:id="textLabel">
                <font>
                   <Font name="Arial Bold Italic" size="18.0" />
                </font>
@@ -32,12 +32,16 @@
                   <Font name="Arial Italic" size="14.0" />
                </font>
             </Label>
-            <ComboBox prefHeight="30.0" prefWidth="220.0" />
+            <TextField fx:id="objectField" editable="false" prefHeight="30.0" prefWidth="220.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </TextField>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="4.0" layoutY="90.0" prefHeight="30.0" prefWidth="477.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
          <children>
-            <Label prefHeight="30.0" prefWidth="140.0" text="Счетчик">
+            <Label prefHeight="30.0" prefWidth="140.0" text="Услуга">
                <font>
                   <Font name="Arial Italic" size="14.0" />
                </font>
@@ -45,12 +49,16 @@
                   <Insets />
                </HBox.margin>
             </Label>
-            <ComboBox prefHeight="30.0" prefWidth="220.0" />
+            <TextField fx:id="serviceField" editable="false" prefHeight="30.0" prefWidth="220.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </TextField>
          </children>
       </HBox>
-      <HBox alignment="CENTER_RIGHT" layoutX="12.0" layoutY="233.0" prefHeight="30.0" prefWidth="521.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="210.0">
+      <HBox alignment="CENTER_RIGHT" layoutX="12.0" layoutY="233.0" prefHeight="30.0" prefWidth="521.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="250.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" text="Подтвердить">
+            <Button mnemonicParsing="false" onAction="#btnOkClicked" prefHeight="30.0" prefWidth="110.0" text="Подтвердить">
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Button>
@@ -74,11 +82,24 @@
                   <Insets />
                </HBox.margin>
             </Label>
-            <TextField prefHeight="30.0" prefWidth="220.0">
+            <TextField fx:id="measureField" prefHeight="30.0" prefWidth="220.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
             </TextField>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="184.0" prefHeight="30.0" prefWidth="477.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="180.0">
+         <children>
+            <Label prefHeight="30.0" prefWidth="140.0" text="Дата">
+               <font>
+                  <Font name="Arial Italic" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <DatePicker fx:id="datePicker" prefHeight="30.0" prefWidth="220.0" />
          </children>
       </HBox>
    </children>

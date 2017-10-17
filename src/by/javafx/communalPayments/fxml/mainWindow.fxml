@@ -77,7 +77,7 @@
                   </TableView>
                   <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#inputValueCounterClicked" prefHeight="30.0" prefWidth="140.0" text="Внести показания">
+                        <Button mnemonicParsing="false" onAction="#inputMeasureClicked" prefHeight="30.0" prefWidth="140.0" text="Внести показания">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>

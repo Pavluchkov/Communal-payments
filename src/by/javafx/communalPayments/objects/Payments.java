@@ -1,13 +1,16 @@
 package by.javafx.communalPayments.objects;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class Payments extends MyObjects{
     private int id;
     private int object;
     private int service;
     private double sum;
-    private String date;
+    private Date date;
 
-    public Payments(int id, int object, int service, double sum, String date) {
+    public Payments(int id, int object, int service, double sum, Date date) {
         this.id = id;
         this.object = object;
         this.service = service;
@@ -50,11 +53,11 @@ public class Payments extends MyObjects{
         this.sum = sum;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

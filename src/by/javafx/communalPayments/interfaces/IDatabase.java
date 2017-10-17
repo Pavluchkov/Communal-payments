@@ -21,6 +21,7 @@ public interface IDatabase {
     void add(Counters object) throws SQLException;
     void add(Payments object) throws SQLException;
     void add(Services object) throws SQLException;
+    void add(Measurement object) throws SQLException;
 
     void delete(ObjectAccounting object) throws SQLException;
     void delete(Counters object) throws SQLException;

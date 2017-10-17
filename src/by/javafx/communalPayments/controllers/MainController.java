@@ -3,6 +3,7 @@ package by.javafx.communalPayments.controllers;
 import by.javafx.communalPayments.controllers.counters.CounterAddController;
 import by.javafx.communalPayments.controllers.counters.CounterChangeController;
 import by.javafx.communalPayments.controllers.counters.CounterDeleteController;
+import by.javafx.communalPayments.controllers.counters.MeasureController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjAddController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjChangeController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjDeleteController;
@@ -28,7 +29,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class MainController implements Observer {
     protected IDatabase database = new MySQLDatabase();
@@ -89,7 +92,7 @@ public class MainController implements Observer {
     @FXML
     private TableColumn<Payments, Double> T4_sumColumn;
     @FXML
-    private TableColumn<Payments, String> T4_datePaymentsColumn;
+    private TableColumn<Payments, Date> T4_datePaymentsColumn;
 
     @FXML
     private void initialize() {
@@ -162,6 +165,7 @@ public class MainController implements Observer {
                 list = database.getListObjects(new Payments());
                 T4_payments.setItems(list);
             }
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -264,9 +268,16 @@ public class MainController implements Observer {
     }
 
     @FXML
-    public void inputValueCounterClicked() {
-        dialogWindow(new CounterAddController(), "/by/javafx/communalPayments/fxml/countersDialog/inputCounterValue.fxml",
-                "Ввод показаний счетчика", 400, 265);
+    public void inputMeasureClicked() {
+        Counters object = (Counters) T2_counters.getSelectionModel().getSelectedItem();
+
+        if (object != null) {
+            setSelectedObject(object);
+            dialogWindow(new MeasureController(this), "/by/javafx/communalPayments/fxml/countersDialog/inputMeasure.fxml",
+                    "Ввод показаний счетчика", 400, 305);
+        } else {
+            printDialogError("Ошибка !", "Ошибка !", "Не выбран счетчик ! ");
+        }
     }
 
     @FXML

@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -101,14 +102,14 @@ public class MySQLDatabase implements IDatabase, Subject {
         int objectId = 0;
         int service;
         double sum;
-        String date;
+        Date date;
 
         while (rs.next()) {
             id = rs.getInt(1);
             objectId = rs.getInt(2);
             service = rs.getInt(3);
             sum = rs.getDouble(4);
-            date = rs.getString(5);
+            date = rs.getDate(5);
             objectList.add(new Payments(id, objectId, service, sum, date));
         }
 
@@ -219,6 +220,21 @@ public class MySQLDatabase implements IDatabase, Subject {
 
         stmt.close();
         dataChange();
+    }
+
+    @Override
+    public void add(Measurement object) throws SQLException {
+
+        PreparedStatement stmt = con.prepareStatement("INSERT INTO measurement" +
+                "(counter, measure, date) VALUES (?, ?, ?)");
+
+        stmt.setInt(1, object.getCounter());
+        stmt.setDouble(2, object.getMeasure());
+        stmt.setDate(3, object.getDate());
+
+        stmt.execute();
+
+        stmt.close();
     }
 
     @Override
