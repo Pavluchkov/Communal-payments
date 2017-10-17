@@ -1,7 +1,7 @@
 package by.javafx.communalPayments.controllers.services;
 
 import by.javafx.communalPayments.controllers.MainController;
-import by.javafx.communalPayments.objects.FormPayment;
+import by.javafx.communalPayments.objects.FormPayments;
 import by.javafx.communalPayments.objects.Services;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class ServiceChangeController extends MainController {
     private Services object;
     private MainController mainController;
-    private ObservableList<FormPayment> tableForm = FXCollections.observableArrayList();
+    private ObservableList<FormPayments> tableForm = FXCollections.observableArrayList();
 
     @FXML
     private TextField nameField;
@@ -42,14 +42,14 @@ public class ServiceChangeController extends MainController {
         object = (Services) mainController.getSelectedObject();
 
         try {
-            tableForm = database.getListObjects(new FormPayment());
+            tableForm = database.getListObjects(new FormPayments());
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         ObservableList<String> formPayments = FXCollections.observableArrayList();
 
-        for (FormPayment obj : tableForm) {
+        for (FormPayments obj : tableForm) {
             formPayments.add(obj.getForm());
             if (object.getFormPayments() == obj.getId()) {
                 formPaymentCmb.setValue(obj.getForm());
@@ -71,7 +71,7 @@ public class ServiceChangeController extends MainController {
         int formId = 0;
         int serviceId = object.getId();
 
-        for (FormPayment obj : tableForm) {
+        for (FormPayments obj : tableForm) {
             if (obj.getForm().equals(formPaymentCmb.getSelectionModel().getSelectedItem())) {
                 formId = obj.getId();
             }

@@ -3,7 +3,6 @@ package by.javafx.communalPayments.interfaces;
 import by.javafx.communalPayments.objects.*;
 import javafx.collections.ObservableList;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 public interface IDatabase {
@@ -16,7 +15,7 @@ public interface IDatabase {
     ObservableList<Counters> getListObjects(Counters object) throws SQLException;
     ObservableList<Payments> getListObjects(Payments object) throws SQLException;
     ObservableList<Services> getListObjects(Services object) throws SQLException;
-    ObservableList<FormPayment> getListObjects(FormPayment object) throws SQLException;
+    ObservableList<FormPayments> getListObjects(FormPayments object) throws SQLException;
 
     void add(ObjectAccounting object) throws SQLException;
     void add(Counters object) throws SQLException;

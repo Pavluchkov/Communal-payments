@@ -72,6 +72,7 @@ public class CounterAddController extends MainController {
         int objectId = 0;
         int serviceId = 0;
         String counterName = nameField.getText();
+        double recentMeasure = 0;
 
         String selectedItemObj = objectCombo.getSelectionModel().getSelectedItem();
         String selectedItemService = serviceCombo.getSelectionModel().getSelectedItem();
@@ -88,7 +89,7 @@ public class CounterAddController extends MainController {
             }
         }
 
-        Counters counter = new Counters(id, counterName, serviceId, objectId);
+        Counters counter = new Counters(id, objectId, serviceId,counterName, recentMeasure);
 
         try {
             database.add(counter);

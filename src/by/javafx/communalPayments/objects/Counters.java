@@ -2,15 +2,17 @@ package by.javafx.communalPayments.objects;
 
 public class Counters extends MyObjects{
     private int id;
-    private String counterName;
-    private int service;
     private int object;
+    private int service;
+    private String counterName;
+    private double recentMeasure;
 
-    public Counters(int id, String counterName, int service, int object) {
+    public Counters(int id, int object, int service, String counterName, double recentMeasure) {
         this.id = id;
-        this.counterName = counterName;
-        this.service = service;
         this.object = object;
+        this.service = service;
+        this.counterName = counterName;
+        this.recentMeasure = recentMeasure;
     }
 
     public Counters() {
@@ -24,12 +26,12 @@ public class Counters extends MyObjects{
         this.id = id;
     }
 
-    public String getCounterName() {
-        return counterName;
+    public int getObject() {
+        return object;
     }
 
-    public void setCounterName(String counterName) {
-        this.counterName = counterName;
+    public void setObject(int object) {
+        this.object = object;
     }
 
     public int getService() {
@@ -40,11 +42,19 @@ public class Counters extends MyObjects{
         this.service = service;
     }
 
-    public int getObject() {
-        return object;
+    public String getCounterName() {
+        return counterName;
     }
 
-    public void setObject(int object) {
-        this.object = object;
+    public void setCounterName(String counterName) {
+        this.counterName = counterName;
+    }
+
+    public double getRecentMeasure() {
+        return recentMeasure;
+    }
+
+    public void setRecentMeasure(double recentMeasure) {
+        this.recentMeasure = recentMeasure;
     }
 }

@@ -1,15 +1,15 @@
 package by.javafx.communalPayments.objects;
 
-public class FormPayment extends MyObjects{
+public class FormPayments extends MyObjects{
     private int id;
     private String form;
 
-    public FormPayment(int id, String form) {
+    public FormPayments(int id, String form) {
         this.id = id;
         this.form = form;
     }
 
-    public FormPayment() {
+    public FormPayments() {
     }
 
     public int getId() {

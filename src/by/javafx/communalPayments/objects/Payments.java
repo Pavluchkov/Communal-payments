@@ -1,27 +1,37 @@
 package by.javafx.communalPayments.objects;
 
 public class Payments extends MyObjects{
-    private int id_payments;
+    private int id;
+    private int object;
     private int service;
-    private double valuePayments;
-    private String datePayments;
+    private double sum;
+    private String date;
 
-    public Payments(int id_payments, int service, double valuePayments, String datePayments) {
-        this.id_payments = id_payments;
+    public Payments(int id, int object, int service, double sum, String date) {
+        this.id = id;
+        this.object = object;
         this.service = service;
-        this.valuePayments = valuePayments;
-        this.datePayments = datePayments;
+        this.sum = sum;
+        this.date = date;
     }
 
     public Payments() {
     }
 
-    public int getId_payments() {
-        return id_payments;
+    public int getId() {
+        return id;
     }
 
-    public void setId_payments(int id_payments) {
-        this.id_payments = id_payments;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getObject() {
+        return object;
+    }
+
+    public void setObject(int object) {
+        this.object = object;
     }
 
     public int getService() {
@@ -32,19 +42,19 @@ public class Payments extends MyObjects{
         this.service = service;
     }
 
-    public double getValuePayments() {
-        return valuePayments;
+    public double getSum() {
+        return sum;
     }
 
-    public void setValuePayments(double valuePayments) {
-        this.valuePayments = valuePayments;
+    public void setSum(double sum) {
+        this.sum = sum;
     }
 
-    public String getDatePayments() {
-        return datePayments;
+    public String getDate() {
+        return date;
     }
 
-    public void setDatePayments(String datePayments) {
-        this.datePayments = datePayments;
+    public void setDate(String date) {
+        this.date = date;
     }
 }

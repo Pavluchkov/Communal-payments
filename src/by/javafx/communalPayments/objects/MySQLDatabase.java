@@ -74,13 +74,15 @@ public class MySQLDatabase implements IDatabase, Subject {
         String counterName;
         int service;
         int objectId;
+        double recentMeasure;
 
         while (rs.next()) {
             idCounters = rs.getInt(1);
-            counterName = rs.getString(2);
+            objectId = rs.getInt(2);
             service = rs.getInt(3);
-            objectId = rs.getInt(4);
-            objectList.add(new Counters(idCounters, counterName, service, objectId));
+            counterName = rs.getString(4);
+            recentMeasure = rs.getDouble(5);
+            objectList.add(new Counters(idCounters, objectId,service, counterName, recentMeasure));
         }
 
         rs.close();
@@ -96,16 +98,18 @@ public class MySQLDatabase implements IDatabase, Subject {
         ResultSet rs = stmt.executeQuery();
 
         int id_payments;
+        int object_id = 0;
         int service_id;
-        double valuePayments;
-        String datePayments;
+        double sum;
+        String date;
 
         while (rs.next()) {
             id_payments = rs.getInt(1);
-            service_id = rs.getInt(2);
-            valuePayments = rs.getDouble(3);
-            datePayments = rs.getString(4);
-            objectList.add(new Payments(id_payments, service_id, valuePayments, datePayments));
+            object_id = rs.getInt(2);
+            service_id = rs.getInt(3);
+            sum = rs.getDouble(4);
+            date = rs.getString(5);
+            objectList.add(new Payments(id_payments, object_id, service_id, sum, date));
         }
 
         rs.close();
@@ -142,8 +146,8 @@ public class MySQLDatabase implements IDatabase, Subject {
     }
 
     @Override
-    public ObservableList<FormPayment> getListObjects(FormPayment object) throws SQLException {
-        ObservableList<FormPayment> objectList = FXCollections.observableArrayList();
+    public ObservableList<FormPayments> getListObjects(FormPayments object) throws SQLException {
+        ObservableList<FormPayments> objectList = FXCollections.observableArrayList();
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM " + "formpayments");
         ResultSet rs = stmt.executeQuery();
 
@@ -153,7 +157,7 @@ public class MySQLDatabase implements IDatabase, Subject {
         while (rs.next()) {
             id = rs.getInt(1);
             form = rs.getString(2);
-            objectList.add(new FormPayment(id, form));
+            objectList.add(new FormPayments(id, form));
         }
 
         rs.close();

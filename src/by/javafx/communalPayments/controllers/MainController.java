@@ -62,6 +62,8 @@ public class MainController implements Observer {
     private TableColumn<Counters, Integer> T2_serviceColumn;
     @FXML
     private TableColumn<Counters, Integer> T2_nameObjColumn;
+    @FXML
+    private TableColumn<Counters, Double> T2_recentMeasureColumn;
 
     @FXML
     private TableView<Services> T3_service;
@@ -93,7 +95,7 @@ public class MainController implements Observer {
         Subject subject = new MySQLDatabase();// Устанавливаем наблюдателя
         subject.registerObserver(this);    //      за MySQLDatabase
 
-        setConnection("jdbc:mysql://localhost:3306/communalPayments");
+        setConnection("jdbc:mysql://localhost:3306/communalpayments");
 
 // устанавливаем тип и значение которое должно хранится в колонке
         T1_personalAccountColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -107,6 +109,7 @@ public class MainController implements Observer {
         T2_counterNameColumn.setCellValueFactory(new PropertyValueFactory<>("counterName"));
         T2_serviceColumn.setCellValueFactory(new PropertyValueFactory<>("service"));
         T2_nameObjColumn.setCellValueFactory(new PropertyValueFactory<>("object"));
+        T2_recentMeasureColumn.setCellValueFactory(new PropertyValueFactory<>("recentMeasure"));
 
         T3_id_serviceColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         T3_serviceNameColumn.setCellValueFactory(new PropertyValueFactory<>("serviceName"));

@@ -72,6 +72,7 @@
                         <TableColumn fx:id="T2_counterNameColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Название счетчика" />
                         <TableColumn fx:id="T2_serviceColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Услуга" />
                         <TableColumn fx:id="T2_nameObjColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Объект учета" />
+                        <TableColumn fx:id="T2_recentMeasureColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Последние показания" />
                      </columns>
                   </TableView>
                   <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
