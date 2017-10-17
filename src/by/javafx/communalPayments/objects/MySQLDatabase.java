@@ -70,19 +70,19 @@ public class MySQLDatabase implements IDatabase, Subject {
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM " + "counters");
         ResultSet rs = stmt.executeQuery();
 
-        int idCounters;
+        int id;
         String counterName;
         int service;
         int objectId;
         double recentMeasure;
 
         while (rs.next()) {
-            idCounters = rs.getInt(1);
+            id = rs.getInt(1);
             objectId = rs.getInt(2);
             service = rs.getInt(3);
             counterName = rs.getString(4);
             recentMeasure = rs.getDouble(5);
-            objectList.add(new Counters(idCounters, objectId,service, counterName, recentMeasure));
+            objectList.add(new Counters(id, objectId,service, counterName, recentMeasure));
         }
 
         rs.close();
@@ -97,19 +97,19 @@ public class MySQLDatabase implements IDatabase, Subject {
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM " + "payments");
         ResultSet rs = stmt.executeQuery();
 
-        int id_payments;
-        int object_id = 0;
-        int service_id;
+        int id;
+        int objectId = 0;
+        int service;
         double sum;
         String date;
 
         while (rs.next()) {
-            id_payments = rs.getInt(1);
-            object_id = rs.getInt(2);
-            service_id = rs.getInt(3);
+            id = rs.getInt(1);
+            objectId = rs.getInt(2);
+            service = rs.getInt(3);
             sum = rs.getDouble(4);
             date = rs.getString(5);
-            objectList.add(new Payments(id_payments, object_id, service_id, sum, date));
+            objectList.add(new Payments(id, objectId, service, sum, date));
         }
 
         rs.close();
@@ -187,11 +187,12 @@ public class MySQLDatabase implements IDatabase, Subject {
     @Override
     public void add(Counters object) throws SQLException {
         PreparedStatement stmt = con.prepareStatement("INSERT INTO counters" +
-                "(counterName, service, object) VALUES (?, ?, ?)");
+                "(object, service, counterName, recentMeasure) VALUES (?, ?, ?, ?)");
 
-        stmt.setString(1, object.getCounterName());
+        stmt.setInt(1, object.getObject());
         stmt.setInt(2, object.getService());
-        stmt.setInt(3, object.getObject());
+        stmt.setString(3, object.getCounterName());
+        stmt.setDouble(4, object.getRecentMeasure());
 
         stmt.execute();
 
@@ -207,7 +208,7 @@ public class MySQLDatabase implements IDatabase, Subject {
     @Override
     public void add(Services object) throws SQLException {
         PreparedStatement stmt = con.prepareStatement("INSERT INTO services" +
-                "(serviceName, unit, rate, formPayments) VALUES (?, ?, ?, ?)");
+                "(serviceName, unit, rate, formPayment) VALUES (?, ?, ?, ?)");
 
         stmt.setString(1, object.getServiceName());
         stmt.setString(2, object.getUnit());
@@ -279,13 +280,15 @@ public class MySQLDatabase implements IDatabase, Subject {
     @Override
     public void change(Counters object) throws SQLException {
         PreparedStatement stmt = con.prepareStatement("UPDATE counters SET" +
-                " id=?, counterName=?, service=?, object=?" +
+                " id=?, object=?, service=?, counterName=?, recentMeasure=?" +
                 " WHERE id=?");
         stmt.setInt(1, object.getId());
-        stmt.setString(2, object.getCounterName());
+        stmt.setInt(2, object.getObject());
         stmt.setInt(3, object.getService());
-        stmt.setInt(4, object.getObject());
-        stmt.setInt(5, object.getId());
+        stmt.setString(4, object.getCounterName());
+        stmt.setDouble(5, object.getRecentMeasure());
+        stmt.setInt(6, object.getId());
+
         stmt.execute();
 
         stmt.close();
@@ -300,7 +303,7 @@ public class MySQLDatabase implements IDatabase, Subject {
     @Override
     public void change(Services object) throws SQLException {
         PreparedStatement stmt = con.prepareStatement("UPDATE services SET" +
-                " id=?, serviceName=?, unit=?, rate=?, formPayments=?" +
+                " id=?, serviceName=?, unit=?, rate=?, formPayment=?" +
                 " WHERE id=?");
         stmt.setInt(1, object.getId());
         stmt.setString(2, object.getServiceName());

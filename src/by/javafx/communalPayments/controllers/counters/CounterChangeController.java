@@ -27,6 +27,8 @@ public class CounterChangeController extends MainController {
     @FXML
     private TextField nameField;
     @FXML
+    private TextField recentField;
+    @FXML
     private Button btnCancel;
 
     public CounterChangeController(MainController mainController) {
@@ -71,6 +73,7 @@ public class CounterChangeController extends MainController {
         }
 
         nameField.setText(object.getCounterName());
+        recentField.setText(String.valueOf(object.getRecentMeasure()));
         objectCombo.setItems(listObjects);
         serviceCombo.setItems(listServices);
     }
@@ -81,7 +84,7 @@ public class CounterChangeController extends MainController {
         int objectId = 0;
         int serviceId = 0;
         String counterName = nameField.getText();
-        double recentMeasure = 0;
+        double recentMeasure = Double.parseDouble(recentField.getText());
 
         String selectedItemObj = objectCombo.getSelectionModel().getSelectedItem();
         String selectedItemService = serviceCombo.getSelectionModel().getSelectedItem();

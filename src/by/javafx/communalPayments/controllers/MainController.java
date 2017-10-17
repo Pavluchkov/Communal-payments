@@ -57,11 +57,11 @@ public class MainController implements Observer {
     @FXML
     private TableColumn<Counters, Integer> T2_id_counterColumn;
     @FXML
-    private TableColumn<Counters, String> T2_counterNameColumn;
+    private TableColumn<Counters, Integer> T2_nameObjColumn;
     @FXML
     private TableColumn<Counters, Integer> T2_serviceColumn;
     @FXML
-    private TableColumn<Counters, Integer> T2_nameObjColumn;
+    private TableColumn<Counters, String> T2_counterNameColumn;
     @FXML
     private TableColumn<Counters, Double> T2_recentMeasureColumn;
 
@@ -83,9 +83,11 @@ public class MainController implements Observer {
     @FXML
     private TableColumn<Payments, Integer> T4_id_paymentsColumn;
     @FXML
+    private TableColumn<Payments, Integer> T4_objectColumn;
+    @FXML
     private TableColumn<Payments, Integer> T4_serviceColumn;
     @FXML
-    private TableColumn<Payments, Double> T4_valuePaymentsColumn;
+    private TableColumn<Payments, Double> T4_sumColumn;
     @FXML
     private TableColumn<Payments, String> T4_datePaymentsColumn;
 
@@ -106,9 +108,9 @@ public class MainController implements Observer {
         T1_areaColumn.setCellValueFactory(new PropertyValueFactory<>("area"));
 
         T2_id_counterColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        T2_counterNameColumn.setCellValueFactory(new PropertyValueFactory<>("counterName"));
-        T2_serviceColumn.setCellValueFactory(new PropertyValueFactory<>("service"));
         T2_nameObjColumn.setCellValueFactory(new PropertyValueFactory<>("object"));
+        T2_serviceColumn.setCellValueFactory(new PropertyValueFactory<>("service"));
+        T2_counterNameColumn.setCellValueFactory(new PropertyValueFactory<>("counterName"));
         T2_recentMeasureColumn.setCellValueFactory(new PropertyValueFactory<>("recentMeasure"));
 
         T3_id_serviceColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -117,10 +119,11 @@ public class MainController implements Observer {
         T3_rateColumn.setCellValueFactory(new PropertyValueFactory<>("rate"));
         T3_formPaymentsColumn.setCellValueFactory(new PropertyValueFactory<>("formPayments"));
 
-        T4_id_paymentsColumn.setCellValueFactory(new PropertyValueFactory<>("id_payments"));
+        T4_id_paymentsColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        T4_objectColumn.setCellValueFactory(new PropertyValueFactory<>("object"));
         T4_serviceColumn.setCellValueFactory(new PropertyValueFactory<>("service"));
-        T4_valuePaymentsColumn.setCellValueFactory(new PropertyValueFactory<>("valuePayments"));
-        T4_datePaymentsColumn.setCellValueFactory(new PropertyValueFactory<>("datePayments"));
+        T4_sumColumn.setCellValueFactory(new PropertyValueFactory<>("sum"));
+        T4_datePaymentsColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         update();
     }
@@ -229,7 +232,7 @@ public class MainController implements Observer {
     @FXML
     public void countersAdd() {
         dialogWindow(new CounterAddController(this), "/by/javafx/communalPayments/fxml/countersDialog/CountersAdd.fxml",
-                "Добавление счетчика", 400, 265);
+                "Добавление счетчика", 400, 305);
     }
 
     @FXML
@@ -239,7 +242,7 @@ public class MainController implements Observer {
         if (object != null) {
             setSelectedObject(object);
             dialogWindow(new CounterChangeController(this), "/by/javafx/communalPayments/fxml/countersDialog/CountersChange.fxml",
-                    "Изменение счетчика", 400, 265);
+                    "Изменение счетчика", 400, 305);
         } else {
             printDialogError("Ошибка изменения объекта", "Ошибка !", "Не выбран изменяемый объект ! ");
         }
