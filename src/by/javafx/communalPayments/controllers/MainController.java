@@ -31,7 +31,6 @@ import javafx.stage.Stage;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 public class MainController implements Observer {
     protected IDatabase database = new MySQLDatabase();
@@ -136,7 +135,7 @@ public class MainController implements Observer {
         try {
             database.setConnectDatabase(connectionString);
         } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            printDialogError("Ошибка подключения", "Не удалось подключиться к БД !", e.getMessage());
         }
     }
 
@@ -168,7 +167,7 @@ public class MainController implements Observer {
 
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            printDialogError("Ошибка получения данных", "Не удалось получить данные из БД !", e.getMessage());
         }
     }
 
@@ -202,8 +201,10 @@ public class MainController implements Observer {
 
     @FXML
     public void objAccountAdd() {
+
         dialogWindow(new ObjAddController(this), "/by/javafx/communalPayments/fxml/objAccountDialog/objectAccountAdd.fxml",
                 "Добавление объекта учета", 565, 350);
+
     }
 
     @FXML
@@ -215,7 +216,7 @@ public class MainController implements Observer {
             dialogWindow(new ObjChangeController(this), "/by/javafx/communalPayments/fxml/objAccountDialog/objectAccountChange.fxml",
                     "Изменение объекта учета", 565, 350);
         } else {
-            printDialogError("Ошибка изменения объекта", "Ошибка !", "Не выбран изменяемый объект ! ");
+            printDialogError("Ошибка изменения объекта", "Не выбран изменяемый объект !", "Выберите объект для изменения.");
         }
 
     }
@@ -274,9 +275,9 @@ public class MainController implements Observer {
         if (object != null) {
             setSelectedObject(object);
             dialogWindow(new MeasureController(this), "/by/javafx/communalPayments/fxml/countersDialog/inputMeasure.fxml",
-                    "Ввод показаний счетчика", 400, 305);
+                    "Внесение показаний счетчика", 400, 305);
         } else {
-            printDialogError("Внесение показаний", "Ошибка !", "Не выбран счетчик ! ");
+            printDialogError("Внесение показаний", "Не выбран счетчик !", "Для внесения показаний выделите хотя бы один счетчик.");
         }
     }
 
@@ -335,7 +336,7 @@ public class MainController implements Observer {
 
     }
 
-    private void printDialogError(String title, String headerText, String contentText) {
+    public void printDialogError(String title, String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(headerText);

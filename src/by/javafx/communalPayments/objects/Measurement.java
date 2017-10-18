@@ -1,7 +1,6 @@
 package by.javafx.communalPayments.objects;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 public class Measurement extends MyObjects {
     private int id;

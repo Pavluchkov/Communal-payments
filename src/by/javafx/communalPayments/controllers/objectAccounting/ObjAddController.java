@@ -79,7 +79,7 @@ public class ObjAddController extends MainController {
         try {
             database.add(object);
         } catch (SQLException e) {
-            e.getMessage();
+            mainController.printDialogError("Ошибка записи", "Ошибка записи данных в БД !", e.getMessage());
         }
 
         btnCancelClicked();

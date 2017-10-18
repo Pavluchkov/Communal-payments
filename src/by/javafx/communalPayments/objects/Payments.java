@@ -1,9 +1,8 @@
 package by.javafx.communalPayments.objects;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
-public class Payments extends MyObjects{
+public class Payments extends MyObjects {
     private int id;
     private int object;
     private int service;

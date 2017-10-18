@@ -7,7 +7,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -83,7 +82,7 @@ public class MySQLDatabase implements IDatabase, Subject {
             service = rs.getInt(3);
             counterName = rs.getString(4);
             recentMeasure = rs.getDouble(5);
-            objectList.add(new Counters(id, objectId,service, counterName, recentMeasure));
+            objectList.add(new Counters(id, objectId, service, counterName, recentMeasure));
         }
 
         rs.close();
@@ -342,7 +341,7 @@ public class MySQLDatabase implements IDatabase, Subject {
     public void removeObserver(Observer o) {
         int i = observers.indexOf(o);
 
-        if(i >= 0){
+        if (i >= 0) {
             observers.remove(i);
         }
     }
@@ -350,13 +349,13 @@ public class MySQLDatabase implements IDatabase, Subject {
     @Override
     public void notifyObserver() {
 
-        for (Observer o : observers){
+        for (Observer o : observers) {
             o.update();
         }
 
     }
 
-    private void dataChange(){
+    private void dataChange() {
         notifyObserver();
     }
 }

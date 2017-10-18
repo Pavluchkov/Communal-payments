@@ -1,6 +1,6 @@
 package by.javafx.communalPayments.objects;
 
-public class FormPayments extends MyObjects{
+public class FormPayments extends MyObjects {
     private int id;
     private String form;
 

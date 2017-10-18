@@ -13,12 +13,12 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Calendar;
 
-public class MeasureController extends MainController{
+public class MeasureController extends MainController {
     private MainController mainController;
     private Counters object;
 
@@ -43,8 +43,8 @@ public class MeasureController extends MainController{
     }
 
     @FXML
-    public void initialize(){
-        object = (Counters)mainController.getSelectedObject();
+    public void initialize() {
+        object = (Counters) mainController.getSelectedObject();
         textLabel.setText(object.getCounterName());
 
         ObservableList<ObjectAccounting> tableObject = FXCollections.observableArrayList();
@@ -75,11 +75,11 @@ public class MeasureController extends MainController{
         objectField.setFocusTraversable(false);
         serviceField.setFocusTraversable(false);
         datePicker.setValue(LocalDate.now());
-
+        measureField.setText(String.valueOf(object.getRecentMeasure()));
     }
 
     @FXML
-    public void btnOkClicked(){
+    public void btnOkClicked() {
         int counter = object.getId();
         double measure = Double.parseDouble(measureField.getText());
         Date date = Date.valueOf(datePicker.getValue());

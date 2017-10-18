@@ -91,7 +91,7 @@ public class CounterAddController extends MainController {
             }
         }
 
-        Counters counter = new Counters(id, objectId, serviceId,counterName, recentMeasure);
+        Counters counter = new Counters(id, objectId, serviceId, counterName, recentMeasure);
 
         try {
             database.add(counter);
