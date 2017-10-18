@@ -13,10 +13,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Calendar;
 
 public class MeasureController extends MainController{
     private MainController mainController;
@@ -74,6 +74,7 @@ public class MeasureController extends MainController{
 
         objectField.setFocusTraversable(false);
         serviceField.setFocusTraversable(false);
+        datePicker.setValue(LocalDate.now());
 
     }
 
