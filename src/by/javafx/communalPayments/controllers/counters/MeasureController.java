@@ -86,6 +86,18 @@ public class MeasureController extends MainController {
         double previousMeasure = object.getRecentMeasure();
         Date date = Date.valueOf(datePicker.getValue());
 
+        if (measure < previousMeasure) {
+            mainController.printDialogError("Ввод показаний", "Ошибка ввода показаний !",
+                    "Текущие показания не могут быть меньше предыдущих.");
+            return;
+        }
+
+        if (datePicker.getValue().compareTo(LocalDate.now()) < 0) {
+            mainController.printDialogError("Ввод показаний", "Ошибка ввода показаний !",
+                    "Показания не могут вноситься задним числом.");
+            return;
+        }
+
         Measurement measurement = new Measurement(0, counter, previousMeasure, measure, date);
         object.setRecentMeasure(measure);
 

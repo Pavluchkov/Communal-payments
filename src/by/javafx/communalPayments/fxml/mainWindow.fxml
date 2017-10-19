@@ -68,71 +68,6 @@
                 </AnchorPane>
             </content>
         </Tab>
-        <Tab onSelectionChanged="#tabCountersChange" text="Счетчики">
-            <content>
-                <AnchorPane prefHeight="180.0" prefWidth="200.0">
-                    <children>
-                        <TableView fx:id="T2_counters" layoutX="20.0" layoutY="66.0" tableMenuButtonVisible="true"
-                                   AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"
-                                   AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
-                            <columnResizePolicy>
-                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                            </columnResizePolicy>
-                            <columns>
-                                <TableColumn fx:id="T2_id_counterColumn" maxWidth="-1.0" minWidth="100.0"
-                                             prefWidth="-1.0" text="Код счетчика"/>
-                                <TableColumn fx:id="T2_nameObjColumn" maxWidth="1.7976931348623157E308" minWidth="200.0"
-                                             prefWidth="-1.0" text="Объект учета"/>
-                                <TableColumn fx:id="T2_serviceColumn" maxWidth="1.7976931348623157E308" minWidth="200.0"
-                                             prefWidth="-1.0" text="Услуга"/>
-                                <TableColumn fx:id="T2_counterNameColumn" maxWidth="1.7976931348623157E308"
-                                             minWidth="200.0" prefWidth="-1.0" text="Название счетчика"/>
-                                <TableColumn fx:id="T2_recentMeasureColumn" maxWidth="1.7976931348623157E308"
-                                             minWidth="100.0" prefWidth="-1.0" text="Последние показания"/>
-                            </columns>
-                        </TableView>
-                        <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
-                              AnchorPane.topAnchor="20.0">
-                            <children>
-                                <Button mnemonicParsing="false" onAction="#inputMeasureClicked" prefHeight="30.0"
-                                        prefWidth="140.0" text="Внести показания">
-                                    <font>
-                                        <Font name="Arial" size="14.0"/>
-                                    </font>
-                                </Button>
-                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#countersAdd"
-                                        prefHeight="30.0" prefWidth="95.0" text="Добавить">
-                                    <font>
-                                        <Font name="Arial" size="14.0"/>
-                                    </font>
-                                    <HBox.margin>
-                                        <Insets left="25.0" right="25.0"/>
-                                    </HBox.margin>
-                                </Button>
-                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#countersChange"
-                                        prefHeight="30.0" prefWidth="95.0" text="Изменить">
-                                    <font>
-                                        <Font name="Arial" size="14.0"/>
-                                    </font>
-                                </Button>
-                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#countersDelete"
-                                        prefHeight="30.0" prefWidth="95.0" text="Удалить">
-                                    <font>
-                                        <Font name="Arial" size="14.0"/>
-                                    </font>
-                                    <HBox.margin>
-                                        <Insets left="25.0"/>
-                                    </HBox.margin>
-                                </Button>
-                            </children>
-                        </HBox>
-                    </children>
-                </AnchorPane>
-            </content>
-        </Tab>
         <Tab onSelectionChanged="#tabServiceChange" text="Перечень услуг">
             <content>
                 <AnchorPane prefHeight="180.0" prefWidth="200.0">
@@ -188,6 +123,127 @@
                                              minWidth="120.0" prefWidth="-1.0" text="Форма оплаты"/>
                             </columns>
                         </TableView>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab onSelectionChanged="#tabCountersChange" text="Счетчики">
+            <content>
+                <AnchorPane prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <TableView fx:id="T2_counters" layoutX="20.0" layoutY="66.0" tableMenuButtonVisible="true"
+                                   AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"
+                                   AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                            </columnResizePolicy>
+                            <columns>
+                                <TableColumn fx:id="T2_id_counterColumn" maxWidth="-1.0" minWidth="100.0"
+                                             prefWidth="-1.0" text="Код счетчика"/>
+                                <TableColumn fx:id="T2_counterNameColumn" maxWidth="1.7976931348623157E308"
+                                             minWidth="200.0" prefWidth="-1.0" text="Название счетчика"/>
+                                <TableColumn fx:id="T2_recentMeasureColumn" maxWidth="1.7976931348623157E308"
+                                             minWidth="150.0" prefWidth="-1.0" text="Последние показания"/>
+                                <TableColumn fx:id="T2_nameObjColumn" maxWidth="1.7976931348623157E308" minWidth="200.0"
+                                             prefWidth="-1.0" text="Объект учета"/>
+                                <TableColumn fx:id="T2_serviceColumn" maxWidth="1.7976931348623157E308" minWidth="200.0"
+                                             prefWidth="-1.0" text="Услуга"/>
+                            </columns>
+                        </TableView>
+                        <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+                              AnchorPane.topAnchor="20.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#inputMeasureClicked" prefHeight="30.0"
+                                        prefWidth="140.0" text="Внести показания">
+                                    <font>
+                                        <Font name="Arial" size="14.0"/>
+                                    </font>
+                                </Button>
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#countersAdd"
+                                        prefHeight="30.0" prefWidth="95.0" text="Добавить">
+                                    <font>
+                                        <Font name="Arial" size="14.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="25.0" right="25.0"/>
+                                    </HBox.margin>
+                                </Button>
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#countersChange"
+                                        prefHeight="30.0" prefWidth="95.0" text="Изменить">
+                                    <font>
+                                        <Font name="Arial" size="14.0"/>
+                                    </font>
+                                </Button>
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#countersDelete"
+                                        prefHeight="30.0" prefWidth="95.0" text="Удалить">
+                                    <font>
+                                        <Font name="Arial" size="14.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="25.0"/>
+                                    </HBox.margin>
+                                </Button>
+                            </children>
+                        </HBox>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Показания счетчиков">
+            <content>
+                <AnchorPane prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <TableView fx:id="T5_measure" prefHeight="200.0" prefWidth="200.0"
+                                   AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"
+                                   AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
+                            <columns>
+                                <TableColumn fx:id="T5_idColumn" maxWidth="1.7976931348623157E308" minWidth="100.0"
+                                             prefWidth="-1.0" text="Код измерения"/>
+                                <TableColumn fx:id="T5_counterColumn" maxWidth="1.7976931348623157E308" minWidth="150.0"
+                                             prefWidth="-1.0" text="Счетчик"/>
+                                <TableColumn fx:id="T5_previousColumn" maxWidth="1.7976931348623157E308"
+                                             minWidth="150.0" prefWidth="-1.0" text="Предыдущие показания"/>
+                                <TableColumn fx:id="T5_currentColumn" maxWidth="1.7976931348623157E308" minWidth="150.0"
+                                             prefWidth="-1.0" text="Текущие показания"/>
+                                <TableColumn fx:id="T5_dateColumn" maxWidth="1.7976931348623157E308" minWidth="100.0"
+                                             prefWidth="-1.0" text="Дата"/>
+                            </columns>
+                        </TableView>
+                        <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+                              AnchorPane.topAnchor="20.0">
+                            <children>
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0"
+                                        text="Добавить">
+                                    <font>
+                                        <Font name="Arial" size="14.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets right="25.0"/>
+                                    </HBox.margin>
+                                </Button>
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0"
+                                        text="Изменить">
+                                    <font>
+                                        <Font name="Arial" size="14.0"/>
+                                    </font>
+                                </Button>
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0"
+                                        text="Удалить">
+                                    <font>
+                                        <Font name="Arial" size="14.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="25.0"/>
+                                    </HBox.margin>
+                                </Button>
+                            </children>
+                        </HBox>
                     </children>
                 </AnchorPane>
             </content>
@@ -318,11 +374,6 @@
                         </HBox>
                     </children>
                 </AnchorPane>
-            </content>
-        </Tab>
-        <Tab text="Графики">
-            <content>
-                <AnchorPane prefHeight="180.0" prefWidth="200.0"/>
             </content>
         </Tab>
     </tabs>

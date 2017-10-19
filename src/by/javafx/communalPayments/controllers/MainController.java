@@ -228,7 +228,7 @@ public class MainController implements Observer {
         if (object != null) {
             setSelectedObject(object);
             dialogWindow(new ObjDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
-                    "Удаление объекта", 380, 200);
+                    "Удаление объекта", 380, 190);
         } else {
             printDialogError("Ошибка удаления объекта", "Ошибка !", "Не выбран удаляемый объект ! ");
         }
@@ -261,7 +261,7 @@ public class MainController implements Observer {
         if (object != null) {
             setSelectedObject(object);
             dialogWindow(new CounterDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
-                    "Удаление объекта", 380, 200);
+                    "Удаление объекта", 380, 190);
         } else {
             printDialogError("Ошибка удаления объекта", "Ошибка !", "Не выбран удаляемый объект ! ");
         }
@@ -308,7 +308,7 @@ public class MainController implements Observer {
         if (object != null) {
             setSelectedObject(object);
             dialogWindow(new ServiceDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
-                    "Удаление объекта", 380, 200);
+                    "Удаление объекта", 380, 190);
         } else {
             printDialogError("Ошибка удаления объекта", "Ошибка !", "Не выбран удаляемый объект ! ");
         }

@@ -49,4 +49,6 @@ public interface IDatabase {
 
     void change(Measurement object) throws SQLException;
 
+    Measurement getLastMeasure(Counters object) throws SQLException;
+
 }

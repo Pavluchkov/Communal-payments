@@ -357,6 +357,32 @@ public class MySQLDatabase implements IDatabase, Subject {
     }
 
     @Override
+    public Measurement getLastMeasure(Counters object) throws SQLException {
+        Measurement lastMeasure = null;
+
+        PreparedStatement stmt = con.prepareStatement("SELECT * FROM measurement" +
+                " WHERE counter=? AND id=LAST_INSERT_ID()");
+        stmt.setInt(1, object.getId());
+        ResultSet res = stmt.executeQuery();
+
+        while (res.next()) {
+            if (!res.wasNull()) {
+                int id = res.getInt(1);
+                int counter = res.getInt(2);
+                double previousMeasure = res.getDouble(3);
+                double measure = res.getDouble(4);
+                Date date = res.getDate(5);
+                lastMeasure = new Measurement(id, counter, previousMeasure, measure, date);
+            }
+
+        }
+
+        stmt.close();
+        //dataChange();
+        return lastMeasure;
+    }
+
+    @Override
     public void registerObserver(Observer o) {
         observers.add(o);
     }

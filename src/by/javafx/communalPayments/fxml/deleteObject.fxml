@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="200.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="190.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8">
     <children>
         <HBox alignment="CENTER" layoutY="6.0" prefHeight="40.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
@@ -16,8 +16,19 @@
                 </Label>
             </children>
         </HBox>
+        <HBox alignment="CENTER_LEFT" layoutX="8.0" layoutY="90.0" prefHeight="30.0" prefWidth="477.0"
+              AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
+            <children>
+                <Label fx:id="nameDeleteObject" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0"
+                       prefWidth="477.0" text="test">
+                    <font>
+                        <Font name="Arial Italic" size="14.0"/>
+                    </font>
+                </Label>
+            </children>
+        </HBox>
         <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="50.0" prefHeight="30.0" prefWidth="477.0"
-              AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
+              AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="85.0">
             <children>
                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="477.0"
                        text="Действительно хотите удалить этот объект ?">
@@ -28,7 +39,7 @@
             </children>
         </HBox>
         <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="319.0" prefWidth="480.0" AnchorPane.leftAnchor="20.0"
-              AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="150.0">
+              AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0">
             <children>
                 <Button mnemonicParsing="false" onAction="#btnOkClicked" prefHeight="30.0" prefWidth="110.0"
                         text="Подтвердить">
@@ -45,17 +56,6 @@
                         <Font name="Arial" size="14.0"/>
                     </font>
                 </Button>
-            </children>
-        </HBox>
-        <HBox alignment="CENTER_LEFT" layoutX="8.0" layoutY="90.0" prefHeight="30.0" prefWidth="477.0"
-              AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="90.0">
-            <children>
-                <Label fx:id="nameDeleteObject" alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0"
-                       prefWidth="477.0" text="test">
-                    <font>
-                        <Font name="Arial Italic" size="14.0"/>
-                    </font>
-                </Label>
             </children>
         </HBox>
     </children>
