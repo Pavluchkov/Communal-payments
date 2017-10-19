@@ -81,10 +81,12 @@ public class MeasureController extends MainController {
     @FXML
     public void btnOkClicked() {
         int counter = object.getId();
+
         double measure = Double.parseDouble(measureField.getText());
+        double previousMeasure = object.getRecentMeasure();
         Date date = Date.valueOf(datePicker.getValue());
 
-        Measurement measurement = new Measurement(0, counter, measure, date);
+        Measurement measurement = new Measurement(0, counter, previousMeasure, measure, date);
         object.setRecentMeasure(measure);
 
         try {

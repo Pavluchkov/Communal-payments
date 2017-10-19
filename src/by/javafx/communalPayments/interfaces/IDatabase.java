@@ -47,4 +47,6 @@ public interface IDatabase {
 
     void change(Services object) throws SQLException;
 
+    void change(Measurement object) throws SQLException;
+
 }

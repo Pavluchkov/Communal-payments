@@ -225,11 +225,12 @@ public class MySQLDatabase implements IDatabase, Subject {
     public void add(Measurement object) throws SQLException {
 
         PreparedStatement stmt = con.prepareStatement("INSERT INTO measurement" +
-                "(counter, measure, date) VALUES (?, ?, ?)");
+                "(counter, previousMeasure, measure, date) VALUES (?, ?, ?, ?)");
 
         stmt.setInt(1, object.getCounter());
-        stmt.setDouble(2, object.getMeasure());
-        stmt.setDate(3, object.getDate());
+        stmt.setDouble(2, object.getPreviousMeasure());
+        stmt.setDouble(3, object.getMeasure());
+        stmt.setDate(4, object.getDate());
 
         stmt.execute();
 
@@ -306,6 +307,12 @@ public class MySQLDatabase implements IDatabase, Subject {
 
         stmt.execute();
 
+        stmt = con.prepareStatement("UPDATE measurement SET" +
+                " measure=?" + " WHERE counter=? AND id=LAST_INSERT_ID()");
+        stmt.setDouble(1, object.getRecentMeasure());
+        stmt.setInt(2, object.getId());
+        stmt.execute();
+
         stmt.close();
         dataChange();
     }
@@ -330,6 +337,23 @@ public class MySQLDatabase implements IDatabase, Subject {
 
         stmt.close();
         dataChange();
+    }
+
+    @Override
+    public void change(Measurement object) throws SQLException {
+//        PreparedStatement stmt = con.prepareStatement("UPDATE measurement SET" +
+//                " id=?, counter=?, previousMeasure=?, measure=?, date=?" +
+//                " WHERE id=?");
+//        stmt.setInt(1, object.getId());
+//        stmt.setInt(2, object.getCounter());
+//        stmt.setDouble(3, object.getPreviousMeasure());
+//        stmt.setDouble(4, object.getMeasure());
+//        stmt.setDate(5, object.getDate());
+//        stmt.setInt(6, object.getId());
+//        stmt.execute();
+//
+//        stmt.close();
+        //dataChange();
     }
 
     @Override

@@ -2,6 +2,7 @@ package by.javafx.communalPayments.controllers.counters;
 
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.objects.Counters;
+import by.javafx.communalPayments.objects.Measurement;
 import by.javafx.communalPayments.objects.ObjectAccounting;
 import by.javafx.communalPayments.objects.Services;
 import javafx.collections.FXCollections;
