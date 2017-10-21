@@ -2,10 +2,7 @@ package by.javafx.communalPayments.controllers.payments;
 
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.controllers.counters.MeasureController;
-import by.javafx.communalPayments.objects.Counters;
-import by.javafx.communalPayments.objects.Measurement;
-import by.javafx.communalPayments.objects.ObjectAccounting;
-import by.javafx.communalPayments.objects.Services;
+import by.javafx.communalPayments.objects.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -17,12 +14,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.sql.Date;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class PaymentAddController extends MainController {
     private MainController mainController;
+    private Payments payment = new Payments();
 
     private ObservableList<ObjectAccounting> tableObject = FXCollections.observableArrayList();
     private ObservableList<Services> tableService = FXCollections.observableArrayList();
@@ -35,6 +34,11 @@ public class PaymentAddController extends MainController {
     private ArrayList<Measurement> listMeasure = new ArrayList<>();
     private ArrayList<Counters> newListCounters = new ArrayList<>();
     private double sum;
+    private double rate;
+    private double area;
+    private int residents;
+    private int objectId;
+    private String serviceComboValue;
 
     @FXML
     private ComboBox<String> objectCombo;
@@ -82,21 +86,18 @@ public class PaymentAddController extends MainController {
             listServices.add(obj.getServiceName());
         }
 
+        objectCombo.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                checkCombo(serviceComboValue);
+            }
+        });
+
         serviceCombo.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-
-                for (Services obj : tableService) {
-
-                    if (obj.getServiceName().equals(newValue)) {
-                        if (obj.getFormPayments() == 1) {
-                            setLayout(false);
-                        } else {
-                            setLayout(true);
-                        }
-                    }
-
-                }
+                serviceComboValue = newValue;
+                checkCombo(serviceComboValue);
             }
         });
 
@@ -125,6 +126,40 @@ public class PaymentAddController extends MainController {
                 printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
                 return;
             }
+        }
+
+        if (listMeasure.size() != 0) {
+            payment.setAccrued(sum);
+
+            try {
+                payment.setPaid(Double.parseDouble(sumField.getText()));
+            } catch (NumberFormatException e) {
+                printDialogError("Ввод данных", "Ошибка ввода данных !", e.getMessage());
+                return;
+            }
+
+            for (Services obj : tableService) {
+                if (payment.getService() == obj.getId()) {
+                    payment.setUnit(obj.getUnit());
+                }
+            }
+        } else {
+
+            try {
+                payment.setPaid(Double.parseDouble(sumField.getText()));
+                payment.setDate(Date.valueOf(LocalDate.now()));
+            } catch (NumberFormatException e) {
+                printDialogError("Ввод данных", "Ошибка ввода данных !", e.getMessage());
+                return;
+            }
+
+        }
+
+        try {
+            database.add(payment);
+        } catch (SQLException e) {
+            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            return;
         }
 
         sum = 0;
@@ -182,7 +217,71 @@ public class PaymentAddController extends MainController {
 
     public void setSum(double summa) {
         this.sum += summa;
-        sumField.setText(String.valueOf(new DecimalFormat("#0.00").format(sum)));
+        sumField.setText(String.valueOf(sum));
+    }
+
+    public double getRate(int serviceId) {
+        double rate = 0;
+
+        for (Services obj : tableService) {
+            if (serviceId == obj.getId()) {
+                rate = obj.getRate();
+            }
+        }
+
+        return rate;
+    }
+
+    public void setPayment(Payments payment) {
+        this.payment = payment;
+    }
+
+    private void checkCombo(String newValue) {
+        for (Services obj : tableService) {
+
+            if (obj.getServiceName().equals(newValue)) {
+                rate = obj.getRate();
+                payment.setRate(rate);
+                payment.setService(obj.getId());
+                payment.setUnit(obj.getUnit());
+
+                if (obj.getFormPayments() == 1) {
+                    sum = 0;
+                    sumField.setText("");
+                    setLayout(false);
+                } else {
+                    setLayout(true);
+
+                    for (ObjectAccounting objectAccounting : tableObject) {
+
+                        if (objectAccounting.getObjectName().equals(objectCombo.getValue())) {
+                            objectId = objectAccounting.getId();
+                            area = objectAccounting.getArea();
+                            residents = objectAccounting.getResidents();
+
+                            payment.setObject(objectId);
+
+                        }
+
+                    }
+
+                    if (obj.getFormPayments() == 2) {
+                        sum = Math.rint(rate * area * 100) / 100;
+                        payment.setVolume(area);
+                        payment.setAccrued(sum);
+                        sumField.setText(String.valueOf(sum));
+                    }
+
+                    if (obj.getFormPayments() == 3) {
+                        sum = Math.rint(rate * residents * 100) / 100;
+                        sumField.setText(String.valueOf(sum));
+                        payment.setVolume(residents);
+                        payment.setAccrued(sum);
+                    }
+                }
+            }
+
+        }
     }
 
     private void fillListCounters() {
@@ -204,7 +303,8 @@ public class PaymentAddController extends MainController {
         try {
             tableCounters = database.getListObjects(new Counters());
         } catch (SQLException e) {
-            e.printStackTrace();
+            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+            return;
         }
 
         for (Counters obj : tableCounters) {

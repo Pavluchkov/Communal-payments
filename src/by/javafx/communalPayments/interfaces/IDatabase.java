@@ -49,6 +49,4 @@ public interface IDatabase {
 
     void changeLastMeasure(Counters object) throws SQLException;
 
-    Double getRate(int serviceId) throws SQLException;
-
 }

@@ -98,18 +98,26 @@ public class MySQLDatabase implements IDatabase, Subject {
         ResultSet rs = stmt.executeQuery();
 
         int id;
-        int objectId = 0;
+        int objectId;
         int service;
-        double sum;
+        String unit;
+        double volume;
+        double rate;
+        double accrued;
+        double paid;
         Date date;
 
         while (rs.next()) {
             id = rs.getInt(1);
             objectId = rs.getInt(2);
             service = rs.getInt(3);
-            sum = rs.getDouble(4);
-            date = rs.getDate(5);
-            objectList.add(new Payments(id, objectId, service, sum, date));
+            unit = rs.getString(4);
+            volume = rs.getDouble(5);
+            rate = rs.getDouble(6);
+            accrued = rs.getDouble(7);
+            paid = rs.getDouble(8);
+            date = rs.getDate(9);
+            objectList.add(new Payments(id, objectId, service, unit, volume, rate, accrued, paid, date));
         }
 
         rs.close();
@@ -201,8 +209,23 @@ public class MySQLDatabase implements IDatabase, Subject {
     }
 
     @Override
-    public void add(Payments objects) throws SQLException {
+    public void add(Payments object) throws SQLException {
+        PreparedStatement stmt = con.prepareStatement("INSERT INTO payments" +
+                "(object, service, unit, volume, rate, accrued, paid, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
+        stmt.setInt(1, object.getObject());
+        stmt.setInt(2, object.getService());
+        stmt.setString(3, object.getUnit());
+        stmt.setDouble(4, object.getVolume());
+        stmt.setDouble(5, object.getRate());
+        stmt.setDouble(6, object.getAccrued());
+        stmt.setDouble(7, object.getPaid());
+        stmt.setDate(8, object.getDate());
+
+        stmt.execute();
+
+        stmt.close();
+        dataChange();
     }
 
     @Override
@@ -259,7 +282,13 @@ public class MySQLDatabase implements IDatabase, Subject {
     }
 
     @Override
-    public void delete(Payments objects) throws SQLException {
+    public void delete(Payments object) throws SQLException {
+        PreparedStatement stmt = con.prepareStatement("DELETE FROM payments WHERE id=?");
+        stmt.setInt(1, object.getId());
+
+        stmt.execute();
+
+        stmt.close();
         dataChange();
     }
 
@@ -341,25 +370,6 @@ public class MySQLDatabase implements IDatabase, Subject {
 
         stmt.close();
 
-    }
-
-    @Override
-    public Double getRate(int serviceId) throws SQLException {
-        PreparedStatement stmt = con.prepareStatement("SELECT rate FROM " + "services WHERE id=?");
-        stmt.setInt(1, serviceId);
-        ResultSet rs = stmt.executeQuery();
-        double rate = 0;
-
-        while (rs.next()) {
-            if (!rs.wasNull()) {
-                rate = rs.getDouble(1);
-            }
-        }
-
-        rs.close();
-        stmt.close();
-
-        return rate;
     }
 
     @Override

@@ -7,6 +7,7 @@ import by.javafx.communalPayments.controllers.objectAccounting.ObjAddController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjChangeController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjDeleteController;
 import by.javafx.communalPayments.controllers.payments.PaymentAddController;
+import by.javafx.communalPayments.controllers.payments.PaymentsDeleteController;
 import by.javafx.communalPayments.controllers.services.ServiceAddController;
 import by.javafx.communalPayments.controllers.services.ServiceChangeController;
 import by.javafx.communalPayments.controllers.services.ServiceDeleteController;
@@ -90,9 +91,17 @@ public class MainController implements Observer {
     @FXML
     private TableColumn<Payments, Integer> T4_serviceColumn;
     @FXML
-    private TableColumn<Payments, Double> T4_sumColumn;
+    private TableColumn<Payments, String> T4_unitColumn;
     @FXML
-    private TableColumn<Payments, Date> T4_datePaymentsColumn;
+    private TableColumn<Payments, Double> T4_volumeColumn;
+    @FXML
+    private TableColumn<Payments, Double> T4_rateColumn;
+    @FXML
+    private TableColumn<Payments, Double> T4_accruedColumn;
+    @FXML
+    private TableColumn<Payments, Double> T4_paidColumn;
+    @FXML
+    private TableColumn<Payments, Date> T4_dateColumn;
 
     @FXML
     private void initialize() {
@@ -125,8 +134,12 @@ public class MainController implements Observer {
         T4_id_paymentsColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         T4_objectColumn.setCellValueFactory(new PropertyValueFactory<>("object"));
         T4_serviceColumn.setCellValueFactory(new PropertyValueFactory<>("service"));
-        T4_sumColumn.setCellValueFactory(new PropertyValueFactory<>("sum"));
-        T4_datePaymentsColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        T4_unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
+        T4_volumeColumn.setCellValueFactory(new PropertyValueFactory<>("volume"));
+        T4_rateColumn.setCellValueFactory(new PropertyValueFactory<>("rate"));
+        T4_accruedColumn.setCellValueFactory(new PropertyValueFactory<>("accrued"));
+        T4_paidColumn.setCellValueFactory(new PropertyValueFactory<>("paid"));
+        T4_dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         update();
     }
@@ -309,25 +322,19 @@ public class MainController implements Observer {
     }
 
     @FXML
-    public void paymentChange() {
-//        Services object = (Services) T3_service.getSelectionModel().getSelectedItem();
-//
-//        if (object != null) {
-//            setSelectedObject(object);
-//            dialogWindow(new ServiceChangeController(this), "/by/javafx/communalPayments/fxml/servicesDialog/servicesChange.fxml",
-//                    "Изменение услуги", 400, 305);
-//        } else {
-//            printDialogError("Ошибка изменения объекта", "Ошибка !", "Не выбран изменяемый объект ! ");
-//        }
-
-    }
-
-    @FXML
     public void paymentDelete() {
+        Payments object = (Payments) T4_payments.getSelectionModel().getSelectedItem();
 
+        if (object != null) {
+            setSelectedObject(object);
+            dialogWindow(tabPane.getScene().getWindow(), new PaymentsDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
+                    "Удаление объекта", 380, 190);
+        } else {
+            printDialogError("Удаление объекта", "Ошибка удаления объекта!", "Не выбран удаляемый объект ! ");
+        }
     }
 
-    public void dialogWindow(Window window, MainController controller, String resource, String title, int width, int height) {
+    protected void dialogWindow(Window window, MainController controller, String resource, String title, int width, int height) {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource(resource));

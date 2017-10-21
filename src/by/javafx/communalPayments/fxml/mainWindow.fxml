@@ -160,7 +160,7 @@
                                         <Font name="Arial" size="14.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets left="25.0" right="25.0"/>
+                                        <Insets right="25.0"/>
                                     </HBox.margin>
                                 </Button>
                                 <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
@@ -259,10 +259,18 @@
                                              prefWidth="-1.0" text="Объект учета"/>
                                 <TableColumn fx:id="T4_serviceColumn" maxWidth="1.7976931348623157E308" minWidth="150.0"
                                              prefWidth="-1.0" text="Услуга"/>
-                                <TableColumn fx:id="T4_sumColumn" maxWidth="1.7976931348623157E308" minWidth="120.0"
-                                             prefWidth="-1.0" text="Сумма, рубл."/>
-                                <TableColumn fx:id="T4_datePaymentsColumn" maxWidth="1.7976931348623157E308"
-                                             minWidth="120.0" prefWidth="-1.0" text="Дата платежа"/>
+                                <TableColumn fx:id="T4_volumeColumn" maxWidth="1.7976931348623157E308" minWidth="100.0"
+                                             prefWidth="-1.0" text="Объем"/>
+                                <TableColumn fx:id="T4_unitColumn" maxWidth="1.7976931348623157E308" minWidth="60.0"
+                                             prefWidth="-1.0" text="Ед. изм."/>
+                                <TableColumn fx:id="T4_rateColumn" maxWidth="1.7976931348623157E308" minWidth="100.0"
+                                             prefWidth="-1.0" text="Тариф"/>
+                                <TableColumn fx:id="T4_accruedColumn" maxWidth="1.7976931348623157E308" minWidth="150.0"
+                                             prefWidth="-1.0" text="Начислено, рубл"/>
+                                <TableColumn fx:id="T4_paidColumn" maxWidth="1.7976931348623157E308" minWidth="120.0"
+                                             prefWidth="-1.0" text="Оплачено, рубл."/>
+                                <TableColumn fx:id="T4_dateColumn" maxWidth="1.7976931348623157E308" minWidth="120.0"
+                                             prefWidth="-1.0" text="Дата платежа"/>
                             </columns>
                         </TableView>
                         <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
@@ -277,13 +285,6 @@
                                     <HBox.margin>
                                         <Insets right="25.0"/>
                                     </HBox.margin>
-                                </Button>
-                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#paymentChange"
-                                        prefHeight="30.0" prefWidth="95.0" text="Изменить">
-                                    <font>
-                                        <Font name="Arial" size="14.0"/>
-                                    </font>
                                 </Button>
                                 <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
                                         minWidth="-Infinity" mnemonicParsing="false" onAction="#paymentDelete"
