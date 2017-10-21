@@ -47,8 +47,9 @@ public interface IDatabase {
 
     void change(Services object) throws SQLException;
 
-    void change(Measurement object) throws SQLException;
+    void changeLastMeasure(Counters object) throws SQLException;
 
     Measurement getLastMeasure(Counters object) throws SQLException;
+    Double getRate(int serviceId) throws SQLException;
 
 }

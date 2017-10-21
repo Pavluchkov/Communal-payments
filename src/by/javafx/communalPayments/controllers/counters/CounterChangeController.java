@@ -109,19 +109,20 @@ public class CounterChangeController extends MainController {
         }
 
         Counters counter = new Counters(id, objectId, serviceId, counterName, recentMeasure);
-        Measurement measurement;
+        //Measurement measurement;
 
         try {
-            measurement = database.getLastMeasure(counter);
-            if (measurement != null) {
-                if (counter.getRecentMeasure() < measurement.getPreviousMeasure()) {
-                    mainController.printDialogError("Ввод показаний", "Ошибка ввода показаний !",
-                            "Показания не могут быть меньше предыдущих.");
-                    return;
-                }
-            }
+//            measurement = database.getLastMeasure(counter);
+//            if (measurement != null) {
+//                if (counter.getRecentMeasure() < measurement.getPreviousMeasure()) {
+//                    mainController.printDialogError("Ввод показаний", "Ошибка ввода показаний !",
+//                            "Показания не могут быть меньше предыдущих.");
+//                    return;
+//                }
+//            }
 
             database.change(counter);
+            database.changeLastMeasure(counter);
         } catch (SQLException e) {
             e.printStackTrace();
         }
