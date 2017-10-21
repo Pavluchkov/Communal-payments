@@ -61,7 +61,12 @@ public class ServiceAddController extends MainController {
 
         String serviceName = nameField.getText();
         String unit = unitField.getText();
-        double rate = Double.parseDouble(rateField.getText());
+        double rate;
+
+        if(rateField.getText().isEmpty()){
+            rate = 0;
+        } else rate = Double.parseDouble(rateField.getText());
+
         int formId = 0;
 
         for (FormPayments obj : tableForm) {
