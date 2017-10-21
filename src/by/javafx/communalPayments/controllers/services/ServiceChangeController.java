@@ -44,7 +44,8 @@ public class ServiceChangeController extends MainController {
         try {
             tableForm = database.getListObjects(new FormPayments());
         } catch (SQLException e) {
-            e.printStackTrace();
+            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+            return;
         }
 
         ObservableList<String> formPayments = FXCollections.observableArrayList();
@@ -67,7 +68,20 @@ public class ServiceChangeController extends MainController {
 
         String serviceName = nameField.getText();
         String unit = unitField.getText();
-        double rate = Double.parseDouble(rateField.getText());
+        double rate = 0;
+
+        if (serviceName.isEmpty()) {
+            printDialogError("Ввод данных", "Ошибка ввода данных !", "Введите имя услуги.");
+            return;
+        }
+
+        try {
+            rate = Double.parseDouble(rateField.getText());
+        } catch (NumberFormatException e) {
+            printDialogError("Ввод данных", "Ошибка ввода данных !", e.getMessage());
+            return;
+        }
+
         int formId = 0;
         int serviceId = object.getId();
 
@@ -80,7 +94,8 @@ public class ServiceChangeController extends MainController {
         try {
             database.change(new Services(serviceId, serviceName, unit, rate, formId));
         } catch (SQLException e) {
-            e.printStackTrace();
+            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            return;
         }
 
         btnCancelClicked();

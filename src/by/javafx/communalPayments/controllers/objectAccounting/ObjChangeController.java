@@ -39,6 +39,7 @@ public class ObjChangeController extends MainController {
     @FXML
     public void initialize() {
         objectAccounting = (ObjectAccounting) mainController.getSelectedObject();
+
         personalAccount.setText(String.valueOf(objectAccounting.getId()));
         nameObject.setText(objectAccounting.getObjectName());
         owner.setText(objectAccounting.getOwner());
@@ -49,19 +50,22 @@ public class ObjChangeController extends MainController {
 
     @FXML
     public void btnOkClicked() {
-        int id = objectAccounting.getId();
-
-        objectAccounting.setId(Integer.parseInt(personalAccount.getText()));
-        objectAccounting.setObjectName(nameObject.getText());
-        objectAccounting.setOwner(owner.getText());
-        objectAccounting.setAddress(address.getText());
-        objectAccounting.setResidents(Integer.parseInt(residents.getText()));
-        objectAccounting.setArea(Double.parseDouble(area.getText()));
 
         try {
+            int id = objectAccounting.getId();
+            objectAccounting.setId(Integer.parseInt(personalAccount.getText()));
+            objectAccounting.setObjectName(nameObject.getText());
+            objectAccounting.setOwner(owner.getText());
+            objectAccounting.setAddress(address.getText());
+            objectAccounting.setResidents(Integer.parseInt(residents.getText()));
+            objectAccounting.setArea(Double.parseDouble(area.getText()));
             database.change(objectAccounting, id);
+        } catch (NumberFormatException e) {
+            printDialogError("Ввод данных", "Ошибка ввода данных !", e.getMessage());
+            return;
         } catch (SQLException e) {
-            e.getMessage();
+            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            return;
         }
 
         btnCancelClicked();

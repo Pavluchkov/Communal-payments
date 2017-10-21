@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 
 public class ServiceAddController extends MainController {
-    private MainController mainController;
     private ObservableList<FormPayments> tableForm = FXCollections.observableArrayList();
 
     @FXML
@@ -29,20 +28,14 @@ public class ServiceAddController extends MainController {
     @FXML
     private Button btnCancel;
 
-    public ServiceAddController(MainController mainController) {
-        this.mainController = mainController;
-    }
-
-    public ServiceAddController() {
-    }
-
     @FXML
     public void initialize() {
 
         try {
             tableForm = database.getListObjects(new FormPayments());
         } catch (SQLException e) {
-            e.printStackTrace();
+            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+            return;
         }
 
         ObservableList<String> formPayments = FXCollections.observableArrayList();
@@ -63,9 +56,18 @@ public class ServiceAddController extends MainController {
         String unit = unitField.getText();
         double rate;
 
-        if(rateField.getText().isEmpty()){
-            rate = 0;
-        } else rate = Double.parseDouble(rateField.getText());
+        if (serviceName.isEmpty()) {
+            printDialogError("Ввод данных", "Ошибка ввода данных !", "Введите имя услуги.");
+            return;
+        }
+
+        try {
+            rate = Double.parseDouble(rateField.getText());
+        } catch (NumberFormatException e) {
+            printDialogError("Ввод данных", "Ошибка ввода данных !", e.getMessage());
+            return;
+        }
+
 
         int formId = 0;
 
@@ -78,7 +80,8 @@ public class ServiceAddController extends MainController {
         try {
             database.add(new Services(0, serviceName, unit, rate, formId));
         } catch (SQLException e) {
-            e.printStackTrace();
+            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            return;
         }
 
         btnCancelClicked();

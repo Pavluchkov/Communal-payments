@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class PaymentAddController extends MainController {
@@ -69,7 +70,8 @@ public class PaymentAddController extends MainController {
             tableService = database.getListObjects(new Services());
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            printDialogError("Работа с базой данных", "Ошибка чтения данных БД !", e.getMessage());
+            return;
         }
 
         for (ObjectAccounting obj : tableObject) {
@@ -111,7 +113,8 @@ public class PaymentAddController extends MainController {
             try {
                 database.change(obj);
             } catch (SQLException e) {
-                e.printStackTrace();
+                printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+                return;
             }
         }
 
@@ -119,7 +122,8 @@ public class PaymentAddController extends MainController {
             try {
                 database.add(obj);
             } catch (SQLException e) {
-                e.printStackTrace();
+                printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+                return;
             }
         }
 
@@ -169,19 +173,19 @@ public class PaymentAddController extends MainController {
             layout_2.setVisible(false);
             sumField.setDisable(false);
 
-        } else{
+        } else {
             layout_1.setVisible(false);
             layout_2.setVisible(true);
             sumField.setDisable(true);
         }
     }
 
-    public void setSum(double summa){
+    public void setSum(double summa) {
         this.sum += summa;
-        sumField.setText(String.valueOf(sum));
+        sumField.setText(String.valueOf(new DecimalFormat("#0.00").format(sum)));
     }
 
-    private void fillListCounters(){
+    private void fillListCounters() {
         ObjectAccounting objectAccounting = new ObjectAccounting();
         Services services = new Services();
 

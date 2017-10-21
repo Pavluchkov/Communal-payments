@@ -2,7 +2,6 @@ package by.javafx.communalPayments.controllers.counters;
 
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.objects.Counters;
-import by.javafx.communalPayments.objects.Measurement;
 import by.javafx.communalPayments.objects.ObjectAccounting;
 import by.javafx.communalPayments.objects.Services;
 import javafx.collections.FXCollections;
@@ -52,7 +51,8 @@ public class CounterChangeController extends MainController {
             tableService = database.getListObjects(new Services());
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            printDialogError("Работа с базой данных", "Ошибка чтения данных !", e.getMessage());
+            return;
         }
 
         ObservableList<String> listObjects = FXCollections.observableArrayList();
@@ -89,7 +89,20 @@ public class CounterChangeController extends MainController {
         int objectId = 0;
         int serviceId = 0;
         String counterName = nameField.getText();
-        double recentMeasure = Double.parseDouble(recentField.getText());
+        double recentMeasure = 0;
+
+        if (counterName.isEmpty()) {
+            printDialogError("Ввод данных", "Ошибка ввода данных !", "Введите имя счетчика.");
+            return;
+        }
+
+        try {
+            recentMeasure = Double.parseDouble(recentField.getText());
+        } catch (NumberFormatException e) {
+            printDialogError("Ввод данных", "Ошибка ввода данных !", e.getMessage());
+            return;
+        }
+
 
         String selectedItemObj = objectCombo.getSelectionModel().getSelectedItem();
         String selectedItemService = serviceCombo.getSelectionModel().getSelectedItem();
@@ -109,22 +122,13 @@ public class CounterChangeController extends MainController {
         }
 
         Counters counter = new Counters(id, objectId, serviceId, counterName, recentMeasure);
-        //Measurement measurement;
 
         try {
-//            measurement = database.getLastMeasure(counter);
-//            if (measurement != null) {
-//                if (counter.getRecentMeasure() < measurement.getPreviousMeasure()) {
-//                    mainController.printDialogError("Ввод показаний", "Ошибка ввода показаний !",
-//                            "Показания не могут быть меньше предыдущих.");
-//                    return;
-//                }
-//            }
-
             database.change(counter);
             database.changeLastMeasure(counter);
         } catch (SQLException e) {
-            e.printStackTrace();
+            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            return;
         }
 
         btnCancelClicked();

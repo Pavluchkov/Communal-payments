@@ -37,7 +37,8 @@ public class ServiceDeleteController extends MainController {
         try {
             database.delete(object);
         } catch (SQLException e) {
-            e.printStackTrace();
+            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            return;
         }
 
         btnCancelClicked();

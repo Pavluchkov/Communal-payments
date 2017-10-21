@@ -3,7 +3,6 @@ package by.javafx.communalPayments.controllers;
 import by.javafx.communalPayments.controllers.counters.CounterAddController;
 import by.javafx.communalPayments.controllers.counters.CounterChangeController;
 import by.javafx.communalPayments.controllers.counters.CounterDeleteController;
-import by.javafx.communalPayments.controllers.counters.MeasureController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjAddController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjChangeController;
 import by.javafx.communalPayments.controllers.objectAccounting.ObjDeleteController;
@@ -204,7 +203,7 @@ public class MainController implements Observer {
     @FXML
     public void objAccountAdd() {
 
-        dialogWindow(tabPane.getScene().getWindow(), new ObjAddController(this), "/by/javafx/communalPayments/fxml/objAccountDialog/objectAccountAdd.fxml",
+        dialogWindow(tabPane.getScene().getWindow(), new ObjAddController(), "/by/javafx/communalPayments/fxml/objAccountDialog/objectAccountAdd.fxml",
                 "Добавление объекта учета", 565, 350);
 
     }
@@ -218,7 +217,7 @@ public class MainController implements Observer {
             dialogWindow(tabPane.getScene().getWindow(), new ObjChangeController(this), "/by/javafx/communalPayments/fxml/objAccountDialog/objectAccountChange.fxml",
                     "Изменение объекта учета", 565, 350);
         } else {
-            printDialogError("Ошибка изменения объекта", "Не выбран изменяемый объект !", "Выберите объект для изменения.");
+            printDialogError("Изменение объекта", "Не выбран изменяемый объект !", "Выберите объект для изменения.");
         }
 
     }
@@ -232,13 +231,13 @@ public class MainController implements Observer {
             dialogWindow(tabPane.getScene().getWindow(), new ObjDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
                     "Удаление объекта", 380, 190);
         } else {
-            printDialogError("Ошибка удаления объекта", "Ошибка !", "Не выбран удаляемый объект ! ");
+            printDialogError("Удаление объекта", "Ошибка удаления объекта !", "Не выбран удаляемый объект ! ");
         }
     }
 
     @FXML
     public void countersAdd() {
-        dialogWindow(tabPane.getScene().getWindow(), new CounterAddController(this), "/by/javafx/communalPayments/fxml/countersDialog/CountersAdd.fxml",
+        dialogWindow(tabPane.getScene().getWindow(), new CounterAddController(), "/by/javafx/communalPayments/fxml/countersDialog/CountersAdd.fxml",
                 "Добавление счетчика", 400, 305);
     }
 
@@ -251,7 +250,7 @@ public class MainController implements Observer {
             dialogWindow(tabPane.getScene().getWindow(), new CounterChangeController(this), "/by/javafx/communalPayments/fxml/countersDialog/CountersChange.fxml",
                     "Изменение счетчика", 400, 305);
         } else {
-            printDialogError("Ошибка изменения объекта", "Ошибка !", "Не выбран изменяемый объект ! ");
+            printDialogError("Изменение объекта", "Ошибка изменения объекта !", "Не выбран изменяемый объект ! ");
         }
 
     }
@@ -265,27 +264,14 @@ public class MainController implements Observer {
             dialogWindow(tabPane.getScene().getWindow(), new CounterDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
                     "Удаление объекта", 380, 190);
         } else {
-            printDialogError("Ошибка удаления объекта", "Ошибка !", "Не выбран удаляемый объект ! ");
+            printDialogError("Удаление объекта", "Ошибка удаления объекта !", "Не выбран удаляемый объект ! ");
         }
 
     }
 
     @FXML
-    public void inputMeasureClicked() {
-//        Counters object = (Counters) T2_counters.getSelectionModel().getSelectedItem();
-//
-//        if (object != null) {
-//            setSelectedObject(object);
-//            dialogWindow(new MeasureController(this), "/by/javafx/communalPayments/fxml/countersDialog/inputMeasure.fxml",
-//                    "Внесение показаний счетчика", 400, 305);
-//        } else {
-//            printDialogError("Внесение показаний", "Не выбран счетчик !", "Для внесения показаний выделите хотя бы один счетчик.");
-//        }
-    }
-
-    @FXML
     public void serviceAdd() {
-        dialogWindow(tabPane.getScene().getWindow(), new ServiceAddController(this), "/by/javafx/communalPayments/fxml/servicesDialog/servicesAdd.fxml",
+        dialogWindow(tabPane.getScene().getWindow(), new ServiceAddController(), "/by/javafx/communalPayments/fxml/servicesDialog/servicesAdd.fxml",
                 "Добавление услуги", 400, 305);
     }
 
@@ -298,7 +284,7 @@ public class MainController implements Observer {
             dialogWindow(tabPane.getScene().getWindow(), new ServiceChangeController(this), "/by/javafx/communalPayments/fxml/servicesDialog/servicesChange.fxml",
                     "Изменение услуги", 400, 305);
         } else {
-            printDialogError("Ошибка изменения объекта", "Ошибка !", "Не выбран изменяемый объект ! ");
+            printDialogError("Изменение объекта", "Ошибка изменения объекта!", "Не выбран изменяемый объект ! ");
         }
 
     }
@@ -312,7 +298,7 @@ public class MainController implements Observer {
             dialogWindow(tabPane.getScene().getWindow(), new ServiceDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
                     "Удаление объекта", 380, 190);
         } else {
-            printDialogError("Ошибка удаления объекта", "Ошибка !", "Не выбран удаляемый объект ! ");
+            printDialogError("Удаление объекта", "Ошибка удаления объекта!", "Не выбран удаляемый объект ! ");
         }
     }
 
@@ -337,7 +323,7 @@ public class MainController implements Observer {
     }
 
     @FXML
-    public void paymentDelete(){
+    public void paymentDelete() {
 
     }
 

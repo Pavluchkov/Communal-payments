@@ -351,7 +351,7 @@ public class MySQLDatabase implements IDatabase, Subject {
         double rate = 0;
 
         while (rs.next()) {
-            if(!rs.wasNull()){
+            if (!rs.wasNull()) {
                 rate = rs.getDouble(1);
             }
         }

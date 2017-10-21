@@ -4,10 +4,6 @@ import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.controllers.payments.PaymentAddController;
 import by.javafx.communalPayments.objects.Counters;
 import by.javafx.communalPayments.objects.Measurement;
-import by.javafx.communalPayments.objects.ObjectAccounting;
-import by.javafx.communalPayments.objects.Services;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -22,7 +18,6 @@ import java.time.LocalDate;
 public class MeasureController extends MainController {
     private Counters object;
     private PaymentAddController paymentAddController;
-    private static double sum;
 
     @FXML
     private Label textLabel;
@@ -56,21 +51,34 @@ public class MeasureController extends MainController {
     @FXML
     public void btnOkClicked() {
 
-        if((measureField.getText().isEmpty())){
+        if ((measureField.getText().isEmpty())) {
             printDialogError("Внесение показаний счетчика", "Ошибка внесения показаний!",
                     "Поле <Текущие показания> должно быть заполнено");
             return;
         }
 
-        double tarif = 0;
+        double rate;
 
         try {
-            tarif = database.getRate(object.getService());
+            rate = database.getRate(object.getService());
         } catch (SQLException e) {
-            e.printStackTrace();
+            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+            return;
         }
 
-        double sum = (Double.parseDouble(measureField.getText()) - object.getRecentMeasure()) * tarif;
+        double sum;
+
+        try {
+            sum = (Double.parseDouble(measureField.getText()) - object.getRecentMeasure()) * rate;
+        } catch (NumberFormatException e) {
+            printDialogError("Ввод данных", "Ошибка ввода данных !", e.getMessage());
+            return;
+        }
+
+        if (sum < 0) {
+            printDialogError("Ввод данных", "Ошибка ввода данных !", "Текущие показания меньше предыдущих.");
+            return;
+        }
 
         object.setRecentMeasure(Double.parseDouble(measureField.getText()));
         paymentAddController.setCounter(object);

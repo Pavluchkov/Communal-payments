@@ -5,14 +5,11 @@ import by.javafx.communalPayments.objects.ObjectAccounting;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
-import java.util.function.UnaryOperator;
 
 public class ObjAddController extends MainController {
-    private MainController mainController;
 
     @FXML
     private TextField personalAccount;
@@ -30,36 +27,30 @@ public class ObjAddController extends MainController {
     @FXML
     private Button btnCancel;
 
-    public ObjAddController(MainController mainController) {
-        this.mainController = mainController;
-    }
 
-    public ObjAddController() {
-    }
-
-    private UnaryOperator<TextFormatter.Change> textFilter(String regexString) {
-        UnaryOperator<TextFormatter.Change> Filter = change -> {
-            String text = change.getText();
-
-            if (text.matches(regexString)) {
-                return change;
-            }
-
-            return null;
-        };
-
-        return Filter;
-    }
+//    private UnaryOperator<TextFormatter.Change> textFilter(String regexString) {
+//        UnaryOperator<TextFormatter.Change> Filter = change -> {
+//            String text = change.getText();
+//
+//            if (text.matches(regexString)) {
+//                return change;
+//            }
+//
+//            return null;
+//        };
+//
+//        return Filter;
+//    }
 
     @FXML
     private void initialize() {
 
-        TextFormatter<String> textFormatterPersonal = new TextFormatter<>(textFilter("[0-9]*"));
-        TextFormatter<String> textFormatterResident = new TextFormatter<>(textFilter("[0-9]*"));
-        TextFormatter<String> textFormatterArea = new TextFormatter<>(textFilter("[0-9.]*"));
-        personalAccount.setTextFormatter(textFormatterPersonal);
-        residents.setTextFormatter(textFormatterResident);
-        area.setTextFormatter(textFormatterArea);
+//        TextFormatter<String> textFormatterPersonal = new TextFormatter<>(textFilter("[0-9]*"));
+//        TextFormatter<String> textFormatterResident = new TextFormatter<>(textFilter("[0-9]*"));
+//        TextFormatter<String> textFormatterArea = new TextFormatter<>(textFilter("[0-9.]*"));
+//        personalAccount.setTextFormatter(textFormatterPersonal);
+//        residents.setTextFormatter(textFormatterResident);
+//        area.setTextFormatter(textFormatterArea);
 
 //        personalAccount.addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<KeyEvent>() {
 //            @Override public void handle(KeyEvent keyEvent) {
@@ -73,13 +64,21 @@ public class ObjAddController extends MainController {
     @FXML
     public void BtnOkClicked() {
 
-        ObjectAccounting object = new ObjectAccounting(Integer.parseInt(personalAccount.getText()), nameObject.getText(),
-                owner.getText(), address.getText(), Integer.parseInt(residents.getText()), Double.parseDouble(area.getText()));
-
         try {
+            ObjectAccounting object = new ObjectAccounting();
+            object.setId(Integer.parseInt(personalAccount.getText()));
+            object.setObjectName(nameObject.getText());
+            object.setOwner(owner.getText());
+            object.setAddress(address.getText());
+            object.setResidents(Integer.parseInt(residents.getText()));
+            object.setArea(Double.parseDouble(area.getText()));
             database.add(object);
+        } catch (NumberFormatException e) {
+            printDialogError("Ввод данных", "Ошибка ввода данных !", e.getMessage());
+            return;
         } catch (SQLException e) {
-            mainController.printDialogError("Ошибка записи", "Ошибка записи данных в БД !", e.getMessage());
+            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            return;
         }
 
         btnCancelClicked();

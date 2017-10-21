@@ -38,7 +38,8 @@ public class ObjDeleteController extends MainController {
             try {
                 database.delete(objectAccounting);
             } catch (SQLException e) {
-                e.printStackTrace();
+                printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+                return;
             }
         }
 

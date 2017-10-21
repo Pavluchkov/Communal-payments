@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 
 public class CounterAddController extends MainController {
-    private MainController mainController;
     private ObservableList<ObjectAccounting> tableObject = FXCollections.observableArrayList();
     private ObservableList<Services> tableService = FXCollections.observableArrayList();
 
@@ -30,21 +29,16 @@ public class CounterAddController extends MainController {
     @FXML
     private Button btnCancel;
 
-    public CounterAddController(MainController mainController) {
-        this.mainController = mainController;
-    }
-
-    public CounterAddController() {
-    }
-
     @FXML
     public void initialize() {
+
         try {
             tableObject = database.getListObjects(new ObjectAccounting());
             tableService = database.getListObjects(new Services());
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+            return;
         }
 
         ObservableList<String> listObjects = FXCollections.observableArrayList();
@@ -74,7 +68,19 @@ public class CounterAddController extends MainController {
         int objectId = 0;
         int serviceId = 0;
         String counterName = nameField.getText();
-        double recentMeasure = Double.parseDouble(recentField.getText());
+        double recentMeasure = 0;
+
+        if (counterName.isEmpty()) {
+            printDialogError("Ввод данных", "Ошибка ввода данных !", "Введите имя счетчика.");
+            return;
+        }
+
+        try {
+            recentMeasure = Double.parseDouble(recentField.getText());
+        } catch (NumberFormatException e) {
+            printDialogError("Ввод данных", "Ошибка ввода данных !", e.getMessage());
+            return;
+        }
 
         String selectedItemObj = objectCombo.getSelectionModel().getSelectedItem();
         String selectedItemService = serviceCombo.getSelectionModel().getSelectedItem();
@@ -96,7 +102,8 @@ public class CounterAddController extends MainController {
         try {
             database.add(counter);
         } catch (SQLException e) {
-            e.printStackTrace();
+            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            return;
         }
 
         btnCancelClicked();
