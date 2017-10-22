@@ -25,8 +25,8 @@ public class AccessDatabase {
     }
 
     public ArrayList<String[]> getDataTable(String tableName) throws IOException {
-        ArrayList<String[]> list = new ArrayList<String[]>();
-        ArrayList<String> temp = new ArrayList<String>();
+        ArrayList<String[]> list = new ArrayList<>();
+        ArrayList<String> temp = new ArrayList<>();
 
         Table table = open.getTable(tableName);
 

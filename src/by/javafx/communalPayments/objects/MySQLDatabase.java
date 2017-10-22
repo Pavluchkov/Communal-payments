@@ -339,11 +339,6 @@ public class MySQLDatabase implements IDatabase, Subject {
     }
 
     @Override
-    public void change(Payments objects) throws SQLException {
-        dataChange();
-    }
-
-    @Override
     public void change(Services object) throws SQLException {
         PreparedStatement stmt = con.prepareStatement("UPDATE services SET" +
                 " id=?, serviceName=?, unit=?, rate=?, formPayment=?" +

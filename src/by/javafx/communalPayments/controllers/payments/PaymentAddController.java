@@ -3,8 +3,6 @@ package by.javafx.communalPayments.controllers.payments;
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.controllers.counters.MeasureController;
 import by.javafx.communalPayments.objects.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,24 +18,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class PaymentAddController extends MainController {
-    private MainController mainController;
     private Payments payment = new Payments();
 
     private ObservableList<ObjectAccounting> tableObject = FXCollections.observableArrayList();
     private ObservableList<Services> tableService = FXCollections.observableArrayList();
     private ObservableList<String> listObjects = FXCollections.observableArrayList();
     private ObservableList<String> listServices = FXCollections.observableArrayList();
-
-    private ObservableList<Counters> tableCounters = FXCollections.observableArrayList();
     private ArrayList<Counters> listCounters = new ArrayList<>();
-
     private ArrayList<Measurement> listMeasure = new ArrayList<>();
     private ArrayList<Counters> newListCounters = new ArrayList<>();
     private double sum;
-    private double rate;
     private double area;
     private int residents;
-    private int objectId;
     private String serviceComboValue;
 
     @FXML
@@ -59,13 +51,6 @@ public class PaymentAddController extends MainController {
     @FXML
     private HBox layout_2;
 
-    public PaymentAddController(MainController mainController) {
-        this.mainController = mainController;
-    }
-
-    public PaymentAddController() {
-    }
-
     @FXML
     public void initialize() {
 
@@ -86,19 +71,11 @@ public class PaymentAddController extends MainController {
             listServices.add(obj.getServiceName());
         }
 
-        objectCombo.valueProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                checkCombo(serviceComboValue);
-            }
-        });
+        objectCombo.valueProperty().addListener((observable, oldValue, newValue) -> checkCombo(serviceComboValue));
 
-        serviceCombo.valueProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                serviceComboValue = newValue;
-                checkCombo(serviceComboValue);
-            }
+        serviceCombo.valueProperty().addListener((observable, oldValue, newValue) -> {
+            serviceComboValue = newValue;
+            checkCombo(serviceComboValue);
         });
 
         objectCombo.setItems(listObjects);
@@ -240,8 +217,8 @@ public class PaymentAddController extends MainController {
         for (Services obj : tableService) {
 
             if (obj.getServiceName().equals(newValue)) {
-                rate = obj.getRate();
-                payment.setRate(rate);
+                double rate = obj.getRate();
+                payment.setRate(obj.getRate());
                 payment.setService(obj.getId());
                 payment.setUnit(obj.getUnit());
 
@@ -255,11 +232,9 @@ public class PaymentAddController extends MainController {
                     for (ObjectAccounting objectAccounting : tableObject) {
 
                         if (objectAccounting.getObjectName().equals(objectCombo.getValue())) {
-                            objectId = objectAccounting.getId();
                             area = objectAccounting.getArea();
                             residents = objectAccounting.getResidents();
-
-                            payment.setObject(objectId);
+                            payment.setObject(objectAccounting.getId());
 
                         }
 
@@ -299,6 +274,8 @@ public class PaymentAddController extends MainController {
                 services = obj;
             }
         }
+
+        ObservableList<Counters> tableCounters;
 
         try {
             tableCounters = database.getListObjects(new Counters());

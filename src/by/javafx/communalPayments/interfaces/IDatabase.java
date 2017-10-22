@@ -43,8 +43,6 @@ public interface IDatabase {
 
     void change(Counters object) throws SQLException;
 
-    void change(Payments object) throws SQLException;
-
     void change(Services object) throws SQLException;
 
     void changeLastMeasure(Counters object) throws SQLException;

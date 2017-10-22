@@ -89,7 +89,7 @@ public class CounterChangeController extends MainController {
         int objectId = 0;
         int serviceId = 0;
         String counterName = nameField.getText();
-        double recentMeasure = 0;
+        double recentMeasure;
 
         if (counterName.isEmpty()) {
             printDialogError("Ввод данных", "Ошибка ввода данных !", "Введите имя счетчика.");

@@ -1,51 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
-<TabPane fx:id="tabPane" prefHeight="450.0" prefWidth="605.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane xmlns:fx="http://javafx.com/fxml/1" fx:id="tabPane" prefHeight="450.0" prefWidth="605.0"
+         tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8">
     <tabs>
         <Tab onSelectionChanged="#tabObjAccountChange" text="Объект учета">
             <content>
                 <AnchorPane prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <TableView fx:id="T1_objAccounting" layoutX="20.0" layoutY="60.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
+                        <TableView fx:id="T1_objAccounting" layoutX="20.0" layoutY="60.0" tableMenuButtonVisible="true"
+                                   AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"
+                                   AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
                             <columns>
-                                <TableColumn fx:id="T1_personalAccountColumn" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Лицевой счет" />
-                                <TableColumn fx:id="T1_nameObjColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Имя объекта" />
-                                <TableColumn fx:id="T1_ownerColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Ф.И.О. владельца" />
-                                <TableColumn fx:id="T1_addressColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Адрес" />
-                                <TableColumn fx:id="T1_residentsColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Кол-во жильцов" />
-                                <TableColumn fx:id="T1_areaColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Общая площадь, кв. м" />
+                                <TableColumn fx:id="T1_personalAccountColumn" maxWidth="-1.0" minWidth="100.0"
+                                             prefWidth="-1.0" text="Лицевой счет"/>
+                                <TableColumn fx:id="T1_nameObjColumn" maxWidth="1.7976931348623157E308" minWidth="200.0"
+                                             prefWidth="-1.0" text="Имя объекта"/>
+                                <TableColumn fx:id="T1_ownerColumn" maxWidth="1.7976931348623157E308" minWidth="200.0"
+                                             prefWidth="-1.0" text="Ф.И.О. владельца"/>
+                                <TableColumn fx:id="T1_addressColumn" maxWidth="1.7976931348623157E308" minWidth="200.0"
+                                             prefWidth="-1.0" text="Адрес"/>
+                                <TableColumn fx:id="T1_residentsColumn" maxWidth="1.7976931348623157E308"
+                                             minWidth="200.0" prefWidth="-1.0" text="Кол-во жильцов"/>
+                                <TableColumn fx:id="T1_areaColumn" maxWidth="1.7976931348623157E308" minWidth="200.0"
+                                             prefWidth="-1.0" text="Общая площадь, кв. м"/>
                             </columns>
                             <columnResizePolicy>
-                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                             </columnResizePolicy>
                         </TableView>
-                        <HBox alignment="CENTER" layoutX="20.0" layoutY="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                        <HBox alignment="CENTER" layoutX="20.0" layoutY="20.0" AnchorPane.leftAnchor="20.0"
+                              AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                             <children>
-                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#objAccountAdd" prefHeight="30.0" prefWidth="95.0" text="Добавить">
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#objAccountAdd"
+                                        prefHeight="30.0" prefWidth="95.0" text="Добавить">
                                     <font>
-                                        <Font name="Arial" size="14.0" />
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets right="25.0" />
+                                        <Insets right="25.0"/>
                                     </HBox.margin>
                                 </Button>
-                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#objAccountChange" prefHeight="30.0" prefWidth="95.0" text="Изменить">
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#objAccountChange"
+                                        prefHeight="30.0" prefWidth="95.0" text="Изменить">
                                     <font>
-                                        <Font name="Arial" size="14.0" />
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                 </Button>
-                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#objAccountDelete" prefHeight="30.0" prefWidth="95.0" text="Удалить">
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#objAccountDelete"
+                                        prefHeight="30.0" prefWidth="95.0" text="Удалить">
                                     <font>
-                                        <Font name="Arial" size="14.0" />
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets left="25.0" />
+                                        <Insets left="25.0"/>
                                     </HBox.margin>
                                 </Button>
                             </children>
@@ -58,41 +72,55 @@
             <content>
                 <AnchorPane prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                        <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+                              AnchorPane.topAnchor="20.0">
                             <children>
-                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#serviceAdd" prefHeight="30.0" prefWidth="95.0" text="Добавить">
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#serviceAdd"
+                                        prefHeight="30.0" prefWidth="95.0" text="Добавить">
                                     <font>
-                                        <Font name="Arial" size="14.0" />
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets right="25.0" />
+                                        <Insets right="25.0"/>
                                     </HBox.margin>
                                 </Button>
-                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#serviceChange" prefHeight="30.0" prefWidth="95.0" text="Изменить">
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#serviceChange"
+                                        prefHeight="30.0" prefWidth="95.0" text="Изменить">
                                     <font>
-                                        <Font name="Arial" size="14.0" />
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                 </Button>
-                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#serviceDelete" prefHeight="30.0" prefWidth="95.0" text="Удалить">
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#serviceDelete"
+                                        prefHeight="30.0" prefWidth="95.0" text="Удалить">
                                     <font>
-                                        <Font name="Arial" size="14.0" />
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets left="25.0" />
+                                        <Insets left="25.0"/>
                                     </HBox.margin>
                                 </Button>
                             </children>
                         </HBox>
-                        <TableView fx:id="T3_service" layoutX="20.0" layoutY="56.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
+                        <TableView fx:id="T3_service" layoutX="20.0" layoutY="56.0" tableMenuButtonVisible="true"
+                                   AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"
+                                   AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
                             <columnResizePolicy>
-                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                             </columnResizePolicy>
                             <columns>
-                                <TableColumn fx:id="T3_id_serviceColumn" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Код услуги" />
-                                <TableColumn fx:id="T3_serviceNameColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Название услуги" />
-                                <TableColumn fx:id="T3_unitColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Ед. изм. услуги" />
-                                <TableColumn fx:id="T3_rateColumn" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="Тариф, руб." />
-                                <TableColumn fx:id="T3_formPaymentsColumn" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="Форма оплаты" />
+                                <TableColumn fx:id="T3_id_serviceColumn" maxWidth="-1.0" minWidth="100.0"
+                                             prefWidth="-1.0" text="Код услуги"/>
+                                <TableColumn fx:id="T3_serviceNameColumn" maxWidth="1.7976931348623157E308"
+                                             minWidth="200.0" prefWidth="-1.0" text="Название услуги"/>
+                                <TableColumn fx:id="T3_unitColumn" maxWidth="1.7976931348623157E308" minWidth="200.0"
+                                             prefWidth="-1.0" text="Ед. изм. услуги"/>
+                                <TableColumn fx:id="T3_rateColumn" maxWidth="1.7976931348623157E308" minWidth="120.0"
+                                             prefWidth="-1.0" text="Тариф, руб."/>
+                                <TableColumn fx:id="T3_formPaymentsColumn" maxWidth="1.7976931348623157E308"
+                                             minWidth="120.0" prefWidth="-1.0" text="Форма оплаты"/>
                             </columns>
                         </TableView>
                     </children>
@@ -103,39 +131,53 @@
             <content>
                 <AnchorPane prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <TableView fx:id="T2_counters" layoutX="20.0" layoutY="66.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
+                        <TableView fx:id="T2_counters" layoutX="20.0" layoutY="66.0" tableMenuButtonVisible="true"
+                                   AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"
+                                   AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
                             <columnResizePolicy>
-                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                             </columnResizePolicy>
                             <columns>
-                                <TableColumn fx:id="T2_id_counterColumn" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Код счетчика" />
-                                <TableColumn fx:id="T2_counterNameColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Название счетчика" />
-                                <TableColumn fx:id="T2_recentMeasureColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="-1.0" text="Последние показания" />
-                                <TableColumn fx:id="T2_nameObjColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Объект учета" />
-                                <TableColumn fx:id="T2_serviceColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Услуга" />
+                                <TableColumn fx:id="T2_id_counterColumn" maxWidth="-1.0" minWidth="100.0"
+                                             prefWidth="-1.0" text="Код счетчика"/>
+                                <TableColumn fx:id="T2_counterNameColumn" maxWidth="1.7976931348623157E308"
+                                             minWidth="200.0" prefWidth="-1.0" text="Название счетчика"/>
+                                <TableColumn fx:id="T2_recentMeasureColumn" maxWidth="1.7976931348623157E308"
+                                             minWidth="150.0" prefWidth="-1.0" text="Последние показания"/>
+                                <TableColumn fx:id="T2_nameObjColumn" maxWidth="1.7976931348623157E308" minWidth="200.0"
+                                             prefWidth="-1.0" text="Объект учета"/>
+                                <TableColumn fx:id="T2_serviceColumn" maxWidth="1.7976931348623157E308" minWidth="200.0"
+                                             prefWidth="-1.0" text="Услуга"/>
                             </columns>
                         </TableView>
-                        <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                        <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+                              AnchorPane.topAnchor="20.0">
                             <children>
-                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#countersAdd" prefHeight="30.0" prefWidth="95.0" text="Добавить">
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#countersAdd"
+                                        prefHeight="30.0" prefWidth="95.0" text="Добавить">
                                     <font>
-                                        <Font name="Arial" size="14.0" />
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets right="25.0" />
+                                        <Insets right="25.0"/>
                                     </HBox.margin>
                                 </Button>
-                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#countersChange" prefHeight="30.0" prefWidth="95.0" text="Изменить">
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#countersChange"
+                                        prefHeight="30.0" prefWidth="95.0" text="Изменить">
                                     <font>
-                                        <Font name="Arial" size="14.0" />
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                 </Button>
-                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#countersDelete" prefHeight="30.0" prefWidth="95.0" text="Удалить">
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#countersDelete"
+                                        prefHeight="30.0" prefWidth="95.0" text="Удалить">
                                     <font>
-                                        <Font name="Arial" size="14.0" />
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets left="25.0" />
+                                        <Insets left="25.0"/>
                                     </HBox.margin>
                                 </Button>
                             </children>
@@ -148,38 +190,54 @@
             <content>
                 <AnchorPane prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <TableView fx:id="T4_payments" layoutX="20.0" layoutY="66.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
+                        <TableView fx:id="T4_payments" layoutX="20.0" layoutY="66.0" tableMenuButtonVisible="true"
+                                   AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"
+                                   AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
                             <columnResizePolicy>
-                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                             </columnResizePolicy>
                             <columns>
-                                <TableColumn fx:id="T4_id_paymentsColumn" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Код платежа" />
-                                <TableColumn fx:id="T4_objectColumn" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="Объект учета" />
-                                <TableColumn fx:id="T4_serviceColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="-1.0" text="Услуга" />
-                                <TableColumn fx:id="T4_volumeColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Объем" />
-                                <TableColumn fx:id="T4_unitColumn" maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="-1.0" text="Ед. изм." />
-                                <TableColumn fx:id="T4_rateColumn" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Тариф" />
-                                <TableColumn fx:id="T4_accruedColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="-1.0" text="Начислено, рубл" />
-                                <TableColumn fx:id="T4_paidColumn" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="Оплачено, рубл." />
-                                <TableColumn fx:id="T4_dateColumn" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="Дата платежа" />
+                                <TableColumn fx:id="T4_id_paymentsColumn" maxWidth="-1.0" minWidth="100.0"
+                                             prefWidth="-1.0" text="Код платежа"/>
+                                <TableColumn fx:id="T4_objectColumn" maxWidth="1.7976931348623157E308" minWidth="120.0"
+                                             prefWidth="-1.0" text="Объект учета"/>
+                                <TableColumn fx:id="T4_serviceColumn" maxWidth="1.7976931348623157E308" minWidth="150.0"
+                                             prefWidth="-1.0" text="Услуга"/>
+                                <TableColumn fx:id="T4_volumeColumn" maxWidth="1.7976931348623157E308" minWidth="100.0"
+                                             prefWidth="-1.0" text="Объем"/>
+                                <TableColumn fx:id="T4_unitColumn" maxWidth="1.7976931348623157E308" minWidth="60.0"
+                                             prefWidth="-1.0" text="Ед. изм."/>
+                                <TableColumn fx:id="T4_rateColumn" maxWidth="1.7976931348623157E308" minWidth="100.0"
+                                             prefWidth="-1.0" text="Тариф"/>
+                                <TableColumn fx:id="T4_accruedColumn" maxWidth="1.7976931348623157E308" minWidth="150.0"
+                                             prefWidth="-1.0" text="Начислено, рубл"/>
+                                <TableColumn fx:id="T4_paidColumn" maxWidth="1.7976931348623157E308" minWidth="120.0"
+                                             prefWidth="-1.0" text="Оплачено, рубл."/>
+                                <TableColumn fx:id="T4_dateColumn" maxWidth="1.7976931348623157E308" minWidth="120.0"
+                                             prefWidth="-1.0" text="Дата платежа"/>
                             </columns>
                         </TableView>
-                        <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                        <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+                              AnchorPane.topAnchor="20.0">
                             <children>
-                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#paymentAdd" prefHeight="30.0" prefWidth="95.0" text="Добавить">
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#paymentAdd"
+                                        prefHeight="30.0" prefWidth="95.0" text="Добавить">
                                     <font>
-                                        <Font name="Arial" size="14.0" />
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets right="25.0" />
+                                        <Insets right="25.0"/>
                                     </HBox.margin>
                                 </Button>
-                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#paymentDelete" prefHeight="30.0" prefWidth="95.0" text="Удалить">
+                                <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                        minWidth="-Infinity" mnemonicParsing="false" onAction="#paymentDelete"
+                                        prefHeight="30.0" prefWidth="95.0" text="Удалить">
                                     <font>
-                                        <Font name="Arial" size="14.0" />
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets left="25.0" />
+                                        <Insets left="25.0"/>
                                     </HBox.margin>
                                 </Button>
                             </children>
@@ -192,53 +250,63 @@
             <content>
                 <AnchorPane prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <TableView layoutX="13.0" layoutY="60.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
+                        <TableView layoutX="13.0" layoutY="60.0" tableMenuButtonVisible="true"
+                                   AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0"
+                                   AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
                             <columns>
-                                <TableColumn maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="№ п/п" />
-                                <TableColumn maxWidth="1.7976931348623157E308" minWidth="130.0" prefWidth="-1.0" text="Вид начисления" />
-                                <TableColumn maxWidth="1.7976931348623157E308" minWidth="110.0" prefWidth="-1.0" text="Количество" />
-                                <TableColumn maxWidth="1.7976931348623157E308" minWidth="70.0" prefWidth="-1.0" text="Ед. изм." />
-                                <TableColumn maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="-1.0" text="Дата" />
-                                <TableColumn maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="Тариф (рубл.)" />
-                                <TableColumn maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="-1.0" text="Оплачено (рубл.)" />
+                                <TableColumn maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="№ п/п"/>
+                                <TableColumn maxWidth="1.7976931348623157E308" minWidth="130.0" prefWidth="-1.0"
+                                             text="Вид начисления"/>
+                                <TableColumn maxWidth="1.7976931348623157E308" minWidth="110.0" prefWidth="-1.0"
+                                             text="Количество"/>
+                                <TableColumn maxWidth="1.7976931348623157E308" minWidth="70.0" prefWidth="-1.0"
+                                             text="Ед. изм."/>
+                                <TableColumn maxWidth="1.7976931348623157E308" minWidth="60.0" prefWidth="-1.0"
+                                             text="Дата"/>
+                                <TableColumn maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0"
+                                             text="Тариф (рубл.)"/>
+                                <TableColumn maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="-1.0"
+                                             text="Оплачено (рубл.)"/>
                             </columns>
                             <columnResizePolicy>
-                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                             </columnResizePolicy>
                         </TableView>
-                        <HBox layoutX="20.0" layoutY="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                        <HBox layoutX="20.0" layoutY="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+                              AnchorPane.topAnchor="20.0">
                             <children>
                                 <Label prefHeight="30.0" prefWidth="105.0" text="Объект учета">
                                     <font>
-                                        <Font name="Arial" size="14.0" />
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                 </Label>
                                 <ComboBox prefHeight="30.0" prefWidth="176.0" promptText="Моя квартира">
                                     <HBox.margin>
-                                        <Insets left="20.0" />
+                                        <Insets left="20.0"/>
                                     </HBox.margin>
                                 </ComboBox>
                             </children>
                         </HBox>
-                        <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="180.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                        <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="180.0" AnchorPane.bottomAnchor="20.0"
+                              AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                             <children>
                                 <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Печать">
                                     <font>
-                                        <Font name="Arial" size="14.0" />
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets />
+                                        <Insets/>
                                     </HBox.margin>
                                 </Button>
                                 <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Сохранить">
                                     <font>
-                                        <Font name="Arial" size="14.0" />
+                                        <Font name="Arial" size="14.0"/>
                                     </font>
                                     <opaqueInsets>
-                                        <Insets />
+                                        <Insets/>
                                     </opaqueInsets>
                                     <HBox.margin>
-                                        <Insets left="25.0" />
+                                        <Insets left="25.0"/>
                                     </HBox.margin>
                                 </Button>
                             </children>

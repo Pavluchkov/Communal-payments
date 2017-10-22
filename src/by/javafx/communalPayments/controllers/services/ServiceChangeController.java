@@ -68,7 +68,7 @@ public class ServiceChangeController extends MainController {
 
         String serviceName = nameField.getText();
         String unit = unitField.getText();
-        double rate = 0;
+        double rate;
 
         if (serviceName.isEmpty()) {
             printDialogError("Ввод данных", "Ошибка ввода данных !", "Введите имя услуги.");

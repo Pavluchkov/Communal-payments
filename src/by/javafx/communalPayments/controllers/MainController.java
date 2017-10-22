@@ -15,7 +15,6 @@ import by.javafx.communalPayments.interfaces.IDatabase;
 import by.javafx.communalPayments.interfaces.Observer;
 import by.javafx.communalPayments.interfaces.Subject;
 import by.javafx.communalPayments.objects.*;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -111,7 +110,6 @@ public class MainController implements Observer {
 
         setConnection("jdbc:mysql://localhost:3306/communalpayments");
 
-// устанавливаем тип и значение которое должно хранится в колонке
         T1_personalAccountColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         T1_nameObjColumn.setCellValueFactory(new PropertyValueFactory<>("objectName"));
         T1_ownerColumn.setCellValueFactory(new PropertyValueFactory<>("owner"));
@@ -156,25 +154,25 @@ public class MainController implements Observer {
     private void fillTable(MyObjects object) {
         try {
             if (object instanceof ObjectAccounting) {
-                ObservableList<ObjectAccounting> list = FXCollections.observableArrayList();
+                ObservableList<ObjectAccounting> list;
                 list = database.getListObjects(new ObjectAccounting());
                 T1_objAccounting.setItems(list);
             }
 
             if (object instanceof Counters) {
-                ObservableList<Counters> list = FXCollections.observableArrayList();
+                ObservableList<Counters> list;
                 list = database.getListObjects(new Counters());
                 T2_counters.setItems(list);
             }
 
             if (object instanceof Services) {
-                ObservableList<Services> list = FXCollections.observableArrayList();
+                ObservableList<Services> list;
                 list = database.getListObjects(new Services());
                 T3_service.setItems(list);
             }
 
             if (object instanceof Payments) {
-                ObservableList<Payments> list = FXCollections.observableArrayList();
+                ObservableList<Payments> list;
                 list = database.getListObjects(new Payments());
                 T4_payments.setItems(list);
             }
@@ -223,7 +221,7 @@ public class MainController implements Observer {
 
     @FXML
     public void objAccountChange() {
-        ObjectAccounting object = (ObjectAccounting) T1_objAccounting.getSelectionModel().getSelectedItem();
+        ObjectAccounting object = T1_objAccounting.getSelectionModel().getSelectedItem();
 
         if (object != null) {
             setSelectedObject(object);
@@ -237,7 +235,7 @@ public class MainController implements Observer {
 
     @FXML
     public void objAccountDelete() {
-        ObjectAccounting object = (ObjectAccounting) T1_objAccounting.getSelectionModel().getSelectedItem();
+        ObjectAccounting object = T1_objAccounting.getSelectionModel().getSelectedItem();
 
         if (object != null) {
             setSelectedObject(object);
@@ -256,7 +254,7 @@ public class MainController implements Observer {
 
     @FXML
     public void countersChange() {
-        Counters object = (Counters) T2_counters.getSelectionModel().getSelectedItem();
+        Counters object = T2_counters.getSelectionModel().getSelectedItem();
 
         if (object != null) {
             setSelectedObject(object);
@@ -270,7 +268,7 @@ public class MainController implements Observer {
 
     @FXML
     public void countersDelete() {
-        Counters object = (Counters) T2_counters.getSelectionModel().getSelectedItem();
+        Counters object = T2_counters.getSelectionModel().getSelectedItem();
 
         if (object != null) {
             setSelectedObject(object);
@@ -290,7 +288,7 @@ public class MainController implements Observer {
 
     @FXML
     public void serviceChange() {
-        Services object = (Services) T3_service.getSelectionModel().getSelectedItem();
+        Services object = T3_service.getSelectionModel().getSelectedItem();
 
         if (object != null) {
             setSelectedObject(object);
@@ -304,7 +302,7 @@ public class MainController implements Observer {
 
     @FXML
     public void serviceDelete() {
-        Services object = (Services) T3_service.getSelectionModel().getSelectedItem();
+        Services object = T3_service.getSelectionModel().getSelectedItem();
 
         if (object != null) {
             setSelectedObject(object);
@@ -317,13 +315,13 @@ public class MainController implements Observer {
 
     @FXML
     public void paymentAdd() {
-        dialogWindow(tabPane.getScene().getWindow(), new PaymentAddController(this), "/by/javafx/communalPayments/fxml/paymentsDialog/PaymentsAdd.fxml",
+        dialogWindow(tabPane.getScene().getWindow(), new PaymentAddController(), "/by/javafx/communalPayments/fxml/paymentsDialog/PaymentsAdd.fxml",
                 "Добавление платежа", 400, 260);
     }
 
     @FXML
     public void paymentDelete() {
-        Payments object = (Payments) T4_payments.getSelectionModel().getSelectedItem();
+        Payments object = T4_payments.getSelectionModel().getSelectedItem();
 
         if (object != null) {
             setSelectedObject(object);

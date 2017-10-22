@@ -19,7 +19,7 @@
         <HBox alignment="CENTER_LEFT" layoutY="60.0" prefHeight="30.0" prefWidth="477.0" AnchorPane.leftAnchor="20.0"
               AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
             <children>
-                <Label prefHeight="30.0" prefWidth="180.0" text="Название услуги *">
+                <Label prefHeight="30.0" prefWidth="180.0" text="Название услуги">
                     <font>
                         <Font name="Arial Italic" size="14.0"/>
                     </font>
