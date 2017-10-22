@@ -50,7 +50,7 @@
                                 </Button>
                             </children>
                         </HBox>
-                  <HBox alignment="CENTER_LEFT" layoutX="391.0" layoutY="406.0" prefHeight="10.0" prefWidth="565.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="405.0">
+                  <HBox alignment="CENTER_LEFT" layoutX="391.0" layoutY="406.0" prefHeight="10.0" prefWidth="565.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                      <children>
                         <Label text="(c)Pavluchkov A.V. 2017">
                            <font>
@@ -104,7 +104,7 @@
                                 <TableColumn fx:id="T3_formPaymentsColumn" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="Форма оплаты" />
                             </columns>
                         </TableView>
-                  <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="565.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="405.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="565.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                      <children>
                         <Label text="(c)Pavluchkov A.V. 2017">
                            <font>
@@ -158,7 +158,7 @@
                                 </Button>
                             </children>
                         </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="565.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="405.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="565.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                      <children>
                         <Label text="(c)Pavluchkov A.V. 2017">
                            <font>
@@ -211,7 +211,7 @@
                                 </Button>
                             </children>
                         </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="565.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="405.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="565.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                      <children>
                         <Label text="(c)Pavluchkov A.V. 2017">
                            <font>
@@ -279,7 +279,7 @@
                                 </Button>
                             </children>
                         </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="565.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="405.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="565.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                      <children>
                         <Label text="(c)Pavluchkov A.V. 2017">
                            <font>
