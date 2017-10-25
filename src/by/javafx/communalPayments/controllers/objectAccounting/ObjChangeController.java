@@ -51,15 +51,16 @@ public class ObjChangeController extends MainController {
     @FXML
     public void btnOkClicked() {
 
+        ObjectAccounting object = new ObjectAccounting();
         try {
             int id = objectAccounting.getId();
-            objectAccounting.setId(Integer.parseInt(personalAccount.getText()));
-            objectAccounting.setObjectName(nameObject.getText());
-            objectAccounting.setOwner(owner.getText());
-            objectAccounting.setAddress(address.getText());
-            objectAccounting.setResidents(Integer.parseInt(residents.getText()));
-            objectAccounting.setArea(Double.parseDouble(area.getText()));
-            database.change(objectAccounting, id);
+            object.setId(Integer.parseInt(personalAccount.getText()));
+            object.setObjectName(nameObject.getText());
+            object.setOwner(owner.getText());
+            object.setAddress(address.getText());
+            object.setResidents(Integer.parseInt(residents.getText()));
+            object.setArea(Double.parseDouble(area.getText()));
+            database.change(object, id);
         } catch (NumberFormatException e) {
             printDialogError("Ввод данных", "Ошибка ввода данных !", e.getMessage());
             return;
