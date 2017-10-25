@@ -357,6 +357,8 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public void changeLastMeasure(Counters object) throws SQLException {
+//        PreparedStatement stmt = con.prepareStatement("UPDATE measurement SET" +
+//                " measure=?" + " WHERE counter=? AND id=LAST_INSERT_ID()");
         PreparedStatement stmt = con.prepareStatement("UPDATE measurement SET" +
                 " measure=?" + " WHERE counter=? AND id=LAST_INSERT_ID()");
         stmt.setDouble(1, object.getRecentMeasure());

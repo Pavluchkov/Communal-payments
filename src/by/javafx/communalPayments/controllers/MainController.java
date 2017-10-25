@@ -409,10 +409,6 @@ public class MainController implements Observer {
                 database.change((Services) object);
             }
 
-            if (object instanceof Measurement) {
-                database.changeLastMeasure((Counters) object);
-            }
-
         } catch (SQLException e) {
             printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
             return false;
