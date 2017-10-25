@@ -31,12 +31,13 @@ public class ServiceAddController extends MainController {
     @FXML
     public void initialize() {
 
-        try {
-            tableForm = database.getListObjects(new FormPayments());
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
-            return;
-        }
+        tableForm = getTableObject(new FormPayments());
+//        try {
+//            tableForm = database.getListObjects(new FormPayments());
+//        } catch (SQLException e) {
+//            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+//            return;
+//        }
 
         ObservableList<String> formPayments = FXCollections.observableArrayList();
 
@@ -77,10 +78,7 @@ public class ServiceAddController extends MainController {
             }
         }
 
-        try {
-            database.add(new Services(0, serviceName, unit, rate, formId));
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+        if(!objectAdd(new Services(0, serviceName, unit, rate, formId))){
             return;
         }
 

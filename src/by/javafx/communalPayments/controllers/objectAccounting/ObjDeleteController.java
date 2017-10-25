@@ -7,8 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
-
 public class ObjDeleteController extends MainController {
     private ObjectAccounting objectAccounting;
     private MainController mainController;
@@ -34,13 +32,8 @@ public class ObjDeleteController extends MainController {
     @FXML
     public void btnOkClicked() {
 
-        if (objectAccounting != null) {
-            try {
-                database.delete(objectAccounting);
-            } catch (SQLException e) {
-                printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
-                return;
-            }
+        if (!objectDelete(objectAccounting)) {
+            return;
         }
 
         btnCancelClicked();

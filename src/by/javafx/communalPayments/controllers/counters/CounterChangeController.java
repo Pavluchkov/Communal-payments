@@ -46,14 +46,16 @@ public class CounterChangeController extends MainController {
         object = (Counters) mainController.getSelectedObject();
         measureLabel.setText("Последние показания");
 
-        try {
-            tableObject = database.getListObjects(new ObjectAccounting());
-            tableService = database.getListObjects(new Services());
-
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка чтения данных !", e.getMessage());
-            return;
-        }
+//        try {
+//            tableObject = database.getListObjects(new ObjectAccounting());
+//            tableService = database.getListObjects(new Services());
+//
+//        } catch (SQLException e) {
+//            printDialogError("Работа с базой данных", "Ошибка чтения данных !", e.getMessage());
+//            return;
+//        }
+        tableObject = getTableObject(new ObjectAccounting());
+        tableService = getTableObject(new Services());
 
         ObservableList<String> listObjects = FXCollections.observableArrayList();
         ObservableList<String> listServices = FXCollections.observableArrayList();
@@ -123,11 +125,11 @@ public class CounterChangeController extends MainController {
 
         Counters counter = new Counters(id, objectId, serviceId, counterName, recentMeasure);
 
-        try {
-            database.change(counter);
-            database.changeLastMeasure(counter);
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+        if(!objectChange(counter)){
+            return;
+        }
+
+        if(!lastMeasureChange(counter)){
             return;
         }
 

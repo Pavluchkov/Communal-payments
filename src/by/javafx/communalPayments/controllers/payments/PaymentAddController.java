@@ -54,14 +54,16 @@ public class PaymentAddController extends MainController {
     @FXML
     public void initialize() {
 
-        try {
-            tableObject = database.getListObjects(new ObjectAccounting());
-            tableService = database.getListObjects(new Services());
-
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка чтения данных БД !", e.getMessage());
-            return;
-        }
+//        try {
+//            tableObject = database.getListObjects(new ObjectAccounting());
+//            tableService = database.getListObjects(new Services());
+//
+//        } catch (SQLException e) {
+//            printDialogError("Работа с базой данных", "Ошибка чтения данных БД !", e.getMessage());
+//            return;
+//        }
+        tableObject = getTableObject(new ObjectAccounting());
+        tableService = getTableObject(new Services());
 
         for (ObjectAccounting obj : tableObject) {
             listObjects.add(obj.getObjectName());
@@ -88,19 +90,13 @@ public class PaymentAddController extends MainController {
     @FXML
     public void btnOkClicked() {
         for (Counters obj : newListCounters) {
-            try {
-                database.change(obj);
-            } catch (SQLException e) {
-                printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            if(!objectChange(obj)){
                 return;
             }
         }
 
         for (Measurement obj : listMeasure) {
-            try {
-                database.add(obj);
-            } catch (SQLException e) {
-                printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            if(!objectAdd(obj)){
                 return;
             }
         }
@@ -132,10 +128,7 @@ public class PaymentAddController extends MainController {
 
         }
 
-        try {
-            database.add(payment);
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+        if(!objectAdd(payment)){
             return;
         }
 
@@ -277,12 +270,13 @@ public class PaymentAddController extends MainController {
 
         ObservableList<Counters> tableCounters;
 
-        try {
-            tableCounters = database.getListObjects(new Counters());
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
-            return;
-        }
+        tableCounters = getTableObject(new Counters());
+//        try {
+//            tableCounters = database.getListObjects(new Counters());
+//        } catch (SQLException e) {
+//            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+//            return;
+//        }
 
         for (Counters obj : tableCounters) {
             if ((obj.getObject() == objectAccounting.getId()) && (obj.getService() == services.getId())) {

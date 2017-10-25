@@ -7,8 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
-
 public class ObjAddController extends MainController {
 
     @FXML
@@ -68,21 +66,21 @@ public class ObjAddController extends MainController {
 
     @FXML
     public void BtnOkClicked() {
+        ObjectAccounting object = new ObjectAccounting();
 
         try {
-            ObjectAccounting object = new ObjectAccounting();
             object.setId(Integer.parseInt(personalAccount.getText()));
             object.setObjectName(nameObject.getText());
             object.setOwner(owner.getText());
             object.setAddress(address.getText());
             object.setResidents(Integer.parseInt(residents.getText()));
             object.setArea(Double.parseDouble(area.getText()));
-            database.add(object);
         } catch (NumberFormatException e) {
             printDialogError("Ввод данных", "Ошибка ввода данных !", e.getMessage());
             return;
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+        }
+
+        if (!objectAdd(object)) {
             return;
         }
 

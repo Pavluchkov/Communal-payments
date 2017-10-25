@@ -2,6 +2,7 @@ package by.javafx.communalPayments.controllers.counters;
 
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.objects.Counters;
+import by.javafx.communalPayments.objects.MyObjects;
 import by.javafx.communalPayments.objects.ObjectAccounting;
 import by.javafx.communalPayments.objects.Services;
 import javafx.collections.FXCollections;
@@ -32,14 +33,17 @@ public class CounterAddController extends MainController {
     @FXML
     public void initialize() {
 
-        try {
-            tableObject = database.getListObjects(new ObjectAccounting());
-            tableService = database.getListObjects(new Services());
+//        try {
+//            tableObject = database.getListObjects(new ObjectAccounting());
+//            tableService = database.getListObjects(new Services());
+//
+//        } catch (SQLException e) {
+//            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+//            return;
+//        }
 
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
-            return;
-        }
+        tableObject = getTableObject(new ObjectAccounting());
+        tableService = getTableObject(new Services());
 
         ObservableList<String> listObjects = FXCollections.observableArrayList();
         ObservableList<String> listServices = FXCollections.observableArrayList();
@@ -99,10 +103,7 @@ public class CounterAddController extends MainController {
 
         Counters counter = new Counters(id, objectId, serviceId, counterName, recentMeasure);
 
-        try {
-            database.add(counter);
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+        if(!objectAdd(counter)){
             return;
         }
 

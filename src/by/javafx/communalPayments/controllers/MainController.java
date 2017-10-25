@@ -221,7 +221,7 @@ public class MainController implements Observer {
 
     @FXML
     public void objAccountChange() {
-        ObjectAccounting object = T1_objAccounting.getSelectionModel().getSelectedItem();
+        MyObjects object = T1_objAccounting.getSelectionModel().getSelectedItem();
 
         if (object != null) {
             setSelectedObject(object);
@@ -235,7 +235,7 @@ public class MainController implements Observer {
 
     @FXML
     public void objAccountDelete() {
-        ObjectAccounting object = T1_objAccounting.getSelectionModel().getSelectedItem();
+        MyObjects object = T1_objAccounting.getSelectionModel().getSelectedItem();
 
         if (object != null) {
             setSelectedObject(object);
@@ -363,6 +363,168 @@ public class MainController implements Observer {
         stage.getIcons().add(new Image("/by/javafx/communalPayments/ico/icon.png"));
         alert.showAndWait();
         alert.close();
+    }
+
+    protected boolean objectAdd(MyObjects object) {
+
+        try {
+
+            if (object instanceof ObjectAccounting) {
+                database.add((ObjectAccounting) object);
+            }
+
+            if (object instanceof Counters) {
+                database.add((Counters) object);
+            }
+
+            if (object instanceof Services) {
+                database.add((Services) object);
+            }
+
+            if (object instanceof Payments) {
+                database.add((Payments) object);
+            }
+
+            if (object instanceof Measurement) {
+                database.add((Measurement) object);
+            }
+
+        } catch (SQLException e) {
+            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    protected boolean objectChange(MyObjects object) {
+
+        try {
+
+            if (object instanceof Counters) {
+                database.change((Counters) object);
+            }
+
+            if (object instanceof Services) {
+                database.change((Services) object);
+            }
+
+            if (object instanceof Measurement) {
+                database.changeLastMeasure((Counters) object);
+            }
+
+        } catch (SQLException e) {
+            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    protected boolean objectChange(ObjectAccounting object, int id) {
+        try {
+
+            database.change(object, id);
+
+        } catch (SQLException e) {
+            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    protected boolean lastMeasureChange(Counters object) {
+
+        try {
+            database.changeLastMeasure(object);
+        } catch (SQLException e) {
+            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    protected boolean objectDelete(MyObjects object) {
+
+        try {
+
+            if (object instanceof ObjectAccounting) {
+                database.delete((ObjectAccounting) object);
+            }
+
+            if (object instanceof Counters) {
+                database.delete((Counters) object);
+            }
+
+            if (object instanceof Services) {
+                database.delete((Services) object);
+            }
+
+            if (object instanceof Payments) {
+                database.delete((Payments) object);
+            }
+
+        } catch (SQLException e) {
+            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    protected ObservableList<ObjectAccounting> getTableObject(ObjectAccounting object) {
+
+        try {
+            return database.getListObjects(object);
+        } catch (SQLException e) {
+            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+            return null;
+        }
+
+    }
+
+    protected ObservableList<Counters> getTableObject(Counters object) {
+
+        try {
+            return database.getListObjects(object);
+        } catch (SQLException e) {
+            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+            return null;
+        }
+
+    }
+
+    protected ObservableList<Services> getTableObject(Services object) {
+
+        try {
+            return database.getListObjects(object);
+        } catch (SQLException e) {
+            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+            return null;
+        }
+
+    }
+
+    protected ObservableList<Payments> getTableObject(Payments object) {
+
+        try {
+            return database.getListObjects(object);
+        } catch (SQLException e) {
+            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+            return null;
+        }
+
+    }
+
+    protected ObservableList<FormPayments> getTableObject(FormPayments object) {
+
+        try {
+            return database.getListObjects(object);
+        } catch (SQLException e) {
+            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+            return null;
+        }
+
     }
 
     @Override

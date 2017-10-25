@@ -34,10 +34,7 @@ public class PaymentsDeleteController extends MainController {
     @FXML
     public void btnOkClicked() {
 
-        try {
-            database.delete(object);
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+        if(!objectDelete(object)){
             return;
         }
 
