@@ -292,7 +292,7 @@ public class MainController implements Observer {
         selectedObject = object;
     }
 
-    protected MyObjects getSelectedObject() {
+    public MyObjects getSelectedObject() {
         return selectedObject;
     }
 
