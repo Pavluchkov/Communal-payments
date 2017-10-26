@@ -8,7 +8,7 @@
 
 <TabPane fx:id="tabPane" prefHeight="450.0" prefWidth="605.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <tabs>
-        <Tab onSelectionChanged="#tabObjAccountChange" text="Объект учета">
+        <Tab text="Объект учета">
             <content>
                 <AnchorPane prefHeight="180.0" prefWidth="200.0">
                     <children>
@@ -63,7 +63,7 @@
                 </AnchorPane>
             </content>
         </Tab>
-        <Tab onSelectionChanged="#tabServiceChange" text="Перечень услуг">
+        <Tab text="Перечень услуг">
             <content>
                 <AnchorPane prefHeight="180.0" prefWidth="200.0">
                     <children>
@@ -117,7 +117,7 @@
                 </AnchorPane>
             </content>
         </Tab>
-        <Tab onSelectionChanged="#tabCountersChange" text="Счетчики">
+        <Tab text="Счетчики">
             <content>
                 <AnchorPane prefHeight="180.0" prefWidth="200.0">
                     <children>
@@ -171,7 +171,7 @@
                 </AnchorPane>
             </content>
         </Tab>
-        <Tab onSelectionChanged="#tabPaymentsChange" text="Платежи">
+        <Tab text="Платежи">
             <content>
                 <AnchorPane prefHeight="180.0" prefWidth="200.0">
                     <children>

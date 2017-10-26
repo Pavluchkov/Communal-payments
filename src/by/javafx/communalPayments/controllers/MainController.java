@@ -109,8 +109,6 @@ public class MainController implements Observer {
         Subject subject = MySQLDatabase.getInstance();// Устанавливаем наблюдателя
         subject.registerObserver(this);    //      за MySQLDatabase
 
-        setConnection();
-
         T1_personalAccountColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         T1_nameObjColumn.setCellValueFactory(new PropertyValueFactory<>("objectName"));
         T1_ownerColumn.setCellValueFactory(new PropertyValueFactory<>("owner"));
@@ -140,78 +138,8 @@ public class MainController implements Observer {
         T4_paidColumn.setCellValueFactory(new PropertyValueFactory<>("paid"));
         T4_dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        update();
-    }
-
-    private void setConnection() {
-
-        try {
-            database.setConnectDatabase("jdbc:mysql://localhost:3306/communalpayments");
-        } catch (SQLException | ClassNotFoundException e) {
-            printDialogError("Ошибка подключения", "Не удалось подключиться к БД !", e.getMessage());
-            System.exit(0);
-        }
-
-    }
-
-    private void fillTable(MyObjects object) {
-        try {
-            if (object instanceof ObjectAccounting) {
-                ObservableList<ObjectAccounting> list;
-                list = database.getListObjects(new ObjectAccounting());
-                T1_objAccounting.setItems(list);
-            }
-
-            if (object instanceof Counters) {
-                ObservableList<Counters> list;
-                list = database.getListObjects(new Counters());
-                T2_counters.setItems(list);
-            }
-
-            if (object instanceof Services) {
-                ObservableList<Services> list;
-                list = database.getListObjects(new Services());
-                T3_service.setItems(list);
-            }
-
-            if (object instanceof Payments) {
-                ObservableList<Payments> list;
-                list = database.getListObjects(new Payments());
-                T4_payments.setItems(list);
-            }
-
-
-        } catch (SQLException e) {
-            printDialogError("Ошибка получения данных", "Не удалось получить данные из БД !", e.getMessage());
-        }
-    }
-
-    public MyObjects getSelectedObject() {
-        return selectedObject;
-    }
-
-    private void setSelectedObject(MyObjects object) {
-        selectedObject = object;
-    }
-
-    @FXML
-    public void tabObjAccountChange() {
-
-    }
-
-    @FXML
-    public void tabCountersChange() {
-
-    }
-
-    @FXML
-    public void tabServiceChange() {
-
-    }
-
-    @FXML
-    public void tabPaymentsChange() {
-
+        setConnection();
+        fillTables();
     }
 
     @FXML
@@ -335,6 +263,39 @@ public class MainController implements Observer {
         }
     }
 
+    @Override
+    public void update() {
+        fillTables();
+    }
+
+    private void setConnection() {
+
+        try {
+            database.setConnectDatabase("jdbc:mysql://localhost:3306/communalpayments");
+        } catch (SQLException | ClassNotFoundException e) {
+            printDialogError("Ошибка подключения", "Не удалось подключиться к БД !", e.getMessage());
+            System.exit(0);
+        }
+
+    }
+
+    private void fillTables() {
+
+        T1_objAccounting.setItems(getTableObject(new ObjectAccounting()));
+        T2_counters.setItems(getTableObject(new Counters()));
+        T3_service.setItems(getTableObject(new Services()));
+        T4_payments.setItems(getTableObject(new Payments()));
+
+    }
+
+    private void setSelectedObject(MyObjects object) {
+        selectedObject = object;
+    }
+
+    protected MyObjects getSelectedObject() {
+        return selectedObject;
+    }
+
     protected void dialogWindow(Window window, MainController controller, String resource, String title, int width, int height) {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -352,12 +313,12 @@ public class MainController implements Observer {
             stage.setResizable(false);
             stage.show();
         } catch (Throwable e) {
-            System.out.println(e.getMessage());
+            printDialogError("Диалоговые окна", "Ошибка создания диалогового окна !", e.getMessage());
         }
 
     }
 
-    public void printDialogError(String title, String headerText, String contentText) {
+    protected void printDialogError(String title, String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
@@ -435,11 +396,14 @@ public class MainController implements Observer {
     protected boolean lastMeasureChange(Counters object, double lastMeasure) {
 
         try {
+
             database.changeLastMeasure(object, lastMeasure);
+
         } catch (SQLException e) {
             printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
             return false;
         }
+
         return true;
     }
 
@@ -474,7 +438,9 @@ public class MainController implements Observer {
     protected ObservableList<ObjectAccounting> getTableObject(ObjectAccounting object) {
 
         try {
+
             return database.getListObjects(object);
+
         } catch (SQLException e) {
             printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
             return null;
@@ -485,7 +451,9 @@ public class MainController implements Observer {
     protected ObservableList<Counters> getTableObject(Counters object) {
 
         try {
+
             return database.getListObjects(object);
+
         } catch (SQLException e) {
             printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
             return null;
@@ -496,7 +464,9 @@ public class MainController implements Observer {
     protected ObservableList<Services> getTableObject(Services object) {
 
         try {
+
             return database.getListObjects(object);
+
         } catch (SQLException e) {
             printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
             return null;
@@ -507,7 +477,9 @@ public class MainController implements Observer {
     protected ObservableList<Payments> getTableObject(Payments object) {
 
         try {
+
             return database.getListObjects(object);
+
         } catch (SQLException e) {
             printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
             return null;
@@ -518,7 +490,9 @@ public class MainController implements Observer {
     protected ObservableList<FormPayments> getTableObject(FormPayments object) {
 
         try {
+
             return database.getListObjects(object);
+
         } catch (SQLException e) {
             printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
             return null;
@@ -526,11 +500,4 @@ public class MainController implements Observer {
 
     }
 
-    @Override
-    public void update() {
-        fillTable(new ObjectAccounting());
-        fillTable(new Counters());
-        fillTable(new Services());
-        fillTable(new Payments());
-    }
 }
