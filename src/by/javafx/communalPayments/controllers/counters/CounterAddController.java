@@ -33,15 +33,6 @@ public class CounterAddController extends MainController {
     @FXML
     public void initialize() {
 
-//        try {
-//            tableObject = database.getListObjects(new ObjectAccounting());
-//            tableService = database.getListObjects(new Services());
-//
-//        } catch (SQLException e) {
-//            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
-//            return;
-//        }
-
         tableObject = getTableObject(new ObjectAccounting());
         tableService = getTableObject(new Services());
 

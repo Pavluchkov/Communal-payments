@@ -46,14 +46,6 @@ public class CounterChangeController extends MainController {
         object = (Counters) mainController.getSelectedObject();
         measureLabel.setText("Последние показания");
 
-//        try {
-//            tableObject = database.getListObjects(new ObjectAccounting());
-//            tableService = database.getListObjects(new Services());
-//
-//        } catch (SQLException e) {
-//            printDialogError("Работа с базой данных", "Ошибка чтения данных !", e.getMessage());
-//            return;
-//        }
         tableObject = getTableObject(new ObjectAccounting());
         tableService = getTableObject(new Services());
 

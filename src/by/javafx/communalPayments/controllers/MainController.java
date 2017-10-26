@@ -15,6 +15,7 @@ import by.javafx.communalPayments.interfaces.IDatabase;
 import by.javafx.communalPayments.interfaces.Observer;
 import by.javafx.communalPayments.interfaces.Subject;
 import by.javafx.communalPayments.objects.*;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +35,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 
 public class MainController implements Observer {
-    protected IDatabase database = new MySQLDatabase();
+    private IDatabase database = MySQLDatabase.getInstance();
     private MyObjects selectedObject;
 
     @FXML
@@ -105,10 +106,10 @@ public class MainController implements Observer {
     @FXML
     private void initialize() {
 
-        Subject subject = new MySQLDatabase();// Устанавливаем наблюдателя
+        Subject subject = MySQLDatabase.getInstance();// Устанавливаем наблюдателя
         subject.registerObserver(this);    //      за MySQLDatabase
 
-        setConnection("jdbc:mysql://localhost:3306/communalpayments");
+        setConnection();
 
         T1_personalAccountColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         T1_nameObjColumn.setCellValueFactory(new PropertyValueFactory<>("objectName"));
@@ -142,13 +143,15 @@ public class MainController implements Observer {
         update();
     }
 
-    private void setConnection(String connectionString) {
+    private void setConnection() {
 
         try {
-            database.setConnectDatabase(connectionString);
+            database.setConnectDatabase("jdbc:mysql://localhost:3306/communalpayments");
         } catch (SQLException | ClassNotFoundException e) {
             printDialogError("Ошибка подключения", "Не удалось подключиться к БД !", e.getMessage());
+            System.exit(0);
         }
+
     }
 
     private void fillTable(MyObjects object) {

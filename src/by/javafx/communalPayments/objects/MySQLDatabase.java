@@ -13,6 +13,14 @@ import java.util.Properties;
 public class MySQLDatabase implements IDatabase, Subject {
     private static Connection con;
     private static ArrayList<Observer> observers = new ArrayList<>();
+    private static MySQLDatabase instance = new MySQLDatabase();
+
+    private MySQLDatabase() {
+    }
+
+    public static MySQLDatabase getInstance(){
+        return instance;
+    }
 
     @Override
     public void setConnectDatabase(String connectionString) throws ClassNotFoundException, SQLException {
