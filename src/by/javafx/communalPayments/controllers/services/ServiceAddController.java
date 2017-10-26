@@ -11,8 +11,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
-
 public class ServiceAddController extends MainController {
     private ObservableList<FormPayments> tableForm = FXCollections.observableArrayList();
 
@@ -78,7 +76,7 @@ public class ServiceAddController extends MainController {
             }
         }
 
-        if(!objectAdd(new Services(0, serviceName, unit, rate, formId))){
+        if (!objectAdd(new Services(0, serviceName, unit, rate, formId))) {
             return;
         }
 

@@ -2,7 +2,6 @@ package by.javafx.communalPayments.controllers.counters;
 
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.objects.Counters;
-import by.javafx.communalPayments.objects.MyObjects;
 import by.javafx.communalPayments.objects.ObjectAccounting;
 import by.javafx.communalPayments.objects.Services;
 import javafx.collections.FXCollections;
@@ -12,8 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.sql.SQLException;
 
 public class CounterAddController extends MainController {
     private ObservableList<ObjectAccounting> tableObject = FXCollections.observableArrayList();
@@ -54,14 +51,8 @@ public class CounterAddController extends MainController {
         objectCombo.setItems(listObjects);
         serviceCombo.setItems(listServices);
 
-        if(!tableObject.isEmpty()){
-            objectCombo.setValue(listObjects.get(0));
-        }
-
-        if(!tableService.isEmpty()){
-            serviceCombo.setValue(listServices.get(0));
-        }
-
+        objectCombo.setValue(listObjects.get(0));
+        serviceCombo.setValue(listServices.get(0));
     }
 
     @FXML
@@ -101,7 +92,7 @@ public class CounterAddController extends MainController {
 
         Counters counter = new Counters(id, objectId, serviceId, counterName, recentMeasure);
 
-        if(!objectAdd(counter)){
+        if (!objectAdd(counter)) {
             return;
         }
 

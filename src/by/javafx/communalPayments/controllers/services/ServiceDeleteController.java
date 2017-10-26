@@ -7,8 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
-
 public class ServiceDeleteController extends MainController {
     private Services object;
     private MainController mainController;
@@ -34,7 +32,7 @@ public class ServiceDeleteController extends MainController {
     @FXML
     public void btnOkClicked() {
 
-        if(!objectDelete(object)){
+        if (!objectDelete(object)) {
             return;
         }
 

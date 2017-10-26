@@ -13,8 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
-
 public class CounterChangeController extends MainController {
     private Counters object;
     private MainController mainController;
@@ -117,11 +115,11 @@ public class CounterChangeController extends MainController {
 
         Counters counter = new Counters(id, objectId, serviceId, counterName, recentMeasure);
 
-        if(!objectChange(counter)){
+        if (!objectChange(counter)) {
             return;
         }
 
-        if(!lastMeasureChange(counter, object.getRecentMeasure())){
+        if (!lastMeasureChange(counter, object.getRecentMeasure())) {
             return;
         }
 

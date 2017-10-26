@@ -11,8 +11,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
-
 public class ServiceChangeController extends MainController {
     private Services object;
     private MainController mainController;
@@ -92,7 +90,7 @@ public class ServiceChangeController extends MainController {
             }
         }
 
-        if(!objectChange(new Services(serviceId, serviceName, unit, rate, formId))){
+        if (!objectChange(new Services(serviceId, serviceName, unit, rate, formId))) {
             return;
         }
 

@@ -178,8 +178,12 @@ public class MainController implements Observer {
 
     @FXML
     public void countersAdd() {
-        dialogWindow(tabPane.getScene().getWindow(), new CounterAddController(), "/by/javafx/communalPayments/fxml/countersDialog/CountersAdd.fxml",
-                "Добавление счетчика", 400, 305);
+
+        if (checkAvailabilityObjects() && checkAvailabilityServices() && checkAvailabilityServicesForm()) {
+            dialogWindow(tabPane.getScene().getWindow(), new CounterAddController(), "/by/javafx/communalPayments/fxml/countersDialog/CountersAdd.fxml",
+                    "Добавление счетчика", 400, 305);
+        }
+
     }
 
     @FXML
@@ -245,8 +249,12 @@ public class MainController implements Observer {
 
     @FXML
     public void paymentAdd() {
-        dialogWindow(tabPane.getScene().getWindow(), new PaymentAddController(), "/by/javafx/communalPayments/fxml/paymentsDialog/PaymentsAdd.fxml",
-                "Добавление платежа", 400, 260);
+
+        if (checkAvailabilityObjects() && checkAvailabilityServices()) {
+            dialogWindow(tabPane.getScene().getWindow(), new PaymentAddController(), "/by/javafx/communalPayments/fxml/paymentsDialog/PaymentsAdd.fxml",
+                    "Добавление платежа", 400, 260);
+        }
+
     }
 
     @FXML
@@ -292,6 +300,48 @@ public class MainController implements Observer {
         T3_service.setItems(getTableObject(new Services()));
         T4_payments.setItems(getTableObject(new Payments()));
 
+    }
+
+    private boolean checkAvailabilityObjects() {
+
+        if (getTableObject(new ObjectAccounting()).isEmpty()) {
+            printDialogError("Добавление объекта", "Объект не может быть добавлен !",
+                    "  Отсутствуют объекты учета.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean checkAvailabilityServices() {
+
+        if (getTableObject(new Services()).isEmpty()) {
+            printDialogError("Добавление объекта", "Объект не может быть добавлен !",
+                    "  Для добавления необходимо наличие услуг.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean checkAvailabilityServicesForm() {
+
+        boolean flag = false;
+
+        for (Services obj : getTableObject(new Services())) {
+
+            if (obj.getFormPayments() == 1) {
+                flag = true;
+            }
+        }
+
+        if (!flag) {
+            printDialogError("Добавление объекта", "Объект не может быть добавлен !",
+                    "Отсутствуют услуги с формой оплаты по счетчику.");
+            return false;
+        }
+
+        return true;
     }
 
     public MyObjects getSelectedObject() {

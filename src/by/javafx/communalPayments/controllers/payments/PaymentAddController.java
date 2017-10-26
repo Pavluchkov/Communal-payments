@@ -13,7 +13,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -90,13 +89,13 @@ public class PaymentAddController extends MainController {
     @FXML
     public void btnOkClicked() {
         for (Counters obj : newListCounters) {
-            if(!objectChange(obj)){
+            if (!objectChange(obj)) {
                 return;
             }
         }
 
         for (Measurement obj : listMeasure) {
-            if(!objectAdd(obj)){
+            if (!objectAdd(obj)) {
                 return;
             }
         }
@@ -128,7 +127,7 @@ public class PaymentAddController extends MainController {
 
         }
 
-        if(!objectAdd(payment)){
+        if (!objectAdd(payment)) {
             return;
         }
 

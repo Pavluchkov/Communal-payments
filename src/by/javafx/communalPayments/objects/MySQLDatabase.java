@@ -51,28 +51,48 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.execute();
 
         stmt = con.prepareStatement("CREATE TABLE IF NOT EXISTS `accountingobject` (" +
-                "`personalAccount` int(11) NOT NULL," +
-                "`objectName` varchar(50) NOT NULL," +
-                "`owner` varchar(255) DEFAULT NULL," +
-                "`address` varchar(255) DEFAULT NULL," +
-                "`residents` int(11) DEFAULT NULL," +
-                "`area` double DEFAULT NULL," +
+                "`personalAccount` INT(11) NOT NULL," +
+                "`objectName` VARCHAR(50) NOT NULL," +
+                "`owner` VARCHAR(255) DEFAULT NULL," +
+                "`address` VARCHAR(255) DEFAULT NULL," +
+                "`residents` INT(11) DEFAULT NULL," +
+                "`area` DOUBLE DEFAULT NULL," +
                 "PRIMARY KEY (`personalAccount`)," +
                 "UNIQUE KEY `objectName_UNIQUE` (`objectName`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
         stmt.execute();
 
         stmt = con.prepareStatement("CREATE TABLE IF NOT EXISTS `formpayments` (" +
-                "`id` int(11) NOT NULL AUTO_INCREMENT," +
-                "`form` varchar(255) NOT NULL," +
+                "`id` INT(11) NOT NULL AUTO_INCREMENT," +
+                "`form` VARCHAR(255) NOT NULL," +
                 "PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;");
         stmt.execute();
 
+        stmt = con.prepareStatement("SELECT 1 FROM formpayments;");
+        ResultSet rs = stmt.executeQuery();
+
+        if (!rs.next()) {
+            stmt = con.prepareStatement("INSERT INTO formpayments(id, form) VALUES (?, ?) ");
+            stmt.setInt(1, 1);
+            stmt.setString(2, "По счетчику");
+            stmt.execute();
+            stmt = con.prepareStatement("INSERT INTO formpayments(id, form) VALUES (?, ?)");
+            stmt.setInt(1, 2);
+            stmt.setString(2, "По площади");
+            stmt.execute();
+            stmt = con.prepareStatement("INSERT INTO formpayments(id, form) VALUES (?, ?)");
+            stmt.setInt(1, 3);
+            stmt.setString(2, "По количеству жильцов");
+            stmt.execute();
+
+        }
+
+
         stmt = con.prepareStatement("CREATE TABLE IF NOT EXISTS `services` (" +
-                "`id` int(11) NOT NULL AUTO_INCREMENT," +
-                "`serviceName` varchar(255) NOT NULL," +
-                "`unit` varchar(20) NOT NULL," +
-                "`rate` double DEFAULT NULL," +
-                "`formPayment` int(11) NOT NULL," +
+                "`id` INT(11) NOT NULL AUTO_INCREMENT," +
+                "`serviceName` VARCHAR(255) NOT NULL," +
+                "`unit` VARCHAR(20) NOT NULL," +
+                "`rate` DOUBLE DEFAULT NULL," +
+                "`formPayment` INT(11) NOT NULL," +
                 "PRIMARY KEY (`id`)," +
                 "UNIQUE KEY `serviceName_UNIQUE` (`serviceName`)," +
                 "KEY `services-formPayments_idx` (`formPayment`)," +
@@ -81,11 +101,11 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.execute();
 
         stmt = con.prepareStatement("CREATE TABLE IF NOT EXISTS `counters` (" +
-                "`id` int(11) NOT NULL AUTO_INCREMENT," +
-                "`object` int(11) NOT NULL," +
-                "`service` int(11) NOT NULL," +
-                "`counterName` varchar(50) NOT NULL," +
-                "`recentMeasure` double NOT NULL," +
+                "`id` INT(11) NOT NULL AUTO_INCREMENT," +
+                "`object` INT(11) NOT NULL," +
+                "`service` INT(11) NOT NULL," +
+                "`counterName` VARCHAR(50) NOT NULL," +
+                "`recentMeasure` DOUBLE NOT NULL," +
                 "PRIMARY KEY (`id`)," +
                 "UNIQUE KEY `counterName_UNIQUE` (`counterName`)," +
                 "KEY `counters-object_idx` (`object`)," +
@@ -96,10 +116,10 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.execute();
 
         stmt = con.prepareStatement("CREATE TABLE IF NOT EXISTS `measurement` (" +
-                "`id` int(11) NOT NULL AUTO_INCREMENT," +
-                "`counter` int(11) NOT NULL," +
-                "`measure` double NOT NULL," +
-                "`date` date NOT NULL," +
+                "`id` INT(11) NOT NULL AUTO_INCREMENT," +
+                "`counter` INT(11) NOT NULL," +
+                "`measure` DOUBLE NOT NULL," +
+                "`date` DATE NOT NULL," +
                 "PRIMARY KEY (`id`)," +
                 "KEY `measurement-counters_idx` (`counter`)," +
                 "CONSTRAINT `measurement-counters` FOREIGN KEY (`counter`) REFERENCES `counters` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) " +
@@ -107,15 +127,15 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.execute();
 
         stmt = con.prepareStatement("CREATE TABLE IF NOT EXISTS `payments` (" +
-                "`id` int(11) NOT NULL AUTO_INCREMENT," +
-                "`object` int(11) NOT NULL," +
-                "`service` int(11) NOT NULL," +
-                "`unit` varchar(20) NOT NULL," +
-                "`volume` double NOT NULL," +
-                "`rate` double NOT NULL," +
-                "`accrued` double NOT NULL," +
-                "`paid` double NOT NULL," +
-                "`date` date NOT NULL," +
+                "`id` INT(11) NOT NULL AUTO_INCREMENT," +
+                "`object` INT(11) NOT NULL," +
+                "`service` INT(11) NOT NULL," +
+                "`unit` VARCHAR(20) NOT NULL," +
+                "`volume` DOUBLE NOT NULL," +
+                "`rate` DOUBLE NOT NULL," +
+                "`accrued` DOUBLE NOT NULL," +
+                "`paid` DOUBLE NOT NULL," +
+                "`date` DATE NOT NULL," +
                 "PRIMARY KEY (`id`)," +
                 "KEY `payments-object_idx` (`object`)," +
                 "KEY `payments-service_idx` (`service`)," +
