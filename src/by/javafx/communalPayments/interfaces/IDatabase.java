@@ -11,6 +11,8 @@ public interface IDatabase {
 
     void closeConnect() throws SQLException;
 
+    void availabilityCheckDatabase() throws SQLException;
+
     ObservableList<ObjectAccounting> getListObjects(ObjectAccounting object) throws SQLException;
 
     ObservableList<Counters> getListObjects(Counters object) throws SQLException;

@@ -15,7 +15,6 @@ import by.javafx.communalPayments.interfaces.IDatabase;
 import by.javafx.communalPayments.interfaces.Observer;
 import by.javafx.communalPayments.interfaces.Subject;
 import by.javafx.communalPayments.objects.*;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -271,8 +270,15 @@ public class MainController implements Observer {
     private void setConnection() {
 
         try {
-            database.setConnectDatabase("jdbc:mysql://localhost:3306/communalpayments");
+            database.setConnectDatabase("jdbc:mysql://localhost:3306");
         } catch (SQLException | ClassNotFoundException e) {
+            printDialogError("Ошибка подключения", "Не удалось подключиться к серверу MySQL !", e.getMessage());
+            System.exit(0);
+        }
+
+        try {
+            database.availabilityCheckDatabase();
+        } catch (SQLException e) {
             printDialogError("Ошибка подключения", "Не удалось подключиться к БД !", e.getMessage());
             System.exit(0);
         }
@@ -288,12 +294,12 @@ public class MainController implements Observer {
 
     }
 
-    private void setSelectedObject(MyObjects object) {
-        selectedObject = object;
-    }
-
     public MyObjects getSelectedObject() {
         return selectedObject;
+    }
+
+    private void setSelectedObject(MyObjects object) {
+        selectedObject = object;
     }
 
     protected void dialogWindow(Window window, MainController controller, String resource, String title, int width, int height) {

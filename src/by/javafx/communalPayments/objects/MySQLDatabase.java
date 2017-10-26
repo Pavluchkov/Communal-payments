@@ -18,7 +18,7 @@ public class MySQLDatabase implements IDatabase, Subject {
     private MySQLDatabase() {
     }
 
-    public static MySQLDatabase getInstance(){
+    public static MySQLDatabase getInstance() {
         return instance;
     }
 
@@ -40,6 +40,91 @@ public class MySQLDatabase implements IDatabase, Subject {
         if (con != null) {
             con.close();
         }
+    }
+
+    @Override
+    public void availabilityCheckDatabase() throws SQLException {
+
+        PreparedStatement stmt = con.prepareStatement("CREATE SCHEMA IF NOT EXISTS `communalpayments`");
+        stmt.execute();
+        stmt = con.prepareStatement("USE `communalpayments`");
+        stmt.execute();
+
+        stmt = con.prepareStatement("CREATE TABLE IF NOT EXISTS `accountingobject` (" +
+                "`personalAccount` int(11) NOT NULL," +
+                "`objectName` varchar(50) NOT NULL," +
+                "`owner` varchar(255) DEFAULT NULL," +
+                "`address` varchar(255) DEFAULT NULL," +
+                "`residents` int(11) DEFAULT NULL," +
+                "`area` double DEFAULT NULL," +
+                "PRIMARY KEY (`personalAccount`)," +
+                "UNIQUE KEY `objectName_UNIQUE` (`objectName`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+        stmt.execute();
+
+        stmt = con.prepareStatement("CREATE TABLE IF NOT EXISTS `formpayments` (" +
+                "`id` int(11) NOT NULL AUTO_INCREMENT," +
+                "`form` varchar(255) NOT NULL," +
+                "PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;");
+        stmt.execute();
+
+        stmt = con.prepareStatement("CREATE TABLE IF NOT EXISTS `services` (" +
+                "`id` int(11) NOT NULL AUTO_INCREMENT," +
+                "`serviceName` varchar(255) NOT NULL," +
+                "`unit` varchar(20) NOT NULL," +
+                "`rate` double DEFAULT NULL," +
+                "`formPayment` int(11) NOT NULL," +
+                "PRIMARY KEY (`id`)," +
+                "UNIQUE KEY `serviceName_UNIQUE` (`serviceName`)," +
+                "KEY `services-formPayments_idx` (`formPayment`)," +
+                "CONSTRAINT `services-formPayments` FOREIGN KEY (`formPayment`) REFERENCES `formpayments` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) " +
+                "ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;");
+        stmt.execute();
+
+        stmt = con.prepareStatement("CREATE TABLE IF NOT EXISTS `counters` (" +
+                "`id` int(11) NOT NULL AUTO_INCREMENT," +
+                "`object` int(11) NOT NULL," +
+                "`service` int(11) NOT NULL," +
+                "`counterName` varchar(50) NOT NULL," +
+                "`recentMeasure` double NOT NULL," +
+                "PRIMARY KEY (`id`)," +
+                "UNIQUE KEY `counterName_UNIQUE` (`counterName`)," +
+                "KEY `counters-object_idx` (`object`)," +
+                "KEY `counters-services_idx` (`service`)," +
+                "CONSTRAINT `counters-object` FOREIGN KEY (`object`) REFERENCES `accountingobject` (`personalAccount`) ON DELETE CASCADE ON UPDATE CASCADE," +
+                "CONSTRAINT `counters-services` FOREIGN KEY (`service`) REFERENCES `services` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) " +
+                "ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;");
+        stmt.execute();
+
+        stmt = con.prepareStatement("CREATE TABLE IF NOT EXISTS `measurement` (" +
+                "`id` int(11) NOT NULL AUTO_INCREMENT," +
+                "`counter` int(11) NOT NULL," +
+                "`measure` double NOT NULL," +
+                "`date` date NOT NULL," +
+                "PRIMARY KEY (`id`)," +
+                "KEY `measurement-counters_idx` (`counter`)," +
+                "CONSTRAINT `measurement-counters` FOREIGN KEY (`counter`) REFERENCES `counters` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) " +
+                "ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;");
+        stmt.execute();
+
+        stmt = con.prepareStatement("CREATE TABLE IF NOT EXISTS `payments` (" +
+                "`id` int(11) NOT NULL AUTO_INCREMENT," +
+                "`object` int(11) NOT NULL," +
+                "`service` int(11) NOT NULL," +
+                "`unit` varchar(20) NOT NULL," +
+                "`volume` double NOT NULL," +
+                "`rate` double NOT NULL," +
+                "`accrued` double NOT NULL," +
+                "`paid` double NOT NULL," +
+                "`date` date NOT NULL," +
+                "PRIMARY KEY (`id`)," +
+                "KEY `payments-object_idx` (`object`)," +
+                "KEY `payments-service_idx` (`service`)," +
+                "CONSTRAINT `payments-object` FOREIGN KEY (`object`) REFERENCES `accountingobject` (`personalAccount`) ON DELETE CASCADE ON UPDATE CASCADE," +
+                "CONSTRAINT `payments-service` FOREIGN KEY (`service`) REFERENCES `services` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) " +
+                "ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;");
+        stmt.execute();
+
+        stmt.close();
     }
 
     @Override
