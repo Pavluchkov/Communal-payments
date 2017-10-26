@@ -53,8 +53,15 @@ public class CounterAddController extends MainController {
 
         objectCombo.setItems(listObjects);
         serviceCombo.setItems(listServices);
-        objectCombo.setValue(listObjects.get(0));
-        serviceCombo.setValue(listServices.get(0));
+
+        if(!tableObject.isEmpty()){
+            objectCombo.setValue(listObjects.get(0));
+        }
+
+        if(!tableService.isEmpty()){
+            serviceCombo.setValue(listServices.get(0));
+        }
+
     }
 
     @FXML
