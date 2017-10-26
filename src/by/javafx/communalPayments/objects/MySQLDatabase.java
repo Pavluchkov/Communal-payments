@@ -356,13 +356,14 @@ public class MySQLDatabase implements IDatabase, Subject {
     }
 
     @Override
-    public void changeLastMeasure(Counters object) throws SQLException {
+    public void changeLastMeasure(Counters object, double lastMeasure) throws SQLException {
 //        PreparedStatement stmt = con.prepareStatement("UPDATE measurement SET" +
 //                " measure=?" + " WHERE counter=? AND id=LAST_INSERT_ID()");
         PreparedStatement stmt = con.prepareStatement("UPDATE measurement SET" +
-                " measure=?" + " WHERE counter=? AND id=LAST_INSERT_ID()");
+                " measure=?" + " WHERE counter=?" + " AND measure=?");
         stmt.setDouble(1, object.getRecentMeasure());
         stmt.setInt(2, object.getId());
+        stmt.setDouble(3, lastMeasure);
         stmt.execute();
 
         stmt.close();

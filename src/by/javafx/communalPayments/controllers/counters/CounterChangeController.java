@@ -129,7 +129,7 @@ public class CounterChangeController extends MainController {
             return;
         }
 
-        if(!lastMeasureChange(counter)){
+        if(!lastMeasureChange(counter, object.getRecentMeasure())){
             return;
         }
 

@@ -429,10 +429,10 @@ public class MainController implements Observer {
         return true;
     }
 
-    protected boolean lastMeasureChange(Counters object) {
+    protected boolean lastMeasureChange(Counters object, double lastMeasure) {
 
         try {
-            database.changeLastMeasure(object);
+            database.changeLastMeasure(object, lastMeasure);
         } catch (SQLException e) {
             printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
             return false;
