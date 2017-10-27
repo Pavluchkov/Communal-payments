@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -26,7 +27,7 @@
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                             </columnResizePolicy>
                      <effect>
-                        <DropShadow />
+                        <InnerShadow />
                      </effect>
                         </TableView>
                         <HBox alignment="CENTER" layoutX="20.0" layoutY="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
@@ -38,11 +39,17 @@
                                     <HBox.margin>
                                         <Insets right="25.0" />
                                     </HBox.margin>
+                           <effect>
+                              <InnerShadow blurType="TWO_PASS_BOX" color="#08a12e80" />
+                           </effect>
                                 </Button>
                                 <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#objAccountChange" prefHeight="30.0" prefWidth="95.0" text="Изменить">
                                     <font>
                                         <Font name="Arial" size="14.0" />
                                     </font>
+                           <effect>
+                              <InnerShadow color="#4107b580" />
+                           </effect>
                                 </Button>
                                 <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#objAccountDelete" prefHeight="30.0" prefWidth="95.0" text="Удалить">
                                     <font>
@@ -51,10 +58,13 @@
                                     <HBox.margin>
                                         <Insets left="25.0" />
                                     </HBox.margin>
+                           <effect>
+                              <InnerShadow color="#d90d0d80" />
+                           </effect>
                                 </Button>
                             </children>
                      <effect>
-                        <InnerShadow />
+                        <DropShadow blurType="GAUSSIAN" height="10.0" radius="4.5" width="10.0" />
                      </effect>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" layoutX="391.0" layoutY="406.0" prefHeight="10.0" prefWidth="565.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
@@ -83,11 +93,17 @@
                                     <HBox.margin>
                                         <Insets right="25.0" />
                                     </HBox.margin>
+                           <effect>
+                              <InnerShadow color="#08a12e80" />
+                           </effect>
                                 </Button>
                                 <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#serviceChange" prefHeight="30.0" prefWidth="95.0" text="Изменить">
                                     <font>
                                         <Font name="Arial" size="14.0" />
                                     </font>
+                           <effect>
+                              <InnerShadow color="#4107b580" />
+                           </effect>
                                 </Button>
                                 <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#serviceDelete" prefHeight="30.0" prefWidth="95.0" text="Удалить">
                                     <font>
@@ -96,8 +112,14 @@
                                     <HBox.margin>
                                         <Insets left="25.0" />
                                     </HBox.margin>
+                           <effect>
+                              <InnerShadow color="#d90d0d80" />
+                           </effect>
                                 </Button>
                             </children>
+                     <effect>
+                        <DropShadow height="10.0" radius="4.5" width="10.0" />
+                     </effect>
                         </HBox>
                         <TableView fx:id="T3_service" layoutX="20.0" layoutY="56.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
                             <columnResizePolicy>
@@ -110,6 +132,12 @@
                                 <TableColumn fx:id="T3_rateColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="-1.0" text="Тариф, руб." />
                                 <TableColumn fx:id="T3_formPaymentsColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="-1.0" text="Форма оплаты" />
                             </columns>
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
                         </TableView>
                         <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="565.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                             <children>
@@ -139,6 +167,9 @@
                                 <TableColumn fx:id="T2_nameObjColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Объект учета" />
                                 <TableColumn fx:id="T2_serviceColumn" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="-1.0" text="Услуга" />
                             </columns>
+                     <effect>
+                        <InnerShadow />
+                     </effect>
                         </TableView>
                         <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                             <children>
@@ -149,11 +180,17 @@
                                     <HBox.margin>
                                         <Insets right="25.0" />
                                     </HBox.margin>
+                           <effect>
+                              <InnerShadow color="#08a12e80" />
+                           </effect>
                                 </Button>
                                 <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#countersChange" prefHeight="30.0" prefWidth="95.0" text="Изменить">
                                     <font>
                                         <Font name="Arial" size="14.0" />
                                     </font>
+                           <effect>
+                              <InnerShadow color="#4007b280" />
+                           </effect>
                                 </Button>
                                 <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#countersDelete" prefHeight="30.0" prefWidth="95.0" text="Удалить">
                                     <font>
@@ -162,8 +199,14 @@
                                     <HBox.margin>
                                         <Insets left="25.0" />
                                     </HBox.margin>
+                           <effect>
+                              <InnerShadow color="#d90d0d80" />
+                           </effect>
                                 </Button>
                             </children>
+                     <effect>
+                        <DropShadow height="10.0" radius="4.5" width="10.0" />
+                     </effect>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="565.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                             <children>
@@ -197,6 +240,9 @@
                                 <TableColumn fx:id="T4_paidColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="-1.0" text="Оплачено, рубл." />
                                 <TableColumn fx:id="T4_dateColumn" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="-1.0" text="Дата платежа" />
                             </columns>
+                     <effect>
+                        <InnerShadow />
+                     </effect>
                         </TableView>
                         <HBox alignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                             <children>
@@ -207,6 +253,9 @@
                                     <HBox.margin>
                                         <Insets right="25.0" />
                                     </HBox.margin>
+                           <effect>
+                              <InnerShadow color="#08a12e80" />
+                           </effect>
                                 </Button>
                                 <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#paymentDelete" prefHeight="30.0" prefWidth="95.0" text="Удалить">
                                     <font>
@@ -215,8 +264,14 @@
                                     <HBox.margin>
                                         <Insets left="25.0" />
                                     </HBox.margin>
+                           <effect>
+                              <InnerShadow color="#d90d0d80" />
+                           </effect>
                                 </Button>
                             </children>
+                     <effect>
+                        <DropShadow height="10.0" radius="4.5" width="10.0" />
+                     </effect>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="565.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                             <children>
@@ -300,4 +355,7 @@
             </content>
         </Tab>
     </tabs>
+   <effect>
+      <InnerShadow />
+   </effect>
 </TabPane>

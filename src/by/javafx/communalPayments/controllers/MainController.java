@@ -223,7 +223,7 @@ public class MainController implements Observer {
     public void serviceAdd() {
 
         dialogWindow(tabPane.getScene().getWindow(), new ServiceAddController(), "/by/javafx/communalPayments/fxml/servicesDialog/servicesAdd.fxml",
-                "Добавление услуги", 400, 305);
+                "Добавление услуги", 450, 305);
     }
 
     @FXML
@@ -234,7 +234,7 @@ public class MainController implements Observer {
         if (object != null) {
             setSelectedObject(object);
             dialogWindow(tabPane.getScene().getWindow(), new ServiceChangeController(this), "/by/javafx/communalPayments/fxml/servicesDialog/servicesChange.fxml",
-                    "Изменение услуги", 400, 305);
+                    "Изменение услуги", 450, 305);
         } else {
             printDialogError("Изменение объекта", "Ошибка изменения объекта!", "Не выбран изменяемый объект ! ");
         }
