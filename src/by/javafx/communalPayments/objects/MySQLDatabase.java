@@ -28,7 +28,7 @@ public class MySQLDatabase implements IDatabase, Subject {
         Class.forName("com.mysql.jdbc.Driver");
         Properties properties = new Properties();
         properties.setProperty("user", "root");
-        properties.setProperty("password", "Nikitenko");
+        properties.setProperty("password", "root");
         properties.setProperty("useUnicode", "true");
         properties.setProperty("characterEncoding", "UTF-8");
         con = DriverManager.getConnection(connectionString, properties);
