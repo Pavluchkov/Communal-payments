@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class ObjChangeController extends MainController {
+
     private ObjectAccounting objectAccounting;
     private MainController mainController;
 
@@ -31,11 +32,9 @@ public class ObjChangeController extends MainController {
         this.mainController = mainController;
     }
 
-    public ObjChangeController() {
-    }
-
     @FXML
     public void initialize() {
+
         objectAccounting = (ObjectAccounting) mainController.getSelectedObject();
 
         personalAccount.setText(String.valueOf(objectAccounting.getId()));
@@ -48,8 +47,8 @@ public class ObjChangeController extends MainController {
 
     @FXML
     public void btnOkClicked() {
+
         ObjectAccounting object = new ObjectAccounting();
-        int id = objectAccounting.getId();
 
         try {
             object.setId(Integer.parseInt(personalAccount.getText()));
@@ -64,7 +63,7 @@ public class ObjChangeController extends MainController {
             return;
         }
 
-        if (!objectChange(object, id)) {
+        if (!objectChange(object, objectAccounting.getId())) {
             return;
         }
 
@@ -74,6 +73,7 @@ public class ObjChangeController extends MainController {
 
     @FXML
     private void btnCancelClicked() {
+
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }

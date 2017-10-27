@@ -47,6 +47,7 @@ public class MySQLDatabase implements IDatabase, Subject {
 
         PreparedStatement stmt = con.prepareStatement("CREATE SCHEMA IF NOT EXISTS `communalpayments`");
         stmt.execute();
+
         stmt = con.prepareStatement("USE `communalpayments`");
         stmt.execute();
 
@@ -85,7 +86,6 @@ public class MySQLDatabase implements IDatabase, Subject {
             stmt.execute();
 
         }
-
 
         stmt = con.prepareStatement("CREATE TABLE IF NOT EXISTS `services` (" +
                 "`id` INT(11) NOT NULL AUTO_INCREMENT," +
@@ -149,24 +149,19 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public ObservableList<ObjectAccounting> getListObjects(ObjectAccounting object) throws SQLException {
+
         ObservableList<ObjectAccounting> objectList = FXCollections.observableArrayList();
+
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM " + "accountingobject");
         ResultSet rs = stmt.executeQuery();
 
-        int id;
-        String objectName;
-        String owner;
-        String address;
-        int residents;
-        double area;
-
         while (rs.next()) {
-            id = rs.getInt(1);
-            objectName = rs.getString(2);
-            owner = rs.getString(3);
-            address = rs.getString(4);
-            residents = rs.getInt(5);
-            area = rs.getDouble(6);
+            int id = rs.getInt(1);
+            String objectName = rs.getString(2);
+            String owner = rs.getString(3);
+            String address = rs.getString(4);
+            int residents = rs.getInt(5);
+            double area = rs.getDouble(6);
             objectList.add(new ObjectAccounting(id, objectName, owner, address, residents, area));
         }
 
@@ -179,22 +174,18 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public ObservableList<Counters> getListObjects(Counters object) throws SQLException {
+
         ObservableList<Counters> objectList = FXCollections.observableArrayList();
+
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM " + "counters");
         ResultSet rs = stmt.executeQuery();
 
-        int id;
-        String counterName;
-        int service;
-        int objectId;
-        double recentMeasure;
-
         while (rs.next()) {
-            id = rs.getInt(1);
-            objectId = rs.getInt(2);
-            service = rs.getInt(3);
-            counterName = rs.getString(4);
-            recentMeasure = rs.getDouble(5);
+            int id = rs.getInt(1);
+            int objectId = rs.getInt(2);
+            int service = rs.getInt(3);
+            String counterName = rs.getString(4);
+            double recentMeasure = rs.getDouble(5);
             objectList.add(new Counters(id, objectId, service, counterName, recentMeasure));
         }
 
@@ -206,30 +197,22 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public ObservableList<Payments> getListObjects(Payments object) throws SQLException {
+
         ObservableList<Payments> objectList = FXCollections.observableArrayList();
+
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM " + "payments");
         ResultSet rs = stmt.executeQuery();
 
-        int id;
-        int objectId;
-        int service;
-        String unit;
-        double volume;
-        double rate;
-        double accrued;
-        double paid;
-        Date date;
-
         while (rs.next()) {
-            id = rs.getInt(1);
-            objectId = rs.getInt(2);
-            service = rs.getInt(3);
-            unit = rs.getString(4);
-            volume = rs.getDouble(5);
-            rate = rs.getDouble(6);
-            accrued = rs.getDouble(7);
-            paid = rs.getDouble(8);
-            date = rs.getDate(9);
+            int id = rs.getInt(1);
+            int objectId = rs.getInt(2);
+            int service = rs.getInt(3);
+            String unit = rs.getString(4);
+            double volume = rs.getDouble(5);
+            double rate = rs.getDouble(6);
+            double accrued = rs.getDouble(7);
+            double paid = rs.getDouble(8);
+            Date date = rs.getDate(9);
             objectList.add(new Payments(id, objectId, service, unit, volume, rate, accrued, paid, date));
         }
 
@@ -241,22 +224,18 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public ObservableList<Services> getListObjects(Services object) throws SQLException {
+
         ObservableList<Services> objectList = FXCollections.observableArrayList();
+
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM " + "services");
         ResultSet rs = stmt.executeQuery();
 
-        int idService;
-        String serviceName;
-        String unit;
-        double rate;
-        int formPayments;
-
         while (rs.next()) {
-            idService = rs.getInt(1);
-            serviceName = rs.getString(2);
-            unit = rs.getString(3);
-            rate = rs.getDouble(4);
-            formPayments = rs.getInt(5);
+            int idService = rs.getInt(1);
+            String serviceName = rs.getString(2);
+            String unit = rs.getString(3);
+            double rate = rs.getDouble(4);
+            int formPayments = rs.getInt(5);
             objectList.add(new Services(idService, serviceName, unit, rate, formPayments));
         }
 
@@ -268,16 +247,15 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public ObservableList<FormPayments> getListObjects(FormPayments object) throws SQLException {
+
         ObservableList<FormPayments> objectList = FXCollections.observableArrayList();
+
         PreparedStatement stmt = con.prepareStatement("SELECT * FROM " + "formpayments");
         ResultSet rs = stmt.executeQuery();
 
-        int id;
-        String form;
-
         while (rs.next()) {
-            id = rs.getInt(1);
-            form = rs.getString(2);
+            int id = rs.getInt(1);
+            String form = rs.getString(2);
             objectList.add(new FormPayments(id, form));
         }
 
@@ -307,6 +285,7 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public void add(Counters object) throws SQLException {
+
         PreparedStatement stmt = con.prepareStatement("INSERT INTO counters" +
                 "(object, service, counterName, recentMeasure) VALUES (?, ?, ?, ?)");
 
@@ -323,6 +302,7 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public void add(Payments object) throws SQLException {
+
         PreparedStatement stmt = con.prepareStatement("INSERT INTO payments" +
                 "(object, service, unit, volume, rate, accrued, paid, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -343,6 +323,7 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public void add(Services object) throws SQLException {
+
         PreparedStatement stmt = con.prepareStatement("INSERT INTO services" +
                 "(serviceName, unit, rate, formPayment) VALUES (?, ?, ?, ?)");
 
@@ -374,6 +355,7 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public void delete(ObjectAccounting object) throws SQLException {
+
         PreparedStatement stmt = con.prepareStatement("DELETE FROM accountingobject WHERE personalAccount=?");
         stmt.setInt(1, object.getId());
 
@@ -385,6 +367,7 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public void delete(Counters object) throws SQLException {
+
         PreparedStatement stmt = con.prepareStatement("DELETE FROM counters WHERE id=?");
         stmt.setInt(1, object.getId());
 
@@ -396,6 +379,7 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public void delete(Payments object) throws SQLException {
+
         PreparedStatement stmt = con.prepareStatement("DELETE FROM payments WHERE id=?");
         stmt.setInt(1, object.getId());
 
@@ -407,6 +391,7 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public void delete(Services object) throws SQLException {
+
         PreparedStatement stmt = con.prepareStatement("DELETE FROM services WHERE id=?");
         stmt.setInt(1, object.getId());
 
@@ -418,9 +403,11 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public void change(ObjectAccounting object, int id) throws SQLException {
+
         PreparedStatement stmt = con.prepareStatement("UPDATE accountingobject SET" +
                 " personalAccount=?, objectName=?, owner=?, address=?, residents=?, area=?" +
                 " WHERE personalAccount=?");
+
         stmt.setInt(1, object.getId());
         stmt.setString(2, object.getObjectName());
         stmt.setString(3, object.getOwner());
@@ -436,9 +423,11 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public void change(Counters object) throws SQLException {
+
         PreparedStatement stmt = con.prepareStatement("UPDATE counters SET" +
                 " id=?, object=?, service=?, counterName=?, recentMeasure=?" +
                 " WHERE id=?");
+
         stmt.setInt(1, object.getId());
         stmt.setInt(2, object.getObject());
         stmt.setInt(3, object.getService());
@@ -453,9 +442,11 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public void change(Services object) throws SQLException {
+
         PreparedStatement stmt = con.prepareStatement("UPDATE services SET" +
                 " id=?, serviceName=?, unit=?, rate=?, formPayment=?" +
                 " WHERE id=?");
+
         stmt.setInt(1, object.getId());
         stmt.setString(2, object.getServiceName());
         stmt.setString(3, object.getUnit());
@@ -470,10 +461,10 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     @Override
     public void changeLastMeasure(Counters object, double lastMeasure) throws SQLException {
-//        PreparedStatement stmt = con.prepareStatement("UPDATE measurement SET" +
-//                " measure=?" + " WHERE counter=? AND id=LAST_INSERT_ID()");
+
         PreparedStatement stmt = con.prepareStatement("UPDATE measurement SET" +
                 " measure=?" + " WHERE counter=?" + " AND measure=?");
+
         stmt.setDouble(1, object.getRecentMeasure());
         stmt.setInt(2, object.getId());
         stmt.setDouble(3, lastMeasure);

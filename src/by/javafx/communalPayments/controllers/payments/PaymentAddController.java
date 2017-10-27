@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class PaymentAddController extends MainController {
+
     private Payments payment = new Payments();
 
     private ObservableList<ObjectAccounting> tableObject = FXCollections.observableArrayList();
@@ -53,14 +54,6 @@ public class PaymentAddController extends MainController {
     @FXML
     public void initialize() {
 
-//        try {
-//            tableObject = database.getListObjects(new ObjectAccounting());
-//            tableService = database.getListObjects(new Services());
-//
-//        } catch (SQLException e) {
-//            printDialogError("Работа с базой данных", "Ошибка чтения данных БД !", e.getMessage());
-//            return;
-//        }
         tableObject = getTableObject(new ObjectAccounting());
         tableService = getTableObject(new Services());
 
@@ -88,13 +81,16 @@ public class PaymentAddController extends MainController {
 
     @FXML
     public void btnOkClicked() {
+
         for (Counters obj : newListCounters) {
+
             if (!objectChange(obj)) {
                 return;
             }
         }
 
         for (Measurement obj : listMeasure) {
+
             if (!objectAdd(obj)) {
                 return;
             }
@@ -114,7 +110,9 @@ public class PaymentAddController extends MainController {
                 if (payment.getService() == obj.getId()) {
                     payment.setUnit(obj.getUnit());
                 }
+
             }
+
         } else {
 
             try {
@@ -148,7 +146,7 @@ public class PaymentAddController extends MainController {
             }
 
         } else {
-            printDialogError("Внесение показаний счетчика", "Ошибка внесения показаний!",
+            printDialogError("Счетчики", "Ошибка внесения показаний!",
                     "Отсутствуют счетчики для данного объекта учета.\nВ разделе <Счетчики> необходимо добавить счетчик.");
         }
 
@@ -158,6 +156,7 @@ public class PaymentAddController extends MainController {
 
     @FXML
     public void btnCancelClicked() {
+
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }
@@ -185,11 +184,13 @@ public class PaymentAddController extends MainController {
     }
 
     public void setSum(double summa) {
+
         this.sum += summa;
         sumField.setText(String.valueOf(sum));
     }
 
     public double getRate(int serviceId) {
+
         double rate = 0;
 
         for (Services obj : tableService) {
@@ -202,10 +203,12 @@ public class PaymentAddController extends MainController {
     }
 
     public void setPayment(Payments payment) {
+
         this.payment = payment;
     }
 
     private void checkCombo(String newValue) {
+
         for (Services obj : tableService) {
 
             if (obj.getServiceName().equals(newValue)) {
@@ -241,9 +244,9 @@ public class PaymentAddController extends MainController {
 
                     if (obj.getFormPayments() == 3) {
                         sum = Math.rint(rate * residents * 100) / 100;
-                        sumField.setText(String.valueOf(sum));
                         payment.setVolume(residents);
                         payment.setAccrued(sum);
+                        sumField.setText(String.valueOf(sum));
                     }
                 }
             }
@@ -252,14 +255,17 @@ public class PaymentAddController extends MainController {
     }
 
     private void fillListCounters() {
+
         ObjectAccounting objectAccounting = new ObjectAccounting();
-        Services services = new Services();
 
         for (ObjectAccounting obj : tableObject) {
+
             if (objectCombo.getValue().equals(obj.getObjectName())) {
                 objectAccounting = obj;
             }
         }
+
+        Services services = new Services();
 
         for (Services obj : tableService) {
             if (serviceCombo.getValue().equals(obj.getServiceName())) {
@@ -270,14 +276,9 @@ public class PaymentAddController extends MainController {
         ObservableList<Counters> tableCounters;
 
         tableCounters = getTableObject(new Counters());
-//        try {
-//            tableCounters = database.getListObjects(new Counters());
-//        } catch (SQLException e) {
-//            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
-//            return;
-//        }
 
         for (Counters obj : tableCounters) {
+
             if ((obj.getObject() == objectAccounting.getId()) && (obj.getService() == services.getId())) {
                 listCounters.add(obj);
             }

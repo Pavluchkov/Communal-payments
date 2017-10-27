@@ -25,40 +25,6 @@ public class ObjAddController extends MainController {
     @FXML
     private Button btnCancel;
 
-
-//    private UnaryOperator<TextFormatter.Change> textFilter(String regexString) {
-//        UnaryOperator<TextFormatter.Change> Filter = change -> {
-//            String text = change.getText();
-//
-//            if (text.matches(regexString)) {
-//                return change;
-//            }
-//
-//            return null;
-//        };
-//
-//        return Filter;
-//    }
-
-//    @FXML
-//    private void initialize() {
-//
-//        TextFormatter<String> textFormatterPersonal = new TextFormatter<>(textFilter("[0-9]*"));
-//        TextFormatter<String> textFormatterResident = new TextFormatter<>(textFilter("[0-9]*"));
-//        TextFormatter<String> textFormatterArea = new TextFormatter<>(textFilter("[0-9.]*"));
-//        personalAccount.setTextFormatter(textFormatterPersonal);
-//        residents.setTextFormatter(textFormatterResident);
-//        area.setTextFormatter(textFormatterArea);
-//
-//        personalAccount.addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<KeyEvent>() {
-//            @Override public void handle(KeyEvent keyEvent) {
-//                if (!"0123456789".contains(keyEvent.getCharacter())) {
-//                    keyEvent.consume();
-//                }
-//            }
-//        });
-//    }
-
     @FXML
     public void initialize() {
 
@@ -66,6 +32,7 @@ public class ObjAddController extends MainController {
 
     @FXML
     public void BtnOkClicked() {
+
         ObjectAccounting object = new ObjectAccounting();
 
         try {
@@ -90,6 +57,7 @@ public class ObjAddController extends MainController {
 
     @FXML
     private void btnCancelClicked() {
+
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }

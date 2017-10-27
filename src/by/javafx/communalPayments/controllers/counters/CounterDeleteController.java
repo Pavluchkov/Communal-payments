@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class CounterDeleteController extends MainController {
+
     private MainController mainController;
     private Counters object;
 
@@ -18,9 +19,6 @@ public class CounterDeleteController extends MainController {
 
     public CounterDeleteController(MainController mainController) {
         this.mainController = mainController;
-    }
-
-    public CounterDeleteController() {
     }
 
     @FXML
@@ -42,6 +40,7 @@ public class CounterDeleteController extends MainController {
 
     @FXML
     private void btnCancelClicked() {
+
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }

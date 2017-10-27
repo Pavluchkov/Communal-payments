@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class CounterChangeController extends MainController {
+
     private Counters object;
     private MainController mainController;
     private ObservableList<ObjectAccounting> tableObject = FXCollections.observableArrayList();
@@ -36,11 +37,9 @@ public class CounterChangeController extends MainController {
         this.mainController = mainController;
     }
 
-    public CounterChangeController() {
-    }
-
     @FXML
     public void initialize() {
+
         object = (Counters) mainController.getSelectedObject();
         measureLabel.setText("Последние показания");
 
@@ -77,16 +76,15 @@ public class CounterChangeController extends MainController {
 
     @FXML
     void btnOkClicked() {
-        int id = object.getId();
-        int objectId = 0;
-        int serviceId = 0;
+
         String counterName = nameField.getText();
-        double recentMeasure;
 
         if (counterName.isEmpty()) {
             printDialogError("Ввод данных", "Ошибка ввода данных !", "Введите имя счетчика.");
             return;
         }
+
+        double recentMeasure;
 
         try {
             recentMeasure = Double.parseDouble(recentField.getText());
@@ -95,9 +93,9 @@ public class CounterChangeController extends MainController {
             return;
         }
 
-
-        String selectedItemObj = objectCombo.getSelectionModel().getSelectedItem();
-        String selectedItemService = serviceCombo.getSelectionModel().getSelectedItem();
+        String selectedItemObj = objectCombo.getValue();
+        String selectedItemService = serviceCombo.getValue();
+        int objectId = 0;
 
         for (ObjectAccounting obj : tableObject) {
 
@@ -106,6 +104,8 @@ public class CounterChangeController extends MainController {
             }
         }
 
+        int serviceId = 0;
+
         for (Services obj : tableService) {
 
             if (selectedItemService.equals(obj.getServiceName())) {
@@ -113,6 +113,7 @@ public class CounterChangeController extends MainController {
             }
         }
 
+        int id = object.getId();
         Counters counter = new Counters(id, objectId, serviceId, counterName, recentMeasure);
 
         if (!objectChange(counter)) {
@@ -128,6 +129,7 @@ public class CounterChangeController extends MainController {
 
     @FXML
     private void btnCancelClicked() {
+
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }

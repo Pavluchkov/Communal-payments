@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class PaymentsDeleteController extends MainController {
+
     private MainController mainController;
     private Payments object;
 
@@ -20,11 +21,9 @@ public class PaymentsDeleteController extends MainController {
         this.mainController = mainController;
     }
 
-    public PaymentsDeleteController() {
-    }
-
     @FXML
     public void initialize() {
+
         object = (Payments) mainController.getSelectedObject();
         nameDeleteObject.setText("\"Платеж № " + object.getId() + "\"");
     }
@@ -42,6 +41,7 @@ public class PaymentsDeleteController extends MainController {
 
     @FXML
     private void btnCancelClicked() {
+
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }

@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class ObjDeleteController extends MainController {
+
     private ObjectAccounting objectAccounting;
     private MainController mainController;
 
@@ -20,11 +21,9 @@ public class ObjDeleteController extends MainController {
         this.mainController = mainController;
     }
 
-    public ObjDeleteController() {
-    }
-
     @FXML
     public void initialize() {
+
         objectAccounting = (ObjectAccounting) mainController.getSelectedObject();
         nameDeleteObject.setText("\"" + objectAccounting.getObjectName() + "\"");
     }
@@ -42,6 +41,7 @@ public class ObjDeleteController extends MainController {
 
     @FXML
     private void btnCancelClicked() {
+
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }

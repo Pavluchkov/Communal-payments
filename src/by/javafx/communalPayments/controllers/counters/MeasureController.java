@@ -16,6 +16,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 public class MeasureController extends MainController {
+
     private Counters object;
     private PaymentAddController paymentAddController;
 
@@ -33,9 +34,6 @@ public class MeasureController extends MainController {
     public MeasureController(PaymentAddController paymentAddController, Counters counter) {
         this.object = counter;
         this.paymentAddController = paymentAddController;
-    }
-
-    public MeasureController() {
     }
 
     @FXML
@@ -82,12 +80,15 @@ public class MeasureController extends MainController {
         payment.setAccrued(0);
         payment.setPaid(0);
         payment.setDate(Date.valueOf(LocalDate.now()));
+
         paymentAddController.setPayment(payment);
 
         object.setRecentMeasure(Double.parseDouble(measureField.getText()));
         paymentAddController.setCounter(object);
+
         Measurement measure = new Measurement(0, object.getId(), Double.parseDouble(measureField.getText()),
                 Date.valueOf(datePicker.getValue()));
+
         paymentAddController.setMeasure(measure);
 
         paymentAddController.setLayout(true);
@@ -100,6 +101,7 @@ public class MeasureController extends MainController {
 
     @FXML
     private void btnCancelClicked() {
+
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }

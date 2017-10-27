@@ -34,6 +34,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 
 public class MainController implements Observer {
+
     private IDatabase database = MySQLDatabase.getInstance();
     private MyObjects selectedObject;
 
@@ -151,6 +152,7 @@ public class MainController implements Observer {
 
     @FXML
     public void objAccountChange() {
+
         MyObjects object = T1_objAccounting.getSelectionModel().getSelectedItem();
 
         if (object != null) {
@@ -165,6 +167,7 @@ public class MainController implements Observer {
 
     @FXML
     public void objAccountDelete() {
+
         MyObjects object = T1_objAccounting.getSelectionModel().getSelectedItem();
 
         if (object != null) {
@@ -188,6 +191,7 @@ public class MainController implements Observer {
 
     @FXML
     public void countersChange() {
+
         Counters object = T2_counters.getSelectionModel().getSelectedItem();
 
         if (object != null) {
@@ -202,6 +206,7 @@ public class MainController implements Observer {
 
     @FXML
     public void countersDelete() {
+
         Counters object = T2_counters.getSelectionModel().getSelectedItem();
 
         if (object != null) {
@@ -216,12 +221,14 @@ public class MainController implements Observer {
 
     @FXML
     public void serviceAdd() {
+
         dialogWindow(tabPane.getScene().getWindow(), new ServiceAddController(), "/by/javafx/communalPayments/fxml/servicesDialog/servicesAdd.fxml",
                 "Добавление услуги", 400, 305);
     }
 
     @FXML
     public void serviceChange() {
+
         Services object = T3_service.getSelectionModel().getSelectedItem();
 
         if (object != null) {
@@ -236,6 +243,7 @@ public class MainController implements Observer {
 
     @FXML
     public void serviceDelete() {
+
         Services object = T3_service.getSelectionModel().getSelectedItem();
 
         if (object != null) {
@@ -259,6 +267,7 @@ public class MainController implements Observer {
 
     @FXML
     public void paymentDelete() {
+
         Payments object = T4_payments.getSelectionModel().getSelectedItem();
 
         if (object != null) {
@@ -353,6 +362,7 @@ public class MainController implements Observer {
     }
 
     protected void dialogWindow(Window window, MainController controller, String resource, String title, int width, int height) {
+
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource(resource));
@@ -375,6 +385,7 @@ public class MainController implements Observer {
     }
 
     protected void printDialogError(String title, String headerText, String contentText) {
+
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
@@ -410,7 +421,7 @@ public class MainController implements Observer {
             }
 
         } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            printDialogError("Работа с базой данных", "Ошибка добавления данных в БД !", e.getMessage());
             return false;
         }
 
@@ -430,7 +441,7 @@ public class MainController implements Observer {
             }
 
         } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            printDialogError("Работа с базой данных", "Ошибка изменения данных в counters or services !", e.getMessage());
             return false;
         }
 
@@ -438,12 +449,13 @@ public class MainController implements Observer {
     }
 
     protected boolean objectChange(ObjectAccounting object, int id) {
+
         try {
 
             database.change(object, id);
 
         } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            printDialogError("Работа с базой данных", "Ошибка изменения данных в objectAccounting !", e.getMessage());
             return false;
         }
         return true;
@@ -456,7 +468,7 @@ public class MainController implements Observer {
             database.changeLastMeasure(object, lastMeasure);
 
         } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            printDialogError("Работа с базой данных", "Ошибка изменения данных в measurement !", e.getMessage());
             return false;
         }
 
@@ -484,7 +496,7 @@ public class MainController implements Observer {
             }
 
         } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка записи данных в БД !", e.getMessage());
+            printDialogError("Работа с базой данных", "Ошибка удаления данных из БД !", e.getMessage());
             return false;
         }
 
@@ -498,7 +510,7 @@ public class MainController implements Observer {
             return database.getListObjects(object);
 
         } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+            printDialogError("Работа с базой данных", "Ошибка чтения данных из objectAccounting !", e.getMessage());
             return null;
         }
 
@@ -511,7 +523,7 @@ public class MainController implements Observer {
             return database.getListObjects(object);
 
         } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+            printDialogError("Работа с базой данных", "Ошибка чтения данных из counters !", e.getMessage());
             return null;
         }
 
@@ -524,7 +536,7 @@ public class MainController implements Observer {
             return database.getListObjects(object);
 
         } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+            printDialogError("Работа с базой данных", "Ошибка чтения данных из services !", e.getMessage());
             return null;
         }
 
@@ -537,7 +549,7 @@ public class MainController implements Observer {
             return database.getListObjects(object);
 
         } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+            printDialogError("Работа с базой данных", "Ошибка чтения данных из payments !", e.getMessage());
             return null;
         }
 
@@ -550,7 +562,7 @@ public class MainController implements Observer {
             return database.getListObjects(object);
 
         } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
+            printDialogError("Работа с базой данных", "Ошибка чтения данных из formPayments !", e.getMessage());
             return null;
         }
 

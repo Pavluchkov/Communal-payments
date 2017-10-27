@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class CounterAddController extends MainController {
+
     private ObservableList<ObjectAccounting> tableObject = FXCollections.observableArrayList();
     private ObservableList<Services> tableService = FXCollections.observableArrayList();
 
@@ -57,16 +58,15 @@ public class CounterAddController extends MainController {
 
     @FXML
     void btnOkClicked() {
-        int id = 0;
-        int objectId = 0;
-        int serviceId = 0;
+
         String counterName = nameField.getText();
-        double recentMeasure;
 
         if (counterName.isEmpty()) {
             printDialogError("Ввод данных", "Ошибка ввода данных !", "Введите имя счетчика.");
             return;
         }
+
+        double recentMeasure;
 
         try {
             recentMeasure = Double.parseDouble(recentField.getText());
@@ -75,8 +75,10 @@ public class CounterAddController extends MainController {
             return;
         }
 
-        String selectedItemObj = objectCombo.getSelectionModel().getSelectedItem();
-        String selectedItemService = serviceCombo.getSelectionModel().getSelectedItem();
+        String selectedItemObj = objectCombo.getValue();
+        String selectedItemService = serviceCombo.getValue();
+
+        int objectId = 0;
 
         for (ObjectAccounting obj : tableObject) {
             if (selectedItemObj.equals(obj.getObjectName())) {
@@ -84,13 +86,15 @@ public class CounterAddController extends MainController {
             }
         }
 
+        int serviceId = 0;
+
         for (Services obj : tableService) {
             if (selectedItemService.equals(obj.getServiceName())) {
                 serviceId = obj.getId();
             }
         }
 
-        Counters counter = new Counters(id, objectId, serviceId, counterName, recentMeasure);
+        Counters counter = new Counters(0, objectId, serviceId, counterName, recentMeasure);
 
         if (!objectAdd(counter)) {
             return;
@@ -101,6 +105,7 @@ public class CounterAddController extends MainController {
 
     @FXML
     private void btnCancelClicked() {
+
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
     }
