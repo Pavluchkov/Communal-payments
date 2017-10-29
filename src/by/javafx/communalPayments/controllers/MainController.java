@@ -15,11 +15,14 @@ import by.javafx.communalPayments.interfaces.IDatabase;
 import by.javafx.communalPayments.interfaces.Observer;
 import by.javafx.communalPayments.interfaces.Subject;
 import by.javafx.communalPayments.objects.*;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -40,6 +43,8 @@ public class MainController implements Observer {
 
     @FXML
     private TabPane tabPane;
+    @FXML
+    private PieChart pieChart;
 
     @FXML
     private TableView<ObjectAccounting> T1_objAccounting;
@@ -140,6 +145,21 @@ public class MainController implements Observer {
 
         setConnection();
         fillTables();
+        fillPieChart();
+    }
+
+    private void fillPieChart() {
+        ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                        new PieChart.Data("Grapefruit", 13),
+                        new PieChart.Data("Oranges", 25),
+                        new PieChart.Data("Plums", 10),
+                        new PieChart.Data("Pears", 22),
+                        new PieChart.Data("Apples", 30));
+
+        pieChart.setData(pieChartData);
+        pieChart.setTitle("Imported Fruits");
+
     }
 
     @FXML
