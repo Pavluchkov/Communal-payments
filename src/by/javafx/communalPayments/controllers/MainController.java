@@ -19,7 +19,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
@@ -34,8 +33,6 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
 
 public class MainController implements Observer {
 
@@ -152,14 +149,16 @@ public class MainController implements Observer {
         T4_paidColumn.setCellValueFactory(new PropertyValueFactory<>("paid"));
         T4_dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        reportObjCombo.valueProperty().addListener((observable, oldValue, newValue) -> checkCombo());
-        reportMonthCombo.valueProperty().addListener((observable, oldValue, newValue) -> checkCombo());
-        reportYearCombo.valueProperty().addListener((observable, oldValue, newValue) -> checkCombo());
+        reportObjCombo.valueProperty().addListener((observable, oldValue, newValue) -> setPieData());
+        reportMonthCombo.valueProperty().addListener((observable, oldValue, newValue) -> setPieData());
+        reportYearCombo.valueProperty().addListener((observable, oldValue, newValue) -> setPieData());
 
         setConnection();
         fillTables();
-        fillPieChart();
-        fillBarChart();
+        //fillPieChart();
+        //fillBarChart();
+
+        tabReportInitialize();
     }
 
     private void fillBarChart() {
@@ -226,11 +225,8 @@ public class MainController implements Observer {
             listObjects.add(obj.getObjectName());
         }
 
-        if(!listObjects.isEmpty()){
-            reportObjCombo.setItems(listObjects);
-            reportObjCombo.setValue(listObjects.get(0));
-        }
-
+        reportObjCombo.setItems(listObjects);
+        reportObjCombo.setValue(listObjects.get(0));
 
         ObservableList<Payments> tablePayments = getTableObject(new Payments());
         ObservableList<String> listMonth = FXCollections.observableArrayList();
@@ -276,7 +272,7 @@ public class MainController implements Observer {
 
     }
 
-    private void checkCombo(){
+    private void setPieData(){
 
         ObservableList<Payments> tablePayments = getTableObject(new Payments());
         ObservableList<Services> tableServices = getTableObject(new Services());
@@ -329,11 +325,72 @@ public class MainController implements Observer {
         }
     }
 
-    @FXML
-    public void tabReportChange(){
+    private void setBarData(){
 
-        tabReportInitialize();
+        ObservableList<String> listYear = FXCollections.observableArrayList();
+        ObservableList<Payments> tablePayments = getTableObject(new Payments());
+        ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
 
+        int objectId = 0;
+
+        for (ObjectAccounting obj : tableObject){
+            if(reportObjCombo.getValue().equals(obj.getObjectName())){
+                objectId = obj.getId();
+            }
+        }
+
+        ObservableList<XYChart.Series> barChartData = FXCollections.observableArrayList();
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+
+        barChart.setTitle("Годовой");
+        xAxis.setLabel("Услуга");
+        yAxis.setLabel("Сумма");
+
+        //XYChart.Series series1 = new XYChart.Series();
+
+        for (Payments obj : tablePayments) {
+
+            boolean flag = false;
+
+            for (String str : listYear) {
+                if (str.equals(String.valueOf(obj.getDate().toLocalDate().getYear()))) {
+                    if(obj.getObject() == objectId){
+                        flag = true;
+                    }
+                }
+            }
+
+            if (!flag) {
+                listYear.add(String.valueOf(obj.getDate().toLocalDate().getYear()));
+            }
+        }
+
+
+//        series1.setName("2003");
+//        series1.getData().add(new XYChart.Data(austria, 25601.34));
+//        series1.getData().add(new XYChart.Data(brazil, 20148.82));
+//        series1.getData().add(new XYChart.Data(france, 10000));
+//        series1.getData().add(new XYChart.Data(italy, 35407.15));
+//        series1.getData().add(new XYChart.Data(usa, 12000));
+//
+//        XYChart.Series series2 = new XYChart.Series();
+//        series2.setName("2004");
+//        series2.getData().add(new XYChart.Data(austria, 57401.85));
+//        series2.getData().add(new XYChart.Data(brazil, 41941.19));
+//        series2.getData().add(new XYChart.Data(france, 45263.37));
+//        series2.getData().add(new XYChart.Data(italy, 117320.16));
+//        series2.getData().add(new XYChart.Data(usa, 14845.27));
+//
+//        XYChart.Series series3 = new XYChart.Series();
+//        series3.setName("2005");
+//        series3.getData().add(new XYChart.Data(austria, 45000.65));
+//        series3.getData().add(new XYChart.Data(brazil, 44835.76));
+//        series3.getData().add(new XYChart.Data(france, 18722.18));
+//        series3.getData().add(new XYChart.Data(italy, 17557.31));
+//        series3.getData().add(new XYChart.Data(usa, 92633.68));
+//
+//        barChart.getData().addAll(series1, series2, series3);
     }
 
     @FXML
