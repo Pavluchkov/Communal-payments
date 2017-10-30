@@ -22,11 +22,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.chart.*;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
@@ -35,6 +32,10 @@ import javafx.stage.Window;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class MainController implements Observer {
 
@@ -45,6 +46,14 @@ public class MainController implements Observer {
     private TabPane tabPane;
     @FXML
     private PieChart pieChart;
+    @FXML
+    private BarChart barChart;
+    @FXML
+    private ComboBox<String> reportObjCombo;
+    @FXML
+    private ComboBox<String> reportMonthCombo;
+    @FXML
+    private ComboBox<String> reportYearCombo;
 
     @FXML
     private TableView<ObjectAccounting> T1_objAccounting;
@@ -143,22 +152,187 @@ public class MainController implements Observer {
         T4_paidColumn.setCellValueFactory(new PropertyValueFactory<>("paid"));
         T4_dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
+        reportObjCombo.valueProperty().addListener((observable, oldValue, newValue) -> checkCombo());
+        reportMonthCombo.valueProperty().addListener((observable, oldValue, newValue) -> checkCombo());
+        reportYearCombo.valueProperty().addListener((observable, oldValue, newValue) -> checkCombo());
+
         setConnection();
         fillTables();
         fillPieChart();
+        fillBarChart();
+    }
+
+    private void fillBarChart() {
+        final String austria = "Водоснабжение";
+        final String brazil = "Электроэнергия";
+        final String france = "Вывоз ТБО";
+        final String italy = "Капитальный ремонт";
+        final String usa = "Тех.обслуживание";
+
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+
+        barChart.setTitle("Годовой");
+        xAxis.setLabel("Услуга");
+        yAxis.setLabel("Сумма");
+
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("2003");
+        series1.getData().add(new XYChart.Data(austria, 25601.34));
+        series1.getData().add(new XYChart.Data(brazil, 20148.82));
+        series1.getData().add(new XYChart.Data(france, 10000));
+        series1.getData().add(new XYChart.Data(italy, 35407.15));
+        series1.getData().add(new XYChart.Data(usa, 12000));
+
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("2004");
+        series2.getData().add(new XYChart.Data(austria, 57401.85));
+        series2.getData().add(new XYChart.Data(brazil, 41941.19));
+        series2.getData().add(new XYChart.Data(france, 45263.37));
+        series2.getData().add(new XYChart.Data(italy, 117320.16));
+        series2.getData().add(new XYChart.Data(usa, 14845.27));
+
+        XYChart.Series series3 = new XYChart.Series();
+        series3.setName("2005");
+        series3.getData().add(new XYChart.Data(austria, 45000.65));
+        series3.getData().add(new XYChart.Data(brazil, 44835.76));
+        series3.getData().add(new XYChart.Data(france, 18722.18));
+        series3.getData().add(new XYChart.Data(italy, 17557.31));
+        series3.getData().add(new XYChart.Data(usa, 92633.68));
+
+        barChart.getData().addAll(series1, series2, series3);
     }
 
     private void fillPieChart() {
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
-                        new PieChart.Data("Grapefruit", 13),
-                        new PieChart.Data("Oranges", 25),
-                        new PieChart.Data("Plums", 10),
-                        new PieChart.Data("Pears", 22),
-                        new PieChart.Data("Apples", 30));
+                        new PieChart.Data("Водоснабжение", 13),
+                        new PieChart.Data("Вывоз ТБО", 25),
+                        new PieChart.Data("Электроэнергия", 10),
+                        new PieChart.Data("Капитальный ремонт", 22),
+                        new PieChart.Data("Тех.обслуживание", 30));
 
         pieChart.setData(pieChartData);
-        pieChart.setTitle("Imported Fruits");
+        pieChart.setTitle("За месяц");
+
+    }
+
+    private void tabReportInitialize(){
+        ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
+
+        ObservableList<String> listObjects = FXCollections.observableArrayList();
+
+        for (ObjectAccounting obj : tableObject) {
+            listObjects.add(obj.getObjectName());
+        }
+
+        if(!listObjects.isEmpty()){
+            reportObjCombo.setItems(listObjects);
+            reportObjCombo.setValue(listObjects.get(0));
+        }
+
+
+        ObservableList<Payments> tablePayments = getTableObject(new Payments());
+        ObservableList<String> listMonth = FXCollections.observableArrayList();
+        ObservableList<String> listYear = FXCollections.observableArrayList();
+
+        for (Payments obj : tablePayments){
+            LocalDate date = obj.getDate().toLocalDate();
+            boolean flag = false;
+
+            for (String str : listMonth){
+                if(str.equals(String.valueOf(date.getMonth()))){
+                    flag = true;
+                }
+            }
+
+            if(!flag){
+                listMonth.add(String.valueOf(date.getMonth()));
+            }
+
+            flag = false;
+
+            for (String str : listYear){
+                if(str.equals(String.valueOf(date.getYear()))){
+                    flag = true;
+                }
+            }
+
+            if(!flag){
+                listYear.add(String.valueOf(date.getYear()));
+            }
+
+        }
+
+        if(!listMonth.isEmpty()){
+            reportMonthCombo.setItems(listMonth);
+            reportMonthCombo.setValue(listMonth.get(0));
+        }
+
+        if(!listYear.isEmpty()){
+            reportYearCombo.setItems(listYear);
+            reportYearCombo.setValue(listYear.get(0));
+        }
+
+    }
+
+    private void checkCombo(){
+
+        ObservableList<Payments> tablePayments = getTableObject(new Payments());
+        ObservableList<Services> tableServices = getTableObject(new Services());
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        double sum = 0;
+
+        int objectId = 0;
+        ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
+
+        for (ObjectAccounting obj : tableObject){
+            if(obj.getObjectName().equals(reportObjCombo.getValue())){
+                objectId = obj.getId();
+            }
+        }
+
+        ArrayList<Payments> payments = new ArrayList<>();
+        String monthCombo = reportMonthCombo.getValue();
+        String yearCombo = reportYearCombo.getValue();
+        //System.out.println(monthCombo + " " + yearCombo);
+
+        if((monthCombo != null) && (yearCombo != null)){
+            for (Payments obj : tablePayments) {
+
+                if(obj.getObject() == objectId){
+                    if(monthCombo.equals(String.valueOf(obj.getDate().toLocalDate().getMonth()))){
+                        if(yearCombo.equals(String.valueOf(obj.getDate().toLocalDate().getYear()))){
+                            sum += obj.getPaid();
+                            payments.add(obj);
+                        }
+                    }
+                }
+
+            }
+        }
+
+        for (Payments obj : payments){
+            for (Services services : tableServices){
+                if(services.getId() == obj.getService()){
+                    pieChartData.add(new PieChart.Data(services.getServiceName(), obj.getPaid() * sum / 100));
+                }
+            }
+        }
+
+        pieChart.setData(pieChartData);
+
+        if(pieChartData.isEmpty()){
+            pieChart.setTitle("Нет данных");
+        } else {
+            pieChart.setTitle(reportMonthCombo.getValue() + ", " + reportYearCombo.getValue());
+        }
+    }
+
+    @FXML
+    public void tabReportChange(){
+
+        tabReportInitialize();
 
     }
 
