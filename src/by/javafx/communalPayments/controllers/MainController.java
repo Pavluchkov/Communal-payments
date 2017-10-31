@@ -167,8 +167,10 @@ public class MainController implements Observer {
             listObjects.add(obj.getObjectName());
         }
 
-        reportObjCombo.setItems(listObjects);
-        reportObjCombo.setValue(listObjects.get(0));
+        if(!listObjects.isEmpty()){
+            reportObjCombo.setItems(listObjects);
+            reportObjCombo.setValue(listObjects.get(0));
+        }
 
         ObservableList<Payments> tablePayments = getTableObject(new Payments());
         ObservableList<String> listMonth = FXCollections.observableArrayList();
@@ -178,12 +180,10 @@ public class MainController implements Observer {
             LocalDate date = obj.getDate().toLocalDate();
 
             if (listMonth.indexOf(String.valueOf(date.getMonth())) == -1) {
-
                 listMonth.add(String.valueOf(date.getMonth()));
             }
 
             if (listYear.indexOf(String.valueOf(date.getYear())) == -1) {
-
                 listYear.add(String.valueOf(date.getYear()));
             }
         }
@@ -262,13 +262,14 @@ public class MainController implements Observer {
 
         ObservableList<String> listYear = FXCollections.observableArrayList();
         ObservableList<Payments> tablePayments = getTableObject(new Payments());
-        ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
+
         ObservableList<Services> tableServices = getTableObject(new Services());
 
         int objectId = 0;
+        ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
 
         for (ObjectAccounting obj : tableObject) {
-            if (reportObjCombo.getValue().equals(obj.getObjectName())) {
+            if (obj.getObjectName().equals(reportObjCombo.getValue())) {
                 objectId = obj.getId();
             }
         }
