@@ -15,6 +15,10 @@ public class BarChartSample extends Application {
     final static String italy = "Italy";
     final static String usa = "USA";
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage stage) {
         stage.setTitle("Bar Chart Sample");
@@ -54,10 +58,6 @@ public class BarChartSample extends Application {
         bc.getData().addAll(series1, series2, series3);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
 

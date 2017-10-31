@@ -156,6 +156,7 @@ public class MainController implements Observer {
         setConnection();
         fillTables();
         chartsInitialize();
+
     }
 
     private void chartsInitialize() {
@@ -167,7 +168,7 @@ public class MainController implements Observer {
             listObjects.add(obj.getObjectName());
         }
 
-        if(!listObjects.isEmpty()){
+        if (!listObjects.isEmpty()) {
             reportObjCombo.setItems(listObjects);
             reportObjCombo.setValue(listObjects.get(0));
         }
@@ -320,7 +321,7 @@ public class MainController implements Observer {
         if (barChartData.isEmpty()) {
             barChart.setTitle("Нет данных");
         } else {
-            barChart.setTitle("Годовой");
+            barChart.setTitle("Годовой расход по услугам, рубл.");
         }
 
         barChart.setData(barChartData);
