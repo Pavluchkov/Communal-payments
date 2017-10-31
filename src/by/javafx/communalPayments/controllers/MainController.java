@@ -149,74 +149,16 @@ public class MainController implements Observer {
         T4_paidColumn.setCellValueFactory(new PropertyValueFactory<>("paid"));
         T4_dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        reportObjCombo.valueProperty().addListener((observable, oldValue, newValue) -> setPieData());
-        reportMonthCombo.valueProperty().addListener((observable, oldValue, newValue) -> setPieData());
-        reportYearCombo.valueProperty().addListener((observable, oldValue, newValue) -> setPieData());
+        reportObjCombo.valueProperty().addListener((observable, oldValue, newValue) -> fillCharts());
+        reportMonthCombo.valueProperty().addListener((observable, oldValue, newValue) -> fillCharts());
+        reportYearCombo.valueProperty().addListener((observable, oldValue, newValue) -> fillCharts());
 
         setConnection();
         fillTables();
-        //fillPieChart();
-        //fillBarChart();
-
-        tabReportInitialize();
+        chartsInitialize();
     }
 
-    private void fillBarChart() {
-        final String austria = "Водоснабжение";
-        final String brazil = "Электроэнергия";
-        final String france = "Вывоз ТБО";
-        final String italy = "Капитальный ремонт";
-        final String usa = "Тех.обслуживание";
-
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-
-        barChart.setTitle("Годовой");
-        xAxis.setLabel("Услуга");
-        yAxis.setLabel("Сумма");
-
-        XYChart.Series series1 = new XYChart.Series();
-        series1.setName("2003");
-        series1.getData().add(new XYChart.Data(austria, 25601.34));
-        series1.getData().add(new XYChart.Data(brazil, 20148.82));
-        series1.getData().add(new XYChart.Data(france, 10000));
-        series1.getData().add(new XYChart.Data(italy, 35407.15));
-        series1.getData().add(new XYChart.Data(usa, 12000));
-
-        XYChart.Series series2 = new XYChart.Series();
-        series2.setName("2004");
-        series2.getData().add(new XYChart.Data(austria, 57401.85));
-        series2.getData().add(new XYChart.Data(brazil, 41941.19));
-        series2.getData().add(new XYChart.Data(france, 45263.37));
-        series2.getData().add(new XYChart.Data(italy, 117320.16));
-        series2.getData().add(new XYChart.Data(usa, 14845.27));
-
-        XYChart.Series series3 = new XYChart.Series();
-        series3.setName("2005");
-        series3.getData().add(new XYChart.Data(austria, 45000.65));
-        series3.getData().add(new XYChart.Data(brazil, 44835.76));
-        series3.getData().add(new XYChart.Data(france, 18722.18));
-        series3.getData().add(new XYChart.Data(italy, 17557.31));
-        series3.getData().add(new XYChart.Data(usa, 92633.68));
-
-        barChart.getData().addAll(series1, series2, series3);
-    }
-
-    private void fillPieChart() {
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                        new PieChart.Data("Водоснабжение", 13),
-                        new PieChart.Data("Вывоз ТБО", 25),
-                        new PieChart.Data("Электроэнергия", 10),
-                        new PieChart.Data("Капитальный ремонт", 22),
-                        new PieChart.Data("Тех.обслуживание", 30));
-
-        pieChart.setData(pieChartData);
-        pieChart.setTitle("За месяц");
-
-    }
-
-    private void tabReportInitialize() {
+    private void chartsInitialize() {
         ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
 
         ObservableList<String> listObjects = FXCollections.observableArrayList();
@@ -234,30 +176,16 @@ public class MainController implements Observer {
 
         for (Payments obj : tablePayments) {
             LocalDate date = obj.getDate().toLocalDate();
-            boolean flag = false;
 
-            for (String str : listMonth) {
-                if (str.equals(String.valueOf(date.getMonth()))) {
-                    flag = true;
-                }
-            }
+            if (listMonth.indexOf(String.valueOf(date.getMonth())) == -1) {
 
-            if (!flag) {
                 listMonth.add(String.valueOf(date.getMonth()));
             }
 
-            flag = false;
+            if (listYear.indexOf(String.valueOf(date.getYear())) == -1) {
 
-            for (String str : listYear) {
-                if (str.equals(String.valueOf(date.getYear()))) {
-                    flag = true;
-                }
-            }
-
-            if (!flag) {
                 listYear.add(String.valueOf(date.getYear()));
             }
-
         }
 
         if (!listMonth.isEmpty()) {
@@ -270,6 +198,11 @@ public class MainController implements Observer {
             reportYearCombo.setValue(listYear.get(0));
         }
 
+    }
+
+    private void fillCharts() {
+        setPieData();
+        setBarData();
     }
 
     private void setPieData() {
@@ -291,7 +224,6 @@ public class MainController implements Observer {
         ArrayList<Payments> payments = new ArrayList<>();
         String monthCombo = reportMonthCombo.getValue();
         String yearCombo = reportYearCombo.getValue();
-        //System.out.println(monthCombo + " " + yearCombo);
 
         if ((monthCombo != null) && (yearCombo != null)) {
             for (Payments obj : tablePayments) {
@@ -324,7 +256,6 @@ public class MainController implements Observer {
             pieChart.setTitle(reportMonthCombo.getValue() + ", " + reportYearCombo.getValue());
         }
 
-        setBarData();
     }
 
     private void setBarData() {
@@ -344,22 +275,13 @@ public class MainController implements Observer {
 
         for (Payments obj : tablePayments) {
             if (obj.getObject() == objectId) {
-                boolean flag = false;
-
-                for (String str : listYear) {
-
-                    if (str.equals(String.valueOf(obj.getDate().toLocalDate().getYear()))) {
-                        flag = true;
-                    }
-                }
-
-                if (!flag) {
+                if (listYear.indexOf(String.valueOf(obj.getDate().toLocalDate().getYear())) == -1) {
                     listYear.add(String.valueOf(obj.getDate().toLocalDate().getYear()));
                 }
+
             }
 
         }
-
 
         ObservableList<XYChart.Series> barChartData = FXCollections.observableArrayList();
         final CategoryAxis xAxis = new CategoryAxis();
@@ -367,7 +289,6 @@ public class MainController implements Observer {
 
         xAxis.setLabel("Услуга");
         yAxis.setLabel("Сумма");
-
 
         for (String year : listYear) {
             double sum = 0;
@@ -378,22 +299,24 @@ public class MainController implements Observer {
                 for (Payments obj : tablePayments) {
 
                     if (year.equals(String.valueOf(obj.getDate().toLocalDate().getYear()))) {
-                        if(obj.getService() == service.getId()){
-                            if(obj.getObject() == objectId){
+                        if (obj.getService() == service.getId()) {
+                            if (obj.getObject() == objectId) {
                                 sum += obj.getPaid();
                             }
                         }
                     }
                 }
 
-                series.getData().add(new XYChart.Data(service.getServiceName(), sum));
-                sum = 0;
+                if (sum != 0) {
+                    series.getData().add(new XYChart.Data(service.getServiceName(), sum));
+                    sum = 0;
+                }
             }
 
             barChartData.add(series);
         }
 
-        if(barChartData.isEmpty()){
+        if (barChartData.isEmpty()) {
             barChart.setTitle("Нет данных");
         } else {
             barChart.setTitle("Годовой");
@@ -542,6 +465,7 @@ public class MainController implements Observer {
     @Override
     public void update() {
         fillTables();
+        chartsInitialize();
     }
 
     private void setConnection() {

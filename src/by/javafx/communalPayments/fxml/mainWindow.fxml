@@ -344,7 +344,19 @@
                            </children>
                         </AnchorPane>
                     </items>
+                     <effect>
+                        <InnerShadow />
+                     </effect>
                   </SplitPane>
+                  <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="565.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                     <children>
+                        <Label text="(c)Pavluchkov A.V. 2017">
+                           <font>
+                              <Font name="Arial Italic" size="10.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                </children>
             </AnchorPane>
         </content>
