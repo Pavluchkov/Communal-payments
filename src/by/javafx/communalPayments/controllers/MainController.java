@@ -216,7 +216,7 @@ public class MainController implements Observer {
 
     }
 
-    private void tabReportInitialize(){
+    private void tabReportInitialize() {
         ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
 
         ObservableList<String> listObjects = FXCollections.observableArrayList();
@@ -232,47 +232,47 @@ public class MainController implements Observer {
         ObservableList<String> listMonth = FXCollections.observableArrayList();
         ObservableList<String> listYear = FXCollections.observableArrayList();
 
-        for (Payments obj : tablePayments){
+        for (Payments obj : tablePayments) {
             LocalDate date = obj.getDate().toLocalDate();
             boolean flag = false;
 
-            for (String str : listMonth){
-                if(str.equals(String.valueOf(date.getMonth()))){
+            for (String str : listMonth) {
+                if (str.equals(String.valueOf(date.getMonth()))) {
                     flag = true;
                 }
             }
 
-            if(!flag){
+            if (!flag) {
                 listMonth.add(String.valueOf(date.getMonth()));
             }
 
             flag = false;
 
-            for (String str : listYear){
-                if(str.equals(String.valueOf(date.getYear()))){
+            for (String str : listYear) {
+                if (str.equals(String.valueOf(date.getYear()))) {
                     flag = true;
                 }
             }
 
-            if(!flag){
+            if (!flag) {
                 listYear.add(String.valueOf(date.getYear()));
             }
 
         }
 
-        if(!listMonth.isEmpty()){
+        if (!listMonth.isEmpty()) {
             reportMonthCombo.setItems(listMonth);
             reportMonthCombo.setValue(listMonth.get(0));
         }
 
-        if(!listYear.isEmpty()){
+        if (!listYear.isEmpty()) {
             reportYearCombo.setItems(listYear);
             reportYearCombo.setValue(listYear.get(0));
         }
 
     }
 
-    private void setPieData(){
+    private void setPieData() {
 
         ObservableList<Payments> tablePayments = getTableObject(new Payments());
         ObservableList<Services> tableServices = getTableObject(new Services());
@@ -282,8 +282,8 @@ public class MainController implements Observer {
         int objectId = 0;
         ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
 
-        for (ObjectAccounting obj : tableObject){
-            if(obj.getObjectName().equals(reportObjCombo.getValue())){
+        for (ObjectAccounting obj : tableObject) {
+            if (obj.getObjectName().equals(reportObjCombo.getValue())) {
                 objectId = obj.getId();
             }
         }
@@ -293,12 +293,12 @@ public class MainController implements Observer {
         String yearCombo = reportYearCombo.getValue();
         //System.out.println(monthCombo + " " + yearCombo);
 
-        if((monthCombo != null) && (yearCombo != null)){
+        if ((monthCombo != null) && (yearCombo != null)) {
             for (Payments obj : tablePayments) {
 
-                if(obj.getObject() == objectId){
-                    if(monthCombo.equals(String.valueOf(obj.getDate().toLocalDate().getMonth()))){
-                        if(yearCombo.equals(String.valueOf(obj.getDate().toLocalDate().getYear()))){
+                if (obj.getObject() == objectId) {
+                    if (monthCombo.equals(String.valueOf(obj.getDate().toLocalDate().getMonth()))) {
+                        if (yearCombo.equals(String.valueOf(obj.getDate().toLocalDate().getYear()))) {
                             sum += obj.getPaid();
                             payments.add(obj);
                         }
@@ -308,9 +308,9 @@ public class MainController implements Observer {
             }
         }
 
-        for (Payments obj : payments){
-            for (Services services : tableServices){
-                if(services.getId() == obj.getService()){
+        for (Payments obj : payments) {
+            for (Services services : tableServices) {
+                if (services.getId() == obj.getService()) {
                     pieChartData.add(new PieChart.Data(services.getServiceName(), obj.getPaid() * sum / 100));
                 }
             }
@@ -318,79 +318,88 @@ public class MainController implements Observer {
 
         pieChart.setData(pieChartData);
 
-        if(pieChartData.isEmpty()){
+        if (pieChartData.isEmpty()) {
             pieChart.setTitle("Нет данных");
         } else {
             pieChart.setTitle(reportMonthCombo.getValue() + ", " + reportYearCombo.getValue());
         }
+
+        setBarData();
     }
 
-    private void setBarData(){
+    private void setBarData() {
 
         ObservableList<String> listYear = FXCollections.observableArrayList();
         ObservableList<Payments> tablePayments = getTableObject(new Payments());
         ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
+        ObservableList<Services> tableServices = getTableObject(new Services());
 
         int objectId = 0;
 
-        for (ObjectAccounting obj : tableObject){
-            if(reportObjCombo.getValue().equals(obj.getObjectName())){
+        for (ObjectAccounting obj : tableObject) {
+            if (reportObjCombo.getValue().equals(obj.getObjectName())) {
                 objectId = obj.getId();
             }
         }
+
+        for (Payments obj : tablePayments) {
+            if (obj.getObject() == objectId) {
+                boolean flag = false;
+
+                for (String str : listYear) {
+
+                    if (str.equals(String.valueOf(obj.getDate().toLocalDate().getYear()))) {
+                        flag = true;
+                    }
+                }
+
+                if (!flag) {
+                    listYear.add(String.valueOf(obj.getDate().toLocalDate().getYear()));
+                }
+            }
+
+        }
+
 
         ObservableList<XYChart.Series> barChartData = FXCollections.observableArrayList();
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
 
-        barChart.setTitle("Годовой");
         xAxis.setLabel("Услуга");
         yAxis.setLabel("Сумма");
 
-        //XYChart.Series series1 = new XYChart.Series();
 
-        for (Payments obj : tablePayments) {
+        for (String year : listYear) {
+            double sum = 0;
+            XYChart.Series series = new XYChart.Series();
+            series.setName(year);
 
-            boolean flag = false;
+            for (Services service : tableServices) {
+                for (Payments obj : tablePayments) {
 
-            for (String str : listYear) {
-                if (str.equals(String.valueOf(obj.getDate().toLocalDate().getYear()))) {
-                    if(obj.getObject() == objectId){
-                        flag = true;
+                    if (year.equals(String.valueOf(obj.getDate().toLocalDate().getYear()))) {
+                        if(obj.getService() == service.getId()){
+                            if(obj.getObject() == objectId){
+                                sum += obj.getPaid();
+                            }
+                        }
                     }
                 }
+
+                series.getData().add(new XYChart.Data(service.getServiceName(), sum));
+                sum = 0;
             }
 
-            if (!flag) {
-                listYear.add(String.valueOf(obj.getDate().toLocalDate().getYear()));
-            }
+            barChartData.add(series);
         }
 
+        if(barChartData.isEmpty()){
+            barChart.setTitle("Нет данных");
+        } else {
+            barChart.setTitle("Годовой");
+        }
 
-//        series1.setName("2003");
-//        series1.getData().add(new XYChart.Data(austria, 25601.34));
-//        series1.getData().add(new XYChart.Data(brazil, 20148.82));
-//        series1.getData().add(new XYChart.Data(france, 10000));
-//        series1.getData().add(new XYChart.Data(italy, 35407.15));
-//        series1.getData().add(new XYChart.Data(usa, 12000));
-//
-//        XYChart.Series series2 = new XYChart.Series();
-//        series2.setName("2004");
-//        series2.getData().add(new XYChart.Data(austria, 57401.85));
-//        series2.getData().add(new XYChart.Data(brazil, 41941.19));
-//        series2.getData().add(new XYChart.Data(france, 45263.37));
-//        series2.getData().add(new XYChart.Data(italy, 117320.16));
-//        series2.getData().add(new XYChart.Data(usa, 14845.27));
-//
-//        XYChart.Series series3 = new XYChart.Series();
-//        series3.setName("2005");
-//        series3.getData().add(new XYChart.Data(austria, 45000.65));
-//        series3.getData().add(new XYChart.Data(brazil, 44835.76));
-//        series3.getData().add(new XYChart.Data(france, 18722.18));
-//        series3.getData().add(new XYChart.Data(italy, 17557.31));
-//        series3.getData().add(new XYChart.Data(usa, 92633.68));
-//
-//        barChart.getData().addAll(series1, series2, series3);
+        barChart.setData(barChartData);
     }
 
     @FXML
