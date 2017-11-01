@@ -17,6 +17,7 @@ import by.javafx.communalPayments.interfaces.Subject;
 import by.javafx.communalPayments.objects.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,7 +26,10 @@ import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -387,6 +391,20 @@ public class MainController implements Observer {
         }
 
         pieChart.setData(pieChartData);
+
+        final Popup popup=new Popup(); popup.setAutoHide(true);
+        final Label label = new Label("");
+        label.setStyle("-fx-font:bold 20Arial;-fx-text-fill:white");
+        popup.getContent().addAll(label);
+
+        for (final PieChart.Data data : pieChart.getData()) {
+            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED,
+                    e -> {
+                        label.setText(String.valueOf(data.getPieValue()) + "%");
+                        popup.setX(e.getScreenX());
+                        popup.setY(e.getScreenY());
+                        popup.show((Stage)tabPane.getScene().getWindow());
+                    });}
 
         if (pieChartData.isEmpty()) {
             pieChart.setTitle("Нет данных");
