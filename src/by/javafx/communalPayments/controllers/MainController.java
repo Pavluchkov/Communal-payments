@@ -44,7 +44,7 @@ public class MainController implements Observer {
     @FXML
     private PieChart pieChart;
     @FXML
-    private BarChart barChart;
+    private BarChart<String, Double> barChart;
     @FXML
     private ComboBox<String> reportObjCombo;
     @FXML
@@ -285,7 +285,7 @@ public class MainController implements Observer {
 
         }
 
-        ObservableList<XYChart.Series> barChartData = FXCollections.observableArrayList();
+        ObservableList<XYChart.Series<String, Double>> barChartData = FXCollections.observableArrayList();
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
 
@@ -294,7 +294,7 @@ public class MainController implements Observer {
 
         for (String year : listYear) {
             double sum = 0;
-            XYChart.Series series = new XYChart.Series();
+            XYChart.Series<String, Double> series = new XYChart.Series<>();
             series.setName(year);
 
             for (Services service : tableServices) {
@@ -310,7 +310,7 @@ public class MainController implements Observer {
                 }
 
                 if (sum != 0) {
-                    series.getData().add(new XYChart.Data(service.getServiceName(), sum));
+                    series.getData().add(new XYChart.Data<>(service.getServiceName(), sum));
                     sum = 0;
                 }
             }
