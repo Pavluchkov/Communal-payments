@@ -159,6 +159,143 @@ public class MainController implements Observer {
 
     }
 
+    @FXML
+    public void objAccountAdd() {
+
+        dialogWindow(tabPane.getScene().getWindow(), new ObjAddController(), "/by/javafx/communalPayments/fxml/objAccountDialog/objectAccountAdd.fxml",
+                "Добавление объекта учета", 565, 350);
+
+    }
+
+    @FXML
+    public void objAccountChange() {
+
+        MyObjects object = T1_objAccounting.getSelectionModel().getSelectedItem();
+
+        if (object != null) {
+            setSelectedObject(object);
+            dialogWindow(tabPane.getScene().getWindow(), new ObjChangeController(this), "/by/javafx/communalPayments/fxml/objAccountDialog/objectAccountAdd.fxml",
+                    "Изменение объекта учета", 565, 350);
+        } else {
+            printDialogError("Изменение объекта", "Не выбран изменяемый объект !", "Выберите объект для изменения.");
+        }
+
+    }
+
+    @FXML
+    public void objAccountDelete() {
+
+        MyObjects object = T1_objAccounting.getSelectionModel().getSelectedItem();
+
+        if (object != null) {
+            setSelectedObject(object);
+            dialogWindow(tabPane.getScene().getWindow(), new ObjDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
+                    "Удаление объекта", 380, 190);
+        } else {
+            printDialogError("Удаление объекта", "Ошибка удаления объекта !", "Не выбран удаляемый объект ! ");
+        }
+    }
+
+    @FXML
+    public void countersAdd() {
+
+        if (checkAvailabilityObjects() && checkAvailabilityServices() && checkAvailabilityServicesForm()) {
+            dialogWindow(tabPane.getScene().getWindow(), new CounterAddController(), "/by/javafx/communalPayments/fxml/countersDialog/CountersAdd.fxml",
+                    "Добавление счетчика", 400, 305);
+        }
+
+    }
+
+    @FXML
+    public void countersChange() {
+
+        Counters object = T2_counters.getSelectionModel().getSelectedItem();
+
+        if (object != null) {
+            setSelectedObject(object);
+            dialogWindow(tabPane.getScene().getWindow(), new CounterChangeController(this), "/by/javafx/communalPayments/fxml/countersDialog/CountersAdd.fxml",
+                    "Изменение счетчика", 400, 305);
+        } else {
+            printDialogError("Изменение объекта", "Ошибка изменения объекта !", "Не выбран изменяемый объект ! ");
+        }
+
+    }
+
+    @FXML
+    public void countersDelete() {
+
+        Counters object = T2_counters.getSelectionModel().getSelectedItem();
+
+        if (object != null) {
+            setSelectedObject(object);
+            dialogWindow(tabPane.getScene().getWindow(), new CounterDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
+                    "Удаление объекта", 380, 190);
+        } else {
+            printDialogError("Удаление объекта", "Ошибка удаления объекта !", "Не выбран удаляемый объект ! ");
+        }
+
+    }
+
+    @FXML
+    public void serviceAdd() {
+
+        dialogWindow(tabPane.getScene().getWindow(), new ServiceAddController(), "/by/javafx/communalPayments/fxml/servicesDialog/servicesAdd.fxml",
+                "Добавление услуги", 450, 305);
+    }
+
+    @FXML
+    public void serviceChange() {
+
+        Services object = T3_service.getSelectionModel().getSelectedItem();
+
+        if (object != null) {
+            setSelectedObject(object);
+            dialogWindow(tabPane.getScene().getWindow(), new ServiceChangeController(this), "/by/javafx/communalPayments/fxml/servicesDialog/servicesAdd.fxml",
+                    "Изменение услуги", 450, 305);
+        } else {
+            printDialogError("Изменение объекта", "Ошибка изменения объекта!", "Не выбран изменяемый объект ! ");
+        }
+
+    }
+
+    @FXML
+    public void serviceDelete() {
+
+        Services object = T3_service.getSelectionModel().getSelectedItem();
+
+        if (object != null) {
+            setSelectedObject(object);
+            dialogWindow(tabPane.getScene().getWindow(), new ServiceDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
+                    "Удаление объекта", 380, 190);
+        } else {
+            printDialogError("Удаление объекта", "Ошибка удаления объекта!", "Не выбран удаляемый объект ! ");
+        }
+    }
+
+    @FXML
+    public void paymentAdd() {
+
+        if (checkAvailabilityObjects() && checkAvailabilityServices()) {
+            dialogWindow(tabPane.getScene().getWindow(), new PaymentAddController(), "/by/javafx/communalPayments/fxml/paymentsDialog/PaymentsAdd.fxml",
+                    "Добавление платежа", 400, 260);
+        }
+
+    }
+
+    @FXML
+    public void paymentDelete() {
+
+        Payments object = T4_payments.getSelectionModel().getSelectedItem();
+
+        if (object != null) {
+            setSelectedObject(object);
+            dialogWindow(tabPane.getScene().getWindow(), new PaymentsDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
+                    "Удаление объекта", 380, 190);
+        } else {
+            printDialogError("Удаление объекта", "Ошибка удаления объекта!", "Не выбран удаляемый объект ! ");
+        }
+    }
+
     private void chartsInitialize() {
         ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
 
@@ -327,149 +464,6 @@ public class MainController implements Observer {
         barChart.setData(barChartData);
     }
 
-    @FXML
-    public void objAccountAdd() {
-
-        dialogWindow(tabPane.getScene().getWindow(), new ObjAddController(), "/by/javafx/communalPayments/fxml/objAccountDialog/objectAccountAdd.fxml",
-                "Добавление объекта учета", 565, 350);
-
-    }
-
-    @FXML
-    public void objAccountChange() {
-
-        MyObjects object = T1_objAccounting.getSelectionModel().getSelectedItem();
-
-        if (object != null) {
-            setSelectedObject(object);
-            dialogWindow(tabPane.getScene().getWindow(), new ObjChangeController(this), "/by/javafx/communalPayments/fxml/objAccountDialog/objectAccountAdd.fxml",
-                    "Изменение объекта учета", 565, 350);
-        } else {
-            printDialogError("Изменение объекта", "Не выбран изменяемый объект !", "Выберите объект для изменения.");
-        }
-
-    }
-
-    @FXML
-    public void objAccountDelete() {
-
-        MyObjects object = T1_objAccounting.getSelectionModel().getSelectedItem();
-
-        if (object != null) {
-            setSelectedObject(object);
-            dialogWindow(tabPane.getScene().getWindow(), new ObjDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
-                    "Удаление объекта", 380, 190);
-        } else {
-            printDialogError("Удаление объекта", "Ошибка удаления объекта !", "Не выбран удаляемый объект ! ");
-        }
-    }
-
-    @FXML
-    public void countersAdd() {
-
-        if (checkAvailabilityObjects() && checkAvailabilityServices() && checkAvailabilityServicesForm()) {
-            dialogWindow(tabPane.getScene().getWindow(), new CounterAddController(), "/by/javafx/communalPayments/fxml/countersDialog/CountersAdd.fxml",
-                    "Добавление счетчика", 400, 305);
-        }
-
-    }
-
-    @FXML
-    public void countersChange() {
-
-        Counters object = T2_counters.getSelectionModel().getSelectedItem();
-
-        if (object != null) {
-            setSelectedObject(object);
-            dialogWindow(tabPane.getScene().getWindow(), new CounterChangeController(this), "/by/javafx/communalPayments/fxml/countersDialog/CountersAdd.fxml",
-                    "Изменение счетчика", 400, 305);
-        } else {
-            printDialogError("Изменение объекта", "Ошибка изменения объекта !", "Не выбран изменяемый объект ! ");
-        }
-
-    }
-
-    @FXML
-    public void countersDelete() {
-
-        Counters object = T2_counters.getSelectionModel().getSelectedItem();
-
-        if (object != null) {
-            setSelectedObject(object);
-            dialogWindow(tabPane.getScene().getWindow(), new CounterDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
-                    "Удаление объекта", 380, 190);
-        } else {
-            printDialogError("Удаление объекта", "Ошибка удаления объекта !", "Не выбран удаляемый объект ! ");
-        }
-
-    }
-
-    @FXML
-    public void serviceAdd() {
-
-        dialogWindow(tabPane.getScene().getWindow(), new ServiceAddController(), "/by/javafx/communalPayments/fxml/servicesDialog/servicesAdd.fxml",
-                "Добавление услуги", 450, 305);
-    }
-
-    @FXML
-    public void serviceChange() {
-
-        Services object = T3_service.getSelectionModel().getSelectedItem();
-
-        if (object != null) {
-            setSelectedObject(object);
-            dialogWindow(tabPane.getScene().getWindow(), new ServiceChangeController(this), "/by/javafx/communalPayments/fxml/servicesDialog/servicesAdd.fxml",
-                    "Изменение услуги", 450, 305);
-        } else {
-            printDialogError("Изменение объекта", "Ошибка изменения объекта!", "Не выбран изменяемый объект ! ");
-        }
-
-    }
-
-    @FXML
-    public void serviceDelete() {
-
-        Services object = T3_service.getSelectionModel().getSelectedItem();
-
-        if (object != null) {
-            setSelectedObject(object);
-            dialogWindow(tabPane.getScene().getWindow(), new ServiceDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
-                    "Удаление объекта", 380, 190);
-        } else {
-            printDialogError("Удаление объекта", "Ошибка удаления объекта!", "Не выбран удаляемый объект ! ");
-        }
-    }
-
-    @FXML
-    public void paymentAdd() {
-
-        if (checkAvailabilityObjects() && checkAvailabilityServices()) {
-            dialogWindow(tabPane.getScene().getWindow(), new PaymentAddController(), "/by/javafx/communalPayments/fxml/paymentsDialog/PaymentsAdd.fxml",
-                    "Добавление платежа", 400, 260);
-        }
-
-    }
-
-    @FXML
-    public void paymentDelete() {
-
-        Payments object = T4_payments.getSelectionModel().getSelectedItem();
-
-        if (object != null) {
-            setSelectedObject(object);
-            dialogWindow(tabPane.getScene().getWindow(), new PaymentsDeleteController(this), "/by/javafx/communalPayments/fxml/deleteObject.fxml",
-                    "Удаление объекта", 380, 190);
-        } else {
-            printDialogError("Удаление объекта", "Ошибка удаления объекта!", "Не выбран удаляемый объект ! ");
-        }
-    }
-
-    @Override
-    public void update() {
-        fillTables();
-        chartsInitialize();
-    }
-
     private void setConnection() {
 
         try {
@@ -537,14 +531,6 @@ public class MainController implements Observer {
         }
 
         return true;
-    }
-
-    public MyObjects getSelectedObject() {
-        return selectedObject;
-    }
-
-    private void setSelectedObject(MyObjects object) {
-        selectedObject = object;
     }
 
     protected void dialogWindow(Window window, MainController controller, String resource, String title, int width, int height) {
@@ -752,6 +738,20 @@ public class MainController implements Observer {
             return null;
         }
 
+    }
+
+    public MyObjects getSelectedObject() {
+        return selectedObject;
+    }
+
+    private void setSelectedObject(MyObjects object) {
+        selectedObject = object;
+    }
+
+    @Override
+    public void update() {
+        fillTables();
+        chartsInitialize();
     }
 
 }
