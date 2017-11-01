@@ -393,7 +393,6 @@ public class MainController implements Observer {
         final Popup popup = new Popup();
         popup.setAutoHide(true);
         final Label label = new Label("");
-        //label.setStyle("-fx-font:bold 20Arial;-fx-text-fill:white");
         popup.getContent().addAll(label);
 
         for (final PieChart.Data data : pieChart.getData()) {
@@ -410,7 +409,7 @@ public class MainController implements Observer {
         if (pieChartData.isEmpty()) {
             pieChart.setTitle("Нет данных");
         } else {
-            pieChart.setTitle(reportMonthCombo.getValue() + ", " + reportYearCombo.getValue());
+            pieChart.setTitle("Распределение расходов за " + reportMonthCombo.getValue() + ", " + reportYearCombo.getValue());
         }
 
     }
