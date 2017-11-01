@@ -36,6 +36,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Locale;
 
 public class MainController implements Observer {
@@ -335,11 +336,13 @@ public class MainController implements Observer {
         }
 
         if (!listMonth.isEmpty()) {
+            listMonth.sort(Collections.reverseOrder());
             reportMonthCombo.setItems(listMonth);
             reportMonthCombo.setValue(listMonth.get(0));
         }
 
         if (!listYear.isEmpty()) {
+            Collections.sort(listYear);
             reportYearCombo.setItems(listYear);
             reportYearCombo.setValue(listYear.get(0));
         }
@@ -355,7 +358,6 @@ public class MainController implements Observer {
 
         ObservableList<Payments> tablePayments = getTableObject(new Payments());
         ObservableList<Services> tableServices = getTableObject(new Services());
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
         int objectId = 0;
         ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
@@ -390,38 +392,53 @@ public class MainController implements Observer {
             sumServiceMonth = sum;
         }
 
-        for (Payments obj : payments) {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        if (!payments.isEmpty()) {
+
             for (Services services : tableServices) {
-                if (services.getId() == obj.getService()) {
-                    pieChartData.add(new PieChart.Data(services.getServiceName(), obj.getPaid() * 100 / sum));
+                double temp = 0;
+
+                for (Payments obj : payments) {
+
+                    if (services.getId() == obj.getService()) {
+                        temp += obj.getPaid();
+                    }
                 }
+
+                if (temp != 0) {
+                    pieChartData.add(new PieChart.Data(services.getServiceName(), temp * 100 / sum));
+                }
+
             }
         }
 
         pieChart.setData(pieChartData);
 
-        final Popup popup = new Popup();
-        popup.setAutoHide(true);
-        final Label label = new Label("");
-        popup.getContent().addAll(label);
-
-        for (final PieChart.Data data : pieChart.getData()) {
-
-            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED,
-                    e -> {
-                        label.setText(String.valueOf(Math.rint(data.getPieValue())) + "%" +
-                                "\n" + Math.rint(data.getPieValue() / 100 * sumServiceMonth * 100) / 100 + " руб.");
-                        popup.setX(e.getScreenX());
-                        popup.setY(e.getScreenY());
-                        popup.show(tabPane.getScene().getWindow());
-                    });
-        }
-
         if (pieChartData.isEmpty()) {
-            pieChart.setTitle("Нет данных");
+            pieChart.setTitle("Нет данных за " + reportMonthCombo.getValue() + ", " + reportYearCombo.getValue());
         } else {
+
             pieChart.setTitle("Распределение расходов за " + reportMonthCombo.getValue() + ", " + reportYearCombo.getValue());
+
+            final Popup popup = new Popup();
+            popup.setAutoHide(true);
+            final Label label = new Label("");
+            popup.getContent().addAll(label);
+
+            for (final PieChart.Data data : pieChart.getData()) {
+
+                data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED,
+                        e -> {
+                            label.setText(String.valueOf(Math.rint(data.getPieValue())) + "%" +
+                                    "\n" + Math.rint(data.getPieValue() / 100 * sumServiceMonth * 100) / 100 + " руб.");
+                            popup.setX(e.getScreenX());
+                            popup.setY(e.getScreenY());
+                            popup.show(tabPane.getScene().getWindow());
+                        });
+            }
         }
+
 
     }
 

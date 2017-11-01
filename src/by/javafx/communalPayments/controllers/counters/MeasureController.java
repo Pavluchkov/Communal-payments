@@ -80,7 +80,7 @@ public class MeasureController extends MainController {
         payment.setObject(object.getObject());
         payment.setService(object.getService());
         payment.setUnit("");
-        payment.setVolume(Math.rint(volume *1000) /1000);
+        payment.setVolume(Math.rint(volume * 1000) / 1000);
         payment.setRate(rate);
         payment.setAccrued(0);
         payment.setPaid(0);

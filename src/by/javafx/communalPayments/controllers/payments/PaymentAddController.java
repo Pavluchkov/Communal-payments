@@ -97,7 +97,7 @@ public class PaymentAddController extends MainController {
         }
 
         if (listMeasure.size() != 0) {
-            payment.setAccrued(Math.rint(sum * 100) /100);
+            payment.setAccrued(Math.rint(sum * 100) / 100);
 
             try {
                 payment.setPaid(Double.parseDouble(sumField.getText()));
