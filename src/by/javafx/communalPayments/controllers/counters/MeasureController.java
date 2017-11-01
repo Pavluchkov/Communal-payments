@@ -56,14 +56,19 @@ public class MeasureController extends MainController {
         }
 
         double rate = paymentAddController.getRate(object.getService());
-        double sum;
+
+        double volume;
 
         try {
-            sum = Math.rint((Double.parseDouble(measureField.getText()) - object.getRecentMeasure()) * rate * 100) / 100;
+
+            volume = Double.parseDouble(measureField.getText()) - object.getRecentMeasure();
+
         } catch (NumberFormatException e) {
             printDialogError("Ввод данных", "Ошибка ввода данных !", e.getMessage());
             return;
         }
+
+        double sum = volume * rate;
 
         if (sum < 0) {
             printDialogError("Ввод данных", "Ошибка ввода данных !", "Текущие показания меньше предыдущих.");
@@ -75,7 +80,7 @@ public class MeasureController extends MainController {
         payment.setObject(object.getObject());
         payment.setService(object.getService());
         payment.setUnit("");
-        payment.setVolume(Math.rint((Double.parseDouble(measureField.getText()) - object.getRecentMeasure()) * 1000) / 1000);
+        payment.setVolume(Math.rint(volume *1000) /1000);
         payment.setRate(rate);
         payment.setAccrued(0);
         payment.setPaid(0);

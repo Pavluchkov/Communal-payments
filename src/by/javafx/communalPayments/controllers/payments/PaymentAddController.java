@@ -97,7 +97,7 @@ public class PaymentAddController extends MainController {
         }
 
         if (listMeasure.size() != 0) {
-            payment.setAccrued(sum);
+            payment.setAccrued(Math.rint(sum * 100) /100);
 
             try {
                 payment.setPaid(Double.parseDouble(sumField.getText()));
@@ -264,7 +264,7 @@ public class PaymentAddController extends MainController {
     public void setSum(double summa) {
 
         this.sum += summa;
-        sumField.setText(String.valueOf(sum));
+        sumField.setText(String.valueOf(Math.rint(sum * 100) / 100));
     }
 
     public double getRate(int serviceId) {
