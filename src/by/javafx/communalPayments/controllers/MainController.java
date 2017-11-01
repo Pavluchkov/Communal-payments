@@ -40,6 +40,7 @@ public class MainController implements Observer {
 
     private IDatabase database = MySQLDatabase.getInstance();
     private MyObjects selectedObject;
+    private double sumServiceMonth;
 
     @FXML
     private TabPane tabPane;
@@ -378,12 +379,13 @@ public class MainController implements Observer {
                 }
 
             }
+            sumServiceMonth = sum;
         }
 
         for (Payments obj : payments) {
             for (Services services : tableServices) {
                 if (services.getId() == obj.getService()) {
-                    pieChartData.add(new PieChart.Data(services.getServiceName(), Math.rint(obj.getPaid() * 100 / sum)));
+                    pieChartData.add(new PieChart.Data(services.getServiceName(), obj.getPaid() * 100 / sum));
                 }
             }
         }
@@ -399,7 +401,8 @@ public class MainController implements Observer {
 
             data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED,
                     e -> {
-                        label.setText(String.valueOf(data.getPieValue()) + "%");
+                        label.setText(String.valueOf(Math.rint(data.getPieValue())) + "%" +
+                                "\n" + Math.rint(data.getPieValue() / 100 * sumServiceMonth * 100) / 100 + " руб.");
                         popup.setX(e.getScreenX());
                         popup.setY(e.getScreenY());
                         popup.show(tabPane.getScene().getWindow());

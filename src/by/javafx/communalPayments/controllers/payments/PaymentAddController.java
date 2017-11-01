@@ -161,52 +161,6 @@ public class PaymentAddController extends MainController {
         stage.close();
     }
 
-    public void setCounter(Counters counter) {
-        newListCounters.add(counter);
-    }
-
-    public void setMeasure(Measurement measure) {
-        listMeasure.add(measure);
-    }
-
-    public void setLayout(boolean b) {
-
-        if (b) {
-            layout_1.setVisible(true);
-            layout_2.setVisible(false);
-            sumField.setDisable(false);
-
-        } else {
-            layout_1.setVisible(false);
-            layout_2.setVisible(true);
-            sumField.setDisable(true);
-        }
-    }
-
-    public void setSum(double summa) {
-
-        this.sum += summa;
-        sumField.setText(String.valueOf(sum));
-    }
-
-    public double getRate(int serviceId) {
-
-        double rate = 0;
-
-        for (Services obj : tableService) {
-            if (serviceId == obj.getId()) {
-                rate = obj.getRate();
-            }
-        }
-
-        return rate;
-    }
-
-    public void setPayment(Payments payment) {
-
-        this.payment = payment;
-    }
-
     private void checkCombo(String newValue) {
 
         for (Services obj : tableService) {
@@ -284,4 +238,51 @@ public class PaymentAddController extends MainController {
             }
         }
     }
+
+    public void setCounter(Counters counter) {
+        newListCounters.add(counter);
+    }
+
+    public void setMeasure(Measurement measure) {
+        listMeasure.add(measure);
+    }
+
+    public void setLayout(boolean b) {
+
+        if (b) {
+            layout_1.setVisible(true);
+            layout_2.setVisible(false);
+            sumField.setDisable(false);
+
+        } else {
+            layout_1.setVisible(false);
+            layout_2.setVisible(true);
+            sumField.setDisable(true);
+        }
+    }
+
+    public void setSum(double summa) {
+
+        this.sum += summa;
+        sumField.setText(String.valueOf(sum));
+    }
+
+    public double getRate(int serviceId) {
+
+        double rate = 0;
+
+        for (Services obj : tableService) {
+            if (serviceId == obj.getId()) {
+                rate = obj.getRate();
+            }
+        }
+
+        return rate;
+    }
+
+    public void setPayment(Payments payment) {
+
+        this.payment = payment;
+    }
+
 }
