@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -21,6 +22,8 @@ public class CounterAddController extends MainController {
     private ComboBox<String> objectCombo;
     @FXML
     private ComboBox<String> serviceCombo;
+    @FXML
+    private Label measureLabel;
     @FXML
     private TextField nameField;
     @FXML

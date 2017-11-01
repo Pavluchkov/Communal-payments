@@ -31,7 +31,7 @@ public class ObjAddController extends MainController {
     }
 
     @FXML
-    public void BtnOkClicked() {
+    public void btnOkClicked() {
 
         ObjectAccounting object = new ObjectAccounting();
 

@@ -39,13 +39,6 @@ public class ServiceChangeController extends MainController {
     public void initialize() {
         object = (Services) mainController.getSelectedObject();
 
-//        try {
-//            tableForm = database.getListObjects(new FormPayments());
-//        } catch (SQLException e) {
-//            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
-//            return;
-//        }
-
         tableForm = getTableObject(new FormPayments());
         ObservableList<String> formPayments = FXCollections.observableArrayList();
 

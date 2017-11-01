@@ -1,177 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="350.0" prefWidth="565.0" xmlns="http://javafx.com/javafx/8">
+
+<AnchorPane prefHeight="350.0" prefWidth="565.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <HBox alignment="CENTER" layoutY="6.0" prefHeight="40.0" prefWidth="525.0" AnchorPane.leftAnchor="20.0"
-              AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+        <HBox alignment="CENTER" layoutY="6.0" prefHeight="40.0" prefWidth="525.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
             <children>
                 <Label text="Параметры объекта учета">
                     <font>
-                        <Font name="Arial Bold Italic" size="18.0"/>
+                        <Font name="Arial Bold Italic" size="18.0" />
                     </font>
                 </Label>
             </children>
         </HBox>
-        <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="50.0" prefHeight="30.0" prefWidth="525.0"
-              AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
+        <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="50.0" prefHeight="30.0" prefWidth="525.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
             <children>
                 <Label prefHeight="20.0" prefWidth="180.0" text="Лицевой счет">
                     <font>
-                        <Font name="Arial Italic" size="14.0"/>
+                        <Font name="Arial Italic" size="14.0" />
                     </font>
                 </Label>
                 <TextField fx:id="personalAccount" prefHeight="30.0" prefWidth="326.0">
                     <HBox.margin>
-                        <Insets left="20.0"/>
+                        <Insets left="20.0" />
                     </HBox.margin>
                     <font>
-                        <Font name="Arial" size="14.0"/>
+                        <Font name="Arial" size="14.0" />
                     </font>
                     <effect>
-                        <InnerShadow height="10.0" radius="4.5" width="10.0"/>
+                        <InnerShadow height="10.0" radius="4.5" width="10.0" />
                     </effect>
                 </TextField>
             </children>
         </HBox>
-        <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="319.0" prefHeight="30.0" prefWidth="525.0"
-              AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="290.0">
+        <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="319.0" prefHeight="30.0" prefWidth="525.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="290.0">
             <children>
-                <Button mnemonicParsing="false" onAction="#BtnOkClicked" prefHeight="30.0" prefWidth="110.0"
-                        text="Подтвердить">
+                <Button mnemonicParsing="false" onAction="#btnOkClicked" prefHeight="30.0" prefWidth="110.0" text="Подтвердить">
                     <font>
-                        <Font name="Arial" size="14.0"/>
+                        <Font name="Arial" size="14.0" />
                     </font>
                     <effect>
-                        <InnerShadow color="#08a12e80"/>
+                        <InnerShadow color="#08a12e80" />
                     </effect>
                 </Button>
-                <Button fx:id="btnCancel" layoutX="180.0" layoutY="17.0" mnemonicParsing="false"
-                        onAction="#btnCancelClicked" prefHeight="30.0" prefWidth="110.0" text="Отмена">
+                <Button fx:id="btnCancel" layoutX="180.0" layoutY="17.0" mnemonicParsing="false" onAction="#btnCancelClicked" prefHeight="30.0" prefWidth="110.0" text="Отмена">
                     <HBox.margin>
-                        <Insets left="30.0"/>
+                        <Insets left="30.0" />
                     </HBox.margin>
                     <font>
-                        <Font name="Arial" size="14.0"/>
+                        <Font name="Arial" size="14.0" />
                     </font>
                     <effect>
-                        <InnerShadow color="#d90d0d"/>
+                        <InnerShadow color="#d90d0d" />
                     </effect>
                 </Button>
             </children>
             <effect>
-                <DropShadow height="10.0" radius="4.5" width="10.0"/>
+                <DropShadow height="10.0" radius="4.5" width="10.0" />
             </effect>
         </HBox>
-        <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="97.0" prefHeight="30.0" prefWidth="525.0"
-              AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
+        <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="97.0" prefHeight="30.0" prefWidth="525.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
             <children>
                 <Label prefHeight="20.0" prefWidth="180.0" text="Название объекта учета">
                     <font>
-                        <Font name="Arial Italic" size="14.0"/>
+                        <Font name="Arial Italic" size="14.0" />
                     </font>
                 </Label>
                 <TextField fx:id="nameObject" prefHeight="30.0" prefWidth="326.0">
                     <HBox.margin>
-                        <Insets left="20.0"/>
+                        <Insets left="20.0" />
                     </HBox.margin>
                     <font>
-                        <Font name="Arial" size="14.0"/>
+                        <Font name="Arial" size="14.0" />
                     </font>
                     <effect>
-                        <InnerShadow height="10.0" radius="4.5" width="10.0"/>
+                        <InnerShadow height="10.0" radius="4.5" width="10.0" />
                     </effect>
                 </TextField>
             </children>
         </HBox>
-        <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="137.0" prefHeight="30.0" prefWidth="525.0"
-              AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0">
+        <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="137.0" prefHeight="30.0" prefWidth="525.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0">
             <children>
                 <Label prefHeight="20.0" prefWidth="180.0" text="Ф.И.О. владельца">
                     <font>
-                        <Font name="Arial Italic" size="14.0"/>
+                        <Font name="Arial Italic" size="14.0" />
                     </font>
                 </Label>
                 <TextField fx:id="owner" prefHeight="30.0" prefWidth="326.0">
                     <HBox.margin>
-                        <Insets left="20.0"/>
+                        <Insets left="20.0" />
                     </HBox.margin>
                     <font>
-                        <Font name="Arial" size="14.0"/>
+                        <Font name="Arial" size="14.0" />
                     </font>
                     <effect>
-                        <InnerShadow height="10.0" radius="4.5" width="10.0"/>
+                        <InnerShadow height="10.0" radius="4.5" width="10.0" />
                     </effect>
                 </TextField>
             </children>
         </HBox>
-        <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="246.0" prefHeight="30.0" prefWidth="525.0"
-              AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="220.0">
+        <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="246.0" prefHeight="30.0" prefWidth="525.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="220.0">
             <children>
                 <Label prefHeight="20.0" prefWidth="180.0" text="Кол - во жильцов">
                     <font>
-                        <Font name="Arial Italic" size="14.0"/>
+                        <Font name="Arial Italic" size="14.0" />
                     </font>
                 </Label>
                 <TextField fx:id="residents" prefHeight="30.0" prefWidth="50.0">
                     <HBox.margin>
-                        <Insets left="20.0"/>
+                        <Insets left="20.0" />
                     </HBox.margin>
                     <font>
-                        <Font name="Arial" size="14.0"/>
+                        <Font name="Arial" size="14.0" />
                     </font>
                     <effect>
-                        <InnerShadow height="10.0" radius="4.5" width="10.0"/>
+                        <InnerShadow height="10.0" radius="4.5" width="10.0" />
                     </effect>
                 </TextField>
                 <Label prefHeight="20.0" prefWidth="170.0" text="Общая площадь, м кв.">
                     <font>
-                        <Font name="Arial Italic" size="14.0"/>
+                        <Font name="Arial Italic" size="14.0" />
                     </font>
                     <HBox.margin>
-                        <Insets left="30.0"/>
+                        <Insets left="30.0" />
                     </HBox.margin>
                 </Label>
                 <TextField fx:id="area" prefHeight="30.0" prefWidth="76.0">
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
                     <font>
-                        <Font name="Arial" size="14.0"/>
+                        <Font name="Arial" size="14.0" />
                     </font>
                     <effect>
-                        <InnerShadow height="10.0" radius="4.5" width="10.0"/>
+                        <InnerShadow height="10.0" radius="4.5" width="10.0" />
                     </effect>
                 </TextField>
             </children>
         </HBox>
-        <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="184.0" prefHeight="30.0" prefWidth="525.0"
-              AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="180.0">
+        <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="184.0" prefHeight="30.0" prefWidth="525.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="180.0">
             <children>
                 <Label prefHeight="20.0" prefWidth="180.0" text="Адрес">
                     <font>
-                        <Font name="Arial Italic" size="14.0"/>
+                        <Font name="Arial Italic" size="14.0" />
                     </font>
                 </Label>
                 <TextField fx:id="address" prefHeight="30.0" prefWidth="326.0">
                     <HBox.margin>
-                        <Insets left="20.0"/>
+                        <Insets left="20.0" />
                     </HBox.margin>
                     <font>
-                        <Font name="Arial" size="14.0"/>
+                        <Font name="Arial" size="14.0" />
                     </font>
                     <effect>
-                        <InnerShadow height="10.0" radius="4.5" width="10.0"/>
+                        <InnerShadow height="10.0" radius="4.5" width="10.0" />
                     </effect>
                 </TextField>
             </children>
         </HBox>
     </children>
     <effect>
-        <InnerShadow height="15.0" radius="7.0" width="15.0"/>
+        <InnerShadow height="15.0" radius="7.0" width="15.0" />
     </effect>
 </AnchorPane>

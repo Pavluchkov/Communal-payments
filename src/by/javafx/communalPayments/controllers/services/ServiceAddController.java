@@ -30,12 +30,6 @@ public class ServiceAddController extends MainController {
     public void initialize() {
 
         tableForm = getTableObject(new FormPayments());
-//        try {
-//            tableForm = database.getListObjects(new FormPayments());
-//        } catch (SQLException e) {
-//            printDialogError("Работа с базой данных", "Ошибка чтения данных из БД !", e.getMessage());
-//            return;
-//        }
 
         ObservableList<String> formPayments = FXCollections.observableArrayList();
 

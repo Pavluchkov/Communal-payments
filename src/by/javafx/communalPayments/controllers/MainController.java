@@ -342,7 +342,7 @@ public class MainController implements Observer {
 
         if (object != null) {
             setSelectedObject(object);
-            dialogWindow(tabPane.getScene().getWindow(), new ObjChangeController(this), "/by/javafx/communalPayments/fxml/objAccountDialog/objectAccountChange.fxml",
+            dialogWindow(tabPane.getScene().getWindow(), new ObjChangeController(this), "/by/javafx/communalPayments/fxml/objAccountDialog/objectAccountAdd.fxml",
                     "Изменение объекта учета", 565, 350);
         } else {
             printDialogError("Изменение объекта", "Не выбран изменяемый объект !", "Выберите объект для изменения.");
@@ -381,7 +381,7 @@ public class MainController implements Observer {
 
         if (object != null) {
             setSelectedObject(object);
-            dialogWindow(tabPane.getScene().getWindow(), new CounterChangeController(this), "/by/javafx/communalPayments/fxml/countersDialog/CountersChange.fxml",
+            dialogWindow(tabPane.getScene().getWindow(), new CounterChangeController(this), "/by/javafx/communalPayments/fxml/countersDialog/CountersAdd.fxml",
                     "Изменение счетчика", 400, 305);
         } else {
             printDialogError("Изменение объекта", "Ошибка изменения объекта !", "Не выбран изменяемый объект ! ");
@@ -418,7 +418,7 @@ public class MainController implements Observer {
 
         if (object != null) {
             setSelectedObject(object);
-            dialogWindow(tabPane.getScene().getWindow(), new ServiceChangeController(this), "/by/javafx/communalPayments/fxml/servicesDialog/servicesChange.fxml",
+            dialogWindow(tabPane.getScene().getWindow(), new ServiceChangeController(this), "/by/javafx/communalPayments/fxml/servicesDialog/servicesAdd.fxml",
                     "Изменение услуги", 450, 305);
         } else {
             printDialogError("Изменение объекта", "Ошибка изменения объекта!", "Не выбран изменяемый объект ! ");
