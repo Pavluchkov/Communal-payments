@@ -34,7 +34,9 @@ import javafx.stage.Window;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainController implements Observer {
 
@@ -317,11 +319,14 @@ public class MainController implements Observer {
         ObservableList<String> listMonth = FXCollections.observableArrayList();
         ObservableList<String> listYear = FXCollections.observableArrayList();
 
+        Locale local = new Locale("ru", "RU");
+
         for (Payments obj : tablePayments) {
             LocalDate date = obj.getDate().toLocalDate();
+            String month = String.valueOf(date.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, local));
 
-            if (listMonth.indexOf(String.valueOf(date.getMonth())) == -1) {
-                listMonth.add(String.valueOf(date.getMonth()));
+            if (listMonth.indexOf(month) == -1) {
+                listMonth.add(month);
             }
 
             if (listYear.indexOf(String.valueOf(date.getYear())) == -1) {
@@ -365,12 +370,15 @@ public class MainController implements Observer {
         String monthCombo = reportMonthCombo.getValue();
         String yearCombo = reportYearCombo.getValue();
         double sum = 0;
+        Locale local = new Locale("ru", "RU");
 
         if ((monthCombo != null) && (yearCombo != null)) {
             for (Payments obj : tablePayments) {
 
                 if (obj.getObject() == objectId) {
-                    if (monthCombo.equals(String.valueOf(obj.getDate().toLocalDate().getMonth()))) {
+                    LocalDate date = obj.getDate().toLocalDate();
+                    String month = String.valueOf(date.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, local));
+                    if (monthCombo.equals(month)) {
                         if (yearCombo.equals(String.valueOf(obj.getDate().toLocalDate().getYear()))) {
                             sum += obj.getPaid();
                             payments.add(obj);
@@ -479,7 +487,7 @@ public class MainController implements Observer {
         if (barChartData.isEmpty()) {
             barChart.setTitle("Нет данных");
         } else {
-            barChart.setTitle("Годовой расход по услугам, рубл.");
+            barChart.setTitle("Распределение расходов по годам");
         }
 
         barChart.setData(barChartData);
