@@ -17,7 +17,6 @@ import by.javafx.communalPayments.interfaces.Subject;
 import by.javafx.communalPayments.objects.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,7 +26,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -352,7 +350,6 @@ public class MainController implements Observer {
         ObservableList<Payments> tablePayments = getTableObject(new Payments());
         ObservableList<Services> tableServices = getTableObject(new Services());
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        double sum = 0;
 
         int objectId = 0;
         ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
@@ -366,6 +363,7 @@ public class MainController implements Observer {
         ArrayList<Payments> payments = new ArrayList<>();
         String monthCombo = reportMonthCombo.getValue();
         String yearCombo = reportYearCombo.getValue();
+        double sum = 0;
 
         if ((monthCombo != null) && (yearCombo != null)) {
             for (Payments obj : tablePayments) {
@@ -385,26 +383,29 @@ public class MainController implements Observer {
         for (Payments obj : payments) {
             for (Services services : tableServices) {
                 if (services.getId() == obj.getService()) {
-                    pieChartData.add(new PieChart.Data(services.getServiceName(), obj.getPaid() * sum / 100));
+                    pieChartData.add(new PieChart.Data(services.getServiceName(), Math.rint(obj.getPaid() * 100 / sum)));
                 }
             }
         }
 
         pieChart.setData(pieChartData);
 
-        final Popup popup=new Popup(); popup.setAutoHide(true);
+        final Popup popup = new Popup();
+        popup.setAutoHide(true);
         final Label label = new Label("");
-        label.setStyle("-fx-font:bold 20Arial;-fx-text-fill:white");
+        //label.setStyle("-fx-font:bold 20Arial;-fx-text-fill:white");
         popup.getContent().addAll(label);
 
         for (final PieChart.Data data : pieChart.getData()) {
+
             data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED,
                     e -> {
                         label.setText(String.valueOf(data.getPieValue()) + "%");
                         popup.setX(e.getScreenX());
                         popup.setY(e.getScreenY());
-                        popup.show((Stage)tabPane.getScene().getWindow());
-                    });}
+                        popup.show(tabPane.getScene().getWindow());
+                    });
+        }
 
         if (pieChartData.isEmpty()) {
             pieChart.setTitle("Нет данных");
