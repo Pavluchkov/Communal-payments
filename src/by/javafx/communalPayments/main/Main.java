@@ -20,9 +20,9 @@ public class Main extends Application {
         fxmlLoader.setController(new MainController());
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("Communal payments");
-        primaryStage.setScene(new Scene(root, 605, 450));
-        primaryStage.setMinWidth(605);
-        primaryStage.setMinHeight(450);
+        primaryStage.setScene(new Scene(root, 1000, 600));
+        primaryStage.setMinWidth(1000);
+        primaryStage.setMinHeight(600);
         Image ico = new Image("/by/javafx/communalPayments/ico/icon.png");
         primaryStage.getIcons().add(ico);
         primaryStage.show();

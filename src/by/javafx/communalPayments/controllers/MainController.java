@@ -8,6 +8,7 @@ import by.javafx.communalPayments.controllers.objectAccounting.ObjChangeControll
 import by.javafx.communalPayments.controllers.objectAccounting.ObjDeleteController;
 import by.javafx.communalPayments.controllers.payments.PaymentAddController;
 import by.javafx.communalPayments.controllers.payments.PaymentsDeleteController;
+import by.javafx.communalPayments.controllers.report.ReportController;
 import by.javafx.communalPayments.controllers.services.ServiceAddController;
 import by.javafx.communalPayments.controllers.services.ServiceChangeController;
 import by.javafx.communalPayments.controllers.services.ServiceDeleteController;
@@ -21,13 +22,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.*;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -35,7 +35,6 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 
@@ -43,7 +42,7 @@ public class MainController implements Observer {
 
     private IDatabase database = MySQLDatabase.getInstance();
     private MyObjects selectedObject;
-    private double sumServiceMonth;
+    private ReportController report;
 
     @FXML
     private TabPane tabPane;
@@ -123,6 +122,8 @@ public class MainController implements Observer {
     @FXML
     private void initialize() {
 
+        this.report = new ReportController(this);
+
         Subject subject = MySQLDatabase.getInstance();// Устанавливаем наблюдателя
         subject.registerObserver(this);    //      за MySQLDatabase
 
@@ -155,9 +156,9 @@ public class MainController implements Observer {
         T4_paidColumn.setCellValueFactory(new PropertyValueFactory<>("paid"));
         T4_dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        reportObjCombo.valueProperty().addListener((observable, oldValue, newValue) -> fillCharts());
-        reportMonthCombo.valueProperty().addListener((observable, oldValue, newValue) -> fillCharts());
-        reportYearCombo.valueProperty().addListener((observable, oldValue, newValue) -> fillCharts());
+        reportObjCombo.valueProperty().addListener((observable, oldValue, newValue) -> drawCharts());
+        reportMonthCombo.valueProperty().addListener((observable, oldValue, newValue) -> drawCharts());
+        reportYearCombo.valueProperty().addListener((observable, oldValue, newValue) -> drawCharts());
 
         setConnection();
         fillTables();
@@ -302,9 +303,36 @@ public class MainController implements Observer {
         }
     }
 
-    private void chartsInitialize() {
-        ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
+    private void setConnection() {
 
+        try {
+            database.setConnectDatabase("jdbc:mysql://localhost:3306");
+        } catch (SQLException | ClassNotFoundException e) {
+            printDialogError("Ошибка подключения", "Не удалось подключиться к серверу MySQL !", e.getMessage());
+            System.exit(0);
+        }
+
+        try {
+            database.availabilityCheckDatabase();
+        } catch (SQLException e) {
+            printDialogError("Ошибка подключения", "Не удалось подключиться к БД !", e.getMessage());
+            System.exit(0);
+        }
+
+    }
+
+    private void fillTables() {
+
+        T1_objAccounting.setItems(getTableObject(new ObjectAccounting()));
+        T2_counters.setItems(getTableObject(new Counters()));
+        T3_service.setItems(getTableObject(new Services()));
+        T4_payments.setItems(getTableObject(new Payments()));
+
+    }
+
+    private void chartsInitialize() {
+
+        ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
         ObservableList<String> listObjects = FXCollections.observableArrayList();
 
         for (ObjectAccounting obj : tableObject) {
@@ -349,192 +377,10 @@ public class MainController implements Observer {
 
     }
 
-    private void fillCharts() {
-        setPieData();
-        setBarData();
-    }
+    private void drawCharts() {
 
-    private void setPieData() {
-
-        ObservableList<Payments> tablePayments = getTableObject(new Payments());
-        ObservableList<Services> tableServices = getTableObject(new Services());
-
-        int objectId = 0;
-        ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
-
-        for (ObjectAccounting obj : tableObject) {
-            if (obj.getObjectName().equals(reportObjCombo.getValue())) {
-                objectId = obj.getId();
-            }
-        }
-
-        ArrayList<Payments> payments = new ArrayList<>();
-        String monthCombo = reportMonthCombo.getValue();
-        String yearCombo = reportYearCombo.getValue();
-        double sum = 0;
-        Locale local = new Locale("ru", "RU");
-
-        if ((monthCombo != null) && (yearCombo != null)) {
-            for (Payments obj : tablePayments) {
-
-                if (obj.getObject() == objectId) {
-                    LocalDate date = obj.getDate().toLocalDate();
-                    String month = String.valueOf(date.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, local));
-                    if (monthCombo.equals(month)) {
-                        if (yearCombo.equals(String.valueOf(obj.getDate().toLocalDate().getYear()))) {
-                            sum += obj.getPaid();
-                            payments.add(obj);
-                        }
-                    }
-                }
-
-            }
-            sumServiceMonth = sum;
-        }
-
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-
-        if (!payments.isEmpty()) {
-
-            for (Services services : tableServices) {
-                double temp = 0;
-
-                for (Payments obj : payments) {
-
-                    if (services.getId() == obj.getService()) {
-                        temp += obj.getPaid();
-                    }
-                }
-
-                if (temp != 0) {
-                    pieChartData.add(new PieChart.Data(services.getServiceName(), temp * 100 / sum));
-                }
-
-            }
-        }
-
-        pieChart.setData(pieChartData);
-
-        if (pieChartData.isEmpty()) {
-            pieChart.setTitle("Нет данных за " + reportMonthCombo.getValue() + ", " + reportYearCombo.getValue());
-        } else {
-
-            pieChart.setTitle("Распределение расходов за " + reportMonthCombo.getValue() + ", " + reportYearCombo.getValue());
-
-            final Popup popup = new Popup();
-            popup.setAutoHide(true);
-            final Label label = new Label("");
-            popup.getContent().addAll(label);
-
-            for (final PieChart.Data data : pieChart.getData()) {
-
-                data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED,
-                        e -> {
-                            label.setText(String.valueOf(Math.rint(data.getPieValue())) + "%" +
-                                    "\n" + Math.rint(data.getPieValue() / 100 * sumServiceMonth * 100) / 100 + " руб.");
-                            popup.setX(e.getScreenX());
-                            popup.setY(e.getScreenY());
-                            popup.show(tabPane.getScene().getWindow());
-                        });
-            }
-        }
-
-
-    }
-
-    private void setBarData() {
-
-        ObservableList<String> listYear = FXCollections.observableArrayList();
-        ObservableList<Payments> tablePayments = getTableObject(new Payments());
-
-        ObservableList<Services> tableServices = getTableObject(new Services());
-
-        int objectId = 0;
-        ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
-
-        for (ObjectAccounting obj : tableObject) {
-            if (obj.getObjectName().equals(reportObjCombo.getValue())) {
-                objectId = obj.getId();
-            }
-        }
-
-        for (Payments obj : tablePayments) {
-            if (obj.getObject() == objectId) {
-                if (listYear.indexOf(String.valueOf(obj.getDate().toLocalDate().getYear())) == -1) {
-                    listYear.add(String.valueOf(obj.getDate().toLocalDate().getYear()));
-                }
-
-            }
-
-        }
-
-        ObservableList<XYChart.Series<String, Double>> barChartData = FXCollections.observableArrayList();
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-
-        xAxis.setLabel("Услуга");
-        yAxis.setLabel("Сумма");
-
-        for (String year : listYear) {
-            double sum = 0;
-            XYChart.Series<String, Double> series = new XYChart.Series<>();
-            series.setName(year);
-
-            for (Services service : tableServices) {
-                for (Payments obj : tablePayments) {
-
-                    if (year.equals(String.valueOf(obj.getDate().toLocalDate().getYear()))) {
-                        if (obj.getService() == service.getId()) {
-                            if (obj.getObject() == objectId) {
-                                sum += obj.getPaid();
-                            }
-                        }
-                    }
-                }
-
-                if (sum != 0) {
-                    series.getData().add(new XYChart.Data<>(service.getServiceName(), sum));
-                    sum = 0;
-                }
-            }
-
-            barChartData.add(series);
-        }
-
-        if (barChartData.isEmpty()) {
-            barChart.setTitle("Нет данных");
-        } else {
-            barChart.setTitle("Распределение расходов по годам");
-        }
-
-        barChart.setData(barChartData);
-    }
-
-    private void setConnection() {
-
-        try {
-            database.setConnectDatabase("jdbc:mysql://localhost:3306");
-        } catch (SQLException | ClassNotFoundException e) {
-            printDialogError("Ошибка подключения", "Не удалось подключиться к серверу MySQL !", e.getMessage());
-            System.exit(0);
-        }
-
-        try {
-            database.availabilityCheckDatabase();
-        } catch (SQLException e) {
-            printDialogError("Ошибка подключения", "Не удалось подключиться к БД !", e.getMessage());
-            System.exit(0);
-        }
-
-    }
-
-    private void fillTables() {
-
-        T1_objAccounting.setItems(getTableObject(new ObjectAccounting()));
-        T2_counters.setItems(getTableObject(new Counters()));
-        T3_service.setItems(getTableObject(new Services()));
-        T4_payments.setItems(getTableObject(new Payments()));
-
+        report.drawPieChart();
+        report.drawBarChart();
     }
 
     private boolean checkAvailabilityObjects() {
@@ -792,6 +638,30 @@ public class MainController implements Observer {
 
     private void setSelectedObject(MyObjects object) {
         selectedObject = object;
+    }
+
+    public TabPane getTabPane() {
+        return tabPane;
+    }
+
+    public PieChart getPieChart() {
+        return pieChart;
+    }
+
+    public BarChart<String, Double> getBarChart() {
+        return barChart;
+    }
+
+    public ComboBox<String> getReportObjCombo() {
+        return reportObjCombo;
+    }
+
+    public ComboBox<String> getReportMonthCombo() {
+        return reportMonthCombo;
+    }
+
+    public ComboBox<String> getReportYearCombo() {
+        return reportYearCombo;
     }
 
     @Override
