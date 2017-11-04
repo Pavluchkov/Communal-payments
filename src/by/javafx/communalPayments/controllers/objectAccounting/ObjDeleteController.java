@@ -31,7 +31,7 @@ public class ObjDeleteController extends MainController {
     @FXML
     public void btnOkClicked() {
 
-        if (!objectDelete(objectAccounting)) {
+        if (!database.deleteObject(objectAccounting)) {
             return;
         }
 

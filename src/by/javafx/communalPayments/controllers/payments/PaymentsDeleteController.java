@@ -31,7 +31,7 @@ public class PaymentsDeleteController extends MainController {
     @FXML
     public void btnOkClicked() {
 
-        if (!objectDelete(object)) {
+        if (!database.deletePayment(object)) {
             return;
         }
 

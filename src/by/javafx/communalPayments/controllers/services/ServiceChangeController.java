@@ -39,7 +39,7 @@ public class ServiceChangeController extends MainController {
     public void initialize() {
         object = (Services) mainController.getSelectedObject();
 
-        tableForm = getTableObject(new FormPayments());
+        tableForm = database.getTableFormPayments();
         ObservableList<String> formPayments = FXCollections.observableArrayList();
 
         for (FormPayments obj : tableForm) {
@@ -83,7 +83,7 @@ public class ServiceChangeController extends MainController {
             }
         }
 
-        if (!objectChange(new Services(serviceId, serviceName, unit, rate, formId))) {
+        if (!database.changeService(new Services(serviceId, serviceName, unit, rate, formId))) {
             return;
         }
 

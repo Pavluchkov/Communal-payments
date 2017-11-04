@@ -54,8 +54,8 @@ public class PaymentAddController extends MainController {
     @FXML
     public void initialize() {
 
-        tableObject = getTableObject(new ObjectAccounting());
-        tableService = getTableObject(new Services());
+        tableObject = database.getTableObject();
+        tableService = database.getTableServices();
 
         for (ObjectAccounting obj : tableObject) {
             listObjects.add(obj.getObjectName());
@@ -84,14 +84,14 @@ public class PaymentAddController extends MainController {
 
         for (Counters obj : newListCounters) {
 
-            if (!objectChange(obj)) {
+            if (!database.changeCounter(obj)) {
                 return;
             }
         }
 
         for (Measurement obj : listMeasure) {
 
-            if (!objectAdd(obj)) {
+            if (!database.addMeasurement(obj)) {
                 return;
             }
         }
@@ -125,7 +125,7 @@ public class PaymentAddController extends MainController {
 
         }
 
-        if (!objectAdd(payment)) {
+        if (!database.addPayment(payment)) {
             return;
         }
 
@@ -229,7 +229,7 @@ public class PaymentAddController extends MainController {
 
         ObservableList<Counters> tableCounters;
 
-        tableCounters = getTableObject(new Counters());
+        tableCounters = database.getTableCounters();
 
         for (Counters obj : tableCounters) {
 

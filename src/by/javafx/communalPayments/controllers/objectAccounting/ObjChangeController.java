@@ -51,6 +51,7 @@ public class ObjChangeController extends MainController {
         ObjectAccounting object = new ObjectAccounting();
 
         try {
+
             object.setId(Integer.parseInt(personalAccount.getText()));
             object.setObjectName(nameObject.getText());
             object.setOwner(owner.getText());
@@ -63,7 +64,7 @@ public class ObjChangeController extends MainController {
             return;
         }
 
-        if (!objectChange(object, objectAccounting.getId())) {
+        if (!database.changeObject(object, objectAccounting.getId())) {
             return;
         }
 

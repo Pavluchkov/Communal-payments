@@ -29,7 +29,7 @@ public class ServiceAddController extends MainController {
     @FXML
     public void initialize() {
 
-        tableForm = getTableObject(new FormPayments());
+        tableForm = database.getTableFormPayments();
 
         ObservableList<String> formPayments = FXCollections.observableArrayList();
 
@@ -70,7 +70,7 @@ public class ServiceAddController extends MainController {
             }
         }
 
-        if (!objectAdd(new Services(0, serviceName, unit, rate, formId))) {
+        if (!database.addService(new Services(0, serviceName, unit, rate, formId))) {
             return;
         }
 

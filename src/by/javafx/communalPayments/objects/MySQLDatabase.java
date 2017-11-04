@@ -1,18 +1,14 @@
 package by.javafx.communalPayments.objects;
 
 import by.javafx.communalPayments.interfaces.IDatabase;
-import by.javafx.communalPayments.interfaces.Observer;
-import by.javafx.communalPayments.interfaces.Subject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Properties;
 
-public class MySQLDatabase implements IDatabase, Subject {
+public class MySQLDatabase implements IDatabase {
     private static Connection con;
-    private static ArrayList<Observer> observers = new ArrayList<>();
     private static MySQLDatabase instance = new MySQLDatabase();
 
     private MySQLDatabase() {
@@ -280,7 +276,7 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.execute();
 
         stmt.close();
-        dataChange();
+
     }
 
     @Override
@@ -297,7 +293,7 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.execute();
 
         stmt.close();
-        dataChange();
+
     }
 
     @Override
@@ -318,7 +314,7 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.execute();
 
         stmt.close();
-        dataChange();
+
     }
 
     @Override
@@ -335,7 +331,7 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.execute();
 
         stmt.close();
-        dataChange();
+
     }
 
     @Override
@@ -362,7 +358,7 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.execute();
 
         stmt.close();
-        dataChange();
+
     }
 
     @Override
@@ -374,7 +370,7 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.execute();
 
         stmt.close();
-        dataChange();
+
     }
 
     @Override
@@ -386,7 +382,7 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.execute();
 
         stmt.close();
-        dataChange();
+
     }
 
     @Override
@@ -398,7 +394,7 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.execute();
 
         stmt.close();
-        dataChange();
+
     }
 
     @Override
@@ -418,7 +414,7 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.execute();
 
         stmt.close();
-        dataChange();
+
     }
 
     @Override
@@ -437,7 +433,6 @@ public class MySQLDatabase implements IDatabase, Subject {
 
         stmt.execute();
 
-        dataChange();
     }
 
     @Override
@@ -456,7 +451,6 @@ public class MySQLDatabase implements IDatabase, Subject {
         stmt.execute();
 
         stmt.close();
-        dataChange();
     }
 
     @Override
@@ -474,30 +468,4 @@ public class MySQLDatabase implements IDatabase, Subject {
 
     }
 
-    @Override
-    public void registerObserver(Observer o) {
-        observers.add(o);
-    }
-
-    @Override
-    public void removeObserver(Observer o) {
-        int i = observers.indexOf(o);
-
-        if (i >= 0) {
-            observers.remove(i);
-        }
-    }
-
-    @Override
-    public void notifyObserver() {
-
-        for (Observer o : observers) {
-            o.update();
-        }
-
-    }
-
-    private void dataChange() {
-        notifyObserver();
-    }
 }

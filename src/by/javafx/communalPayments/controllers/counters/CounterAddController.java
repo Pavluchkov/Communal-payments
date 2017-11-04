@@ -34,8 +34,8 @@ public class CounterAddController extends MainController {
     @FXML
     public void initialize() {
 
-        tableObject = getTableObject(new ObjectAccounting());
-        tableService = getTableObject(new Services());
+        tableObject = database.getTableObject();
+        tableService = database.getTableServices();
 
         ObservableList<String> listObjects = FXCollections.observableArrayList();
         ObservableList<String> listServices = FXCollections.observableArrayList();
@@ -99,7 +99,7 @@ public class CounterAddController extends MainController {
 
         Counters counter = new Counters(0, objectId, serviceId, counterName, recentMeasure);
 
-        if (!objectAdd(counter)) {
+        if (!database.addCounter(counter)) {
             return;
         }
 

@@ -36,18 +36,20 @@ public class ObjAddController extends MainController {
         ObjectAccounting object = new ObjectAccounting();
 
         try {
+
             object.setId(Integer.parseInt(personalAccount.getText()));
             object.setObjectName(nameObject.getText());
             object.setOwner(owner.getText());
             object.setAddress(address.getText());
             object.setResidents(Integer.parseInt(residents.getText()));
             object.setArea(Double.parseDouble(area.getText()));
+
         } catch (NumberFormatException e) {
             printDialogError("Ввод данных", "Ошибка ввода данных !", e.getMessage());
             return;
         }
 
-        if (!objectAdd(object)) {
+        if (!database.addObject(object)) {
             return;
         }
 

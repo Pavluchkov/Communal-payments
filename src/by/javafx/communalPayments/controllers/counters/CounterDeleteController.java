@@ -30,7 +30,7 @@ public class CounterDeleteController extends MainController {
     @FXML
     public void btnOkClicked() {
 
-        if (!objectDelete(object)) {
+        if (!database.deleteCounter(object)) {
             return;
         }
 

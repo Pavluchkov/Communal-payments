@@ -30,11 +30,11 @@ public class ReportController extends MainController {
 
     public void drawPieChart() {
 
-        ObservableList<Payments> tablePayments = getTableObject(new Payments());
-        ObservableList<Services> tableServices = getTableObject(new Services());
+        ObservableList<Payments> tablePayments = database.getTablePayments();
+        ObservableList<Services> tableServices = database.getTableServices();
 
         int objectId = 0;
-        ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
+        ObservableList<ObjectAccounting> tableObject = database.getTableObject();
 
         for (ObjectAccounting obj : tableObject) {
             if (obj.getObjectName().equals(mainController.getReportObjCombo().getValue())) {
@@ -119,12 +119,12 @@ public class ReportController extends MainController {
     public void drawBarChart() {
 
         ObservableList<String> listYear = FXCollections.observableArrayList();
-        ObservableList<Payments> tablePayments = getTableObject(new Payments());
+        ObservableList<Payments> tablePayments = database.getTablePayments();
 
-        ObservableList<Services> tableServices = getTableObject(new Services());
+        ObservableList<Services> tableServices = database.getTableServices();
 
         int objectId = 0;
-        ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
+        ObservableList<ObjectAccounting> tableObject = database.getTableObject();
 
         for (ObjectAccounting obj : tableObject) {
             if (obj.getObjectName().equals(mainController.getReportObjCombo().getValue())) {

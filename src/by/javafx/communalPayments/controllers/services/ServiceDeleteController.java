@@ -32,7 +32,7 @@ public class ServiceDeleteController extends MainController {
     @FXML
     public void btnOkClicked() {
 
-        if (!objectDelete(object)) {
+        if (!database.deleteService(object)) {
             return;
         }
 

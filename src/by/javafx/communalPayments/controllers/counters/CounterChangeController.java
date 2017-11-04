@@ -43,8 +43,8 @@ public class CounterChangeController extends MainController {
         object = (Counters) mainController.getSelectedObject();
         measureLabel.setText("Последние показания");
 
-        tableObject = getTableObject(new ObjectAccounting());
-        tableService = getTableObject(new Services());
+        tableObject = database.getTableObject();
+        tableService = database.getTableServices();
 
         ObservableList<String> listObjects = FXCollections.observableArrayList();
         ObservableList<String> listServices = FXCollections.observableArrayList();
@@ -116,11 +116,11 @@ public class CounterChangeController extends MainController {
         int id = object.getId();
         Counters counter = new Counters(id, objectId, serviceId, counterName, recentMeasure);
 
-        if (!objectChange(counter)) {
+        if (!database.changeCounter(counter)) {
             return;
         }
 
-        if (!lastMeasureChange(counter, object.getRecentMeasure())) {
+        if (!database.lastMeasureChange(counter, object.getRecentMeasure())) {
             return;
         }
 

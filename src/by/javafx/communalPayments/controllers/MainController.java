@@ -12,9 +12,7 @@ import by.javafx.communalPayments.controllers.report.ReportController;
 import by.javafx.communalPayments.controllers.services.ServiceAddController;
 import by.javafx.communalPayments.controllers.services.ServiceChangeController;
 import by.javafx.communalPayments.controllers.services.ServiceDeleteController;
-import by.javafx.communalPayments.interfaces.IDatabase;
 import by.javafx.communalPayments.interfaces.Observer;
-import by.javafx.communalPayments.interfaces.Subject;
 import by.javafx.communalPayments.objects.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,7 +30,6 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Collections;
@@ -40,8 +37,7 @@ import java.util.Locale;
 
 public class MainController implements Observer {
 
-    //private IDatabase database = MySQLDatabase.getInstance();
-    private Database database = new Database(this);
+    protected Database database = new Database(this);
     private MyObjects selectedObject;
     private ReportController report;
 
@@ -123,10 +119,8 @@ public class MainController implements Observer {
     @FXML
     private void initialize() {
 
+        database.registerObserver(this);
         this.report = new ReportController(this);
-
-        Subject subject = MySQLDatabase.getInstance();// Устанавливаем наблюдателя
-        subject.registerObserver(this);    //      за MySQLDatabase
 
         T1_personalAccountColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         T1_nameObjColumn.setCellValueFactory(new PropertyValueFactory<>("objectName"));
@@ -161,7 +155,7 @@ public class MainController implements Observer {
         reportMonthCombo.valueProperty().addListener((observable, oldValue, newValue) -> drawCharts());
         reportYearCombo.valueProperty().addListener((observable, oldValue, newValue) -> drawCharts());
 
-        setConnection();
+        database.setConnection();
         fillTables();
         chartsInitialize();
 
@@ -178,7 +172,7 @@ public class MainController implements Observer {
     @FXML
     public void objAccountChange() {
 
-        MyObjects object = T1_objAccounting.getSelectionModel().getSelectedItem();
+        ObjectAccounting object = T1_objAccounting.getSelectionModel().getSelectedItem();
 
         if (object != null) {
             setSelectedObject(object);
@@ -193,7 +187,7 @@ public class MainController implements Observer {
     @FXML
     public void objAccountDelete() {
 
-        MyObjects object = T1_objAccounting.getSelectionModel().getSelectedItem();
+        ObjectAccounting object = T1_objAccounting.getSelectionModel().getSelectedItem();
 
         if (object != null) {
             setSelectedObject(object);
@@ -304,36 +298,18 @@ public class MainController implements Observer {
         }
     }
 
-    private void setConnection() {
-
-        try {
-            database.setConnectDatabase("jdbc:mysql://localhost:3306");
-        } catch (SQLException | ClassNotFoundException e) {
-            printDialogError("Ошибка подключения", "Не удалось подключиться к серверу MySQL !", e.getMessage());
-            System.exit(0);
-        }
-
-        try {
-            database.availabilityCheckDatabase();
-        } catch (SQLException e) {
-            printDialogError("Ошибка подключения", "Не удалось подключиться к БД !", e.getMessage());
-            System.exit(0);
-        }
-
-    }
-
     private void fillTables() {
 
-        T1_objAccounting.setItems(getTableObject(new ObjectAccounting()));
-        T2_counters.setItems(getTableObject(new Counters()));
-        T3_service.setItems(getTableObject(new Services()));
-        T4_payments.setItems(getTableObject(new Payments()));
+        T1_objAccounting.setItems(database.getTableObject());
+        T2_counters.setItems(database.getTableCounters());
+        T3_service.setItems(database.getTableServices());
+        T4_payments.setItems(database.getTablePayments());
 
     }
 
     private void chartsInitialize() {
 
-        ObservableList<ObjectAccounting> tableObject = getTableObject(new ObjectAccounting());
+        ObservableList<ObjectAccounting> tableObject = database.getTableObject();
         ObservableList<String> listObjects = FXCollections.observableArrayList();
 
         for (ObjectAccounting obj : tableObject) {
@@ -345,7 +321,7 @@ public class MainController implements Observer {
             reportObjCombo.setValue(listObjects.get(0));
         }
 
-        ObservableList<Payments> tablePayments = getTableObject(new Payments());
+        ObservableList<Payments> tablePayments = database.getTablePayments();
         ObservableList<String> listMonth = FXCollections.observableArrayList();
         ObservableList<String> listYear = FXCollections.observableArrayList();
 
@@ -386,7 +362,7 @@ public class MainController implements Observer {
 
     private boolean checkAvailabilityObjects() {
 
-        if (getTableObject(new ObjectAccounting()).isEmpty()) {
+        if (database.getTableObject().isEmpty()) {
             printDialogError("Добавление объекта", "Объект не может быть добавлен !",
                     "  Отсутствуют объекты учета.");
             return false;
@@ -397,7 +373,7 @@ public class MainController implements Observer {
 
     private boolean checkAvailabilityServices() {
 
-        if (getTableObject(new Services()).isEmpty()) {
+        if (database.getTableServices().isEmpty()) {
             printDialogError("Добавление объекта", "Объект не может быть добавлен !",
                     "  Для добавления необходимо наличие услуг.");
             return false;
@@ -410,7 +386,7 @@ public class MainController implements Observer {
 
         boolean flag = false;
 
-        for (Services obj : getTableObject(new Services())) {
+        for (Services obj : database.getTableServices()) {
 
             if (obj.getFormPayments() == 1) {
                 flag = true;
@@ -459,178 +435,6 @@ public class MainController implements Observer {
         stage.getIcons().add(new Image("/by/javafx/communalPayments/ico/icon.png"));
         alert.showAndWait();
         alert.close();
-    }
-
-    protected boolean objectAdd(MyObjects object) {
-
-        try {
-
-            if (object instanceof ObjectAccounting) {
-                database.add((ObjectAccounting) object);
-            }
-
-            if (object instanceof Counters) {
-                database.add((Counters) object);
-            }
-
-            if (object instanceof Services) {
-                database.add((Services) object);
-            }
-
-            if (object instanceof Payments) {
-                database.add((Payments) object);
-            }
-
-            if (object instanceof Measurement) {
-                database.add((Measurement) object);
-            }
-
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка добавления данных в БД !", e.getMessage());
-            return false;
-        }
-
-        return true;
-    }
-
-    protected boolean objectChange(MyObjects object) {
-
-        try {
-
-            if (object instanceof Counters) {
-                database.change((Counters) object);
-            }
-
-            if (object instanceof Services) {
-                database.change((Services) object);
-            }
-
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка изменения данных в counters or services !", e.getMessage());
-            return false;
-        }
-
-        return true;
-    }
-
-    protected boolean objectChange(ObjectAccounting object, int id) {
-
-        try {
-
-            database.change(object, id);
-
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка изменения данных в objectAccounting !", e.getMessage());
-            return false;
-        }
-        return true;
-    }
-
-    protected boolean lastMeasureChange(Counters object, double lastMeasure) {
-
-        try {
-
-            database.changeLastMeasure(object, lastMeasure);
-
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка изменения данных в measurement !", e.getMessage());
-            return false;
-        }
-
-        return true;
-    }
-
-    protected boolean objectDelete(MyObjects object) {
-
-        try {
-
-            if (object instanceof ObjectAccounting) {
-                database.delete((ObjectAccounting) object);
-            }
-
-            if (object instanceof Counters) {
-                database.delete((Counters) object);
-            }
-
-            if (object instanceof Services) {
-                database.delete((Services) object);
-            }
-
-            if (object instanceof Payments) {
-                database.delete((Payments) object);
-            }
-
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка удаления данных из БД !", e.getMessage());
-            return false;
-        }
-
-        return true;
-    }
-
-    protected ObservableList<ObjectAccounting> getTableObject(ObjectAccounting object) {
-
-        try {
-
-            return database.getListObjects(object);
-
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка чтения данных из objectAccounting !", e.getMessage());
-            return null;
-        }
-
-    }
-
-    protected ObservableList<Counters> getTableObject(Counters object) {
-
-        try {
-
-            return database.getListObjects(object);
-
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка чтения данных из counters !", e.getMessage());
-            return null;
-        }
-
-    }
-
-    protected ObservableList<Services> getTableObject(Services object) {
-
-        try {
-
-            return database.getListObjects(object);
-
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка чтения данных из services !", e.getMessage());
-            return null;
-        }
-
-    }
-
-    protected ObservableList<Payments> getTableObject(Payments object) {
-
-        try {
-
-            return database.getListObjects(object);
-
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка чтения данных из payments !", e.getMessage());
-            return null;
-        }
-
-    }
-
-    protected ObservableList<FormPayments> getTableObject(FormPayments object) {
-
-        try {
-
-            return database.getListObjects(object);
-
-        } catch (SQLException e) {
-            printDialogError("Работа с базой данных", "Ошибка чтения данных из formPayments !", e.getMessage());
-            return null;
-        }
-
     }
 
     public MyObjects getSelectedObject() {
