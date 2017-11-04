@@ -40,7 +40,8 @@ import java.util.Locale;
 
 public class MainController implements Observer {
 
-    private IDatabase database = MySQLDatabase.getInstance();
+    //private IDatabase database = MySQLDatabase.getInstance();
+    private Database database = new Database(this);
     private MyObjects selectedObject;
     private ReportController report;
 
@@ -448,7 +449,7 @@ public class MainController implements Observer {
 
     }
 
-    protected void printDialogError(String title, String headerText, String contentText) {
+    public void printDialogError(String title, String headerText, String contentText) {
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
