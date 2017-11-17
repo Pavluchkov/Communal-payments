@@ -62,4 +62,5 @@ public class MySQLDaoFactory implements DaoFactory {
     public FormPaymentsDao getFormPaymentsDao(Connection connection) {
         return new MySQLFormPayments(connection);
     }
+
 }
