@@ -59,7 +59,7 @@ public class MySQLCounters implements CountersDao {
     }
 
     @Override
-    public ObservableList<Counters> getAll(Counters object) throws SQLException {
+    public ObservableList<Counters> getAll() throws SQLException {
         ObservableList<Counters> objectList = FXCollections.observableArrayList();
 
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM " + "counters");

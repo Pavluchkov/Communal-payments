@@ -12,5 +12,5 @@ public interface ServicesDao {
 
     void delete(Services object) throws SQLException;
 
-    ObservableList<Services> getAll(Services object) throws SQLException;
+    ObservableList<Services> getAll() throws SQLException;
 }

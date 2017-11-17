@@ -12,5 +12,5 @@ public interface CountersDao {
 
     void delete(Counters object) throws SQLException;
 
-    ObservableList<Counters> getAll(Counters object) throws SQLException;
+    ObservableList<Counters> getAll() throws SQLException;
 }

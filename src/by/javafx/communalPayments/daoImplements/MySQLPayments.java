@@ -45,7 +45,7 @@ public class MySQLPayments implements PaymentsDao {
     }
 
     @Override
-    public ObservableList<Payments> getAll(Payments object) throws SQLException {
+    public ObservableList<Payments> getAll() throws SQLException {
         ObservableList<Payments> objectList = FXCollections.observableArrayList();
 
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM " + "payments");

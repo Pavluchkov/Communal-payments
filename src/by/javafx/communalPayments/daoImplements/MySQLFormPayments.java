@@ -18,7 +18,7 @@ public class MySQLFormPayments implements FormPaymentsDao {
     }
 
     @Override
-    public ObservableList<FormPayments> getAll(FormPayments object) throws SQLException {
+    public ObservableList<FormPayments> getAll() throws SQLException {
         ObservableList<FormPayments> objectList = FXCollections.observableArrayList();
 
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM " + "formpayments");

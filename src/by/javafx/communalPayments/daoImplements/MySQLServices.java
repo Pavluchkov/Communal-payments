@@ -61,7 +61,7 @@ public class MySQLServices implements ServicesDao {
     }
 
     @Override
-    public ObservableList<Services> getAll(Services object) throws SQLException {
+    public ObservableList<Services> getAll() throws SQLException {
         ObservableList<Services> objectList = FXCollections.observableArrayList();
 
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM " + "services");

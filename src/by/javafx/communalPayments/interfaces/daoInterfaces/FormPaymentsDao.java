@@ -6,5 +6,5 @@ import javafx.collections.ObservableList;
 import java.sql.SQLException;
 
 public interface FormPaymentsDao {
-    ObservableList<FormPayments> getAll(FormPayments object) throws SQLException;
+    ObservableList<FormPayments> getAll() throws SQLException;
 }

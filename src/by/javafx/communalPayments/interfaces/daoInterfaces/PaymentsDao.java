@@ -10,5 +10,5 @@ public interface PaymentsDao {
 
     void delete(Payments object) throws SQLException;
 
-    ObservableList<Payments> getAll(Payments object) throws SQLException;
+    ObservableList<Payments> getAll() throws SQLException;
 }

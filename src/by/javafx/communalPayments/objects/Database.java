@@ -1,19 +1,23 @@
 package by.javafx.communalPayments.objects;
 
 import by.javafx.communalPayments.controllers.MainController;
-import by.javafx.communalPayments.interfaces.IDatabase;
+import by.javafx.communalPayments.daoImplements.MySQLDaoFactory;
+import by.javafx.communalPayments.interfaces.daoInterfaces.*;
 import by.javafx.communalPayments.interfaces.observerInterfaces.Observer;
 import by.javafx.communalPayments.interfaces.observerInterfaces.Subject;
 import javafx.collections.ObservableList;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Database implements Subject {
 
     private static ArrayList<Observer> observers = new ArrayList<>();
-    private IDatabase database = MySQLDatabase.getInstance();
+    //private IDatabase database = MySQLDatabase.getInstance();
     private MainController mainController;
+    private DaoFactory daoFactory = new MySQLDaoFactory();
+    private Connection connection;
 
     public Database(MainController mainController) {
         this.mainController = mainController;
@@ -22,26 +26,28 @@ public class Database implements Subject {
     public void setConnection() {
 
         try {
-            database.setConnectDatabase("jdbc:mysql://localhost:3306");
-        } catch (SQLException | ClassNotFoundException e) {
+            connection = daoFactory.getConnection();
+            //database.setConnectDatabase("jdbc:mysql://localhost:3306");
+        } catch (SQLException e) {
             mainController.printDialogError("Ошибка подключения", "Не удалось подключиться к серверу MySQL !", e.getMessage());
             System.exit(0);
         }
 
-        try {
-            database.availabilityCheckDatabase();
-        } catch (SQLException e) {
-            mainController.printDialogError("Ошибка подключения", "Не удалось подключиться к БД !", e.getMessage());
-            System.exit(0);
-        }
+//        try {
+//            database.availabilityCheckDatabase();
+//        } catch (SQLException e) {
+//            mainController.printDialogError("Ошибка подключения", "Не удалось подключиться к БД !", e.getMessage());
+//            System.exit(0);
+//        }
 
     }
 
     public boolean addObject(ObjectAccounting object) {
 
         try {
-
-            database.add(object);
+            ObjectAccountDao objectAccountDao = daoFactory.getObjectAccountDao(connection);
+            objectAccountDao.add(object);
+            //database.add(object);
             dataChange();
 
         } catch (SQLException e) {
@@ -55,7 +61,9 @@ public class Database implements Subject {
     public boolean addCounter(Counters counter) {
         try {
 
-            database.add(counter);
+            CountersDao countersDao = daoFactory.getCountersDao(connection);
+            countersDao.add(counter);
+            //database.add(counter);
             dataChange();
 
         } catch (SQLException e) {
@@ -68,8 +76,9 @@ public class Database implements Subject {
 
     public boolean addService(Services service) {
         try {
-
-            database.add(service);
+            ServicesDao servicesDao = daoFactory.getServicesDao(connection);
+            servicesDao.add(service);
+            //database.add(service);
             dataChange();
 
         } catch (SQLException e) {
@@ -82,8 +91,9 @@ public class Database implements Subject {
 
     public boolean addPayment(Payments payment) {
         try {
-
-            database.add(payment);
+            PaymentsDao paymentsDao = daoFactory.getPaymentsDao(connection);
+            paymentsDao.add(payment);
+            //database.add(payment);
             dataChange();
 
         } catch (SQLException e) {
@@ -96,8 +106,9 @@ public class Database implements Subject {
 
     public boolean addMeasurement(Measurement measurement) {
         try {
-
-            database.add(measurement);
+            MeasurementDao measurementDao = daoFactory.getMeasurementDao(connection);
+            measurementDao.add(measurement);
+            //database.add(measurement);
             dataChange();
 
         } catch (SQLException e) {
@@ -108,11 +119,27 @@ public class Database implements Subject {
         return true;
     }
 
+    public boolean changeObject(ObjectAccounting object, int id) {
+
+        try {
+            ObjectAccountDao objectAccountDao = daoFactory.getObjectAccountDao(connection);
+            objectAccountDao.update(object, id);
+            //database.change(object, id);
+            dataChange();
+
+        } catch (SQLException e) {
+            mainController.printDialogError("Работа с базой данных", "Ошибка изменения данных в objectAccounting !", e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
     public boolean changeCounter(Counters counter) {
 
         try {
-
-            database.change(counter);
+            CountersDao countersDao = daoFactory.getCountersDao(connection);
+            countersDao.update(counter);
+            //database.change(counter);
             dataChange();
 
         } catch (SQLException e) {
@@ -126,8 +153,9 @@ public class Database implements Subject {
     public boolean changeService(Services service) {
 
         try {
-
-            database.change(service);
+            ServicesDao servicesDao = daoFactory.getServicesDao(connection);
+            servicesDao.update(service);
+            //database.change(service);
             dataChange();
 
         } catch (SQLException e) {
@@ -138,25 +166,12 @@ public class Database implements Subject {
         return true;
     }
 
-    public boolean changeObject(ObjectAccounting object, int id) {
-
-        try {
-
-            database.change(object, id);
-            dataChange();
-
-        } catch (SQLException e) {
-            mainController.printDialogError("Работа с базой данных", "Ошибка изменения данных в objectAccounting !", e.getMessage());
-            return false;
-        }
-        return true;
-    }
-
     public boolean lastMeasureChange(Counters object, double lastMeasure) {
 
         try {
-
-            database.changeLastMeasure(object, lastMeasure);
+            MeasurementDao measurementDao = daoFactory.getMeasurementDao(connection);
+            measurementDao.changeLastMeasure(object, lastMeasure);
+            //database.changeLastMeasure(object, lastMeasure);
             dataChange();
 
         } catch (SQLException e) {
@@ -170,8 +185,9 @@ public class Database implements Subject {
     public boolean deleteObject(ObjectAccounting object) {
 
         try {
-
-            database.delete(object);
+            ObjectAccountDao objectAccountDao = daoFactory.getObjectAccountDao(connection);
+            objectAccountDao.delete(object);
+            //database.delete(object);
             dataChange();
 
         } catch (SQLException e) {
@@ -185,8 +201,9 @@ public class Database implements Subject {
     public boolean deleteCounter(Counters counter) {
 
         try {
-
-            database.delete(counter);
+            CountersDao countersDao = daoFactory.getCountersDao(connection);
+            countersDao.delete(counter);
+            //database.delete(counter);
             dataChange();
 
         } catch (SQLException e) {
@@ -200,8 +217,9 @@ public class Database implements Subject {
     public boolean deleteService(Services service) {
 
         try {
-
-            database.delete(service);
+            ServicesDao servicesDao = daoFactory.getServicesDao(connection);
+            servicesDao.delete(service);
+            //database.delete(service);
             dataChange();
 
         } catch (SQLException e) {
@@ -215,8 +233,9 @@ public class Database implements Subject {
     public boolean deletePayment(Payments payment) {
 
         try {
-
-            database.delete(payment);
+            PaymentsDao paymentsDao = daoFactory.getPaymentsDao(connection);
+            paymentsDao.delete(payment);
+            //database.delete(payment);
             dataChange();
 
         } catch (SQLException e) {
@@ -230,8 +249,9 @@ public class Database implements Subject {
     public ObservableList<ObjectAccounting> getTableObject() {
 
         try {
-
-            return database.getListObjects(new ObjectAccounting());
+            ObjectAccountDao objectAccountDao = daoFactory.getObjectAccountDao(connection);
+            return objectAccountDao.getAll();
+            //return database.getListObjects(new ObjectAccounting());
 
         } catch (SQLException e) {
             mainController.printDialogError("Работа с базой данных", "Ошибка чтения данных из objectAccounting !", e.getMessage());
@@ -243,8 +263,9 @@ public class Database implements Subject {
     public ObservableList<Counters> getTableCounters() {
 
         try {
-
-            return database.getListObjects(new Counters());
+            CountersDao countersDao = daoFactory.getCountersDao(connection);
+            return countersDao.getAll();
+            //return database.getListObjects(new Counters());
 
         } catch (SQLException e) {
             mainController.printDialogError("Работа с базой данных", "Ошибка чтения данных из counters !", e.getMessage());
@@ -256,8 +277,9 @@ public class Database implements Subject {
     public ObservableList<Services> getTableServices() {
 
         try {
-
-            return database.getListObjects(new Services());
+            ServicesDao servicesDao = daoFactory.getServicesDao(connection);
+            return servicesDao.getAll();
+            //return database.getListObjects(new Services());
 
         } catch (SQLException e) {
             mainController.printDialogError("Работа с базой данных", "Ошибка чтения данных из services !", e.getMessage());
@@ -269,8 +291,9 @@ public class Database implements Subject {
     public ObservableList<Payments> getTablePayments() {
 
         try {
-
-            return database.getListObjects(new Payments());
+            PaymentsDao paymentsDao = daoFactory.getPaymentsDao(connection);
+            return paymentsDao.getAll();
+            //return database.getListObjects(new Payments());
 
         } catch (SQLException e) {
             mainController.printDialogError("Работа с базой данных", "Ошибка чтения данных из payments !", e.getMessage());
@@ -282,8 +305,9 @@ public class Database implements Subject {
     public ObservableList<FormPayments> getTableFormPayments() {
 
         try {
-
-            return database.getListObjects(new FormPayments());
+            FormPaymentsDao formPaymentsDao = daoFactory.getFormPaymentsDao(connection);
+            return formPaymentsDao.getAll();
+            //return database.getListObjects(new FormPayments());
 
         } catch (SQLException e) {
             mainController.printDialogError("Работа с базой данных", "Ошибка чтения данных из formPayments !", e.getMessage());
