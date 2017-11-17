@@ -1,6 +1,8 @@
 package by.javafx.communalPayments.objects;
 
-import by.javafx.communalPayments.interfaces.*;
+import by.javafx.communalPayments.daoImplements.MySQLCounters;
+import by.javafx.communalPayments.daoImplements.MySQLObject;
+import by.javafx.communalPayments.interfaces.daoInterfaces.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,34 +11,38 @@ import java.util.Properties;
 
 public class MySQLDaoFactory implements DaoFactory{
 
+    private static Connection connection;
+
     public MySQLDaoFactory() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
+
+            Properties properties = new Properties();
+            properties.setProperty("user", "root");
+            properties.setProperty("password", "root");
+            properties.setProperty("useUnicode", "true");
+            properties.setProperty("characterEncoding", "UTF-8");
+
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306", properties);
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
     public Connection getConnection() throws SQLException {
-
-        Properties properties = new Properties();
-        properties.setProperty("user", "root");
-        properties.setProperty("password", "root");
-        properties.setProperty("useUnicode", "true");
-        properties.setProperty("characterEncoding", "UTF-8");
-
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306", properties);
+        return connection;
     }
 
     @Override
     public ObjectAccountDao getObjectAccountDao(Connection connection) {
-        return null;
+        return new MySQLObject(connection);
     }
 
     @Override
     public CountersDao getCountersDao(Connection connection) {
-        return null;
+        return new MySQLCounters(connection);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package by.javafx.communalPayments.interfaces;
+package by.javafx.communalPayments.interfaces.daoInterfaces;
 
 import by.javafx.communalPayments.objects.Services;
 import javafx.collections.ObservableList;

@@ -2,8 +2,8 @@ package by.javafx.communalPayments.objects;
 
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.interfaces.IDatabase;
-import by.javafx.communalPayments.interfaces.Observer;
-import by.javafx.communalPayments.interfaces.Subject;
+import by.javafx.communalPayments.interfaces.observerInterfaces.Observer;
+import by.javafx.communalPayments.interfaces.observerInterfaces.Subject;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;

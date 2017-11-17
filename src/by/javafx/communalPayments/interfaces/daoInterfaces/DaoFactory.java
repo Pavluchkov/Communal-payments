@@ -1,4 +1,6 @@
-package by.javafx.communalPayments.interfaces;
+package by.javafx.communalPayments.interfaces.daoInterfaces;
+
+import by.javafx.communalPayments.interfaces.daoInterfaces.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
