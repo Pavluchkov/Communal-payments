@@ -1,7 +1,5 @@
-package by.javafx.communalPayments.objects;
+package by.javafx.communalPayments.daoImplements;
 
-import by.javafx.communalPayments.daoImplements.MySQLCounters;
-import by.javafx.communalPayments.daoImplements.MySQLObject;
 import by.javafx.communalPayments.interfaces.daoInterfaces.*;
 
 import java.sql.Connection;
@@ -9,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class MySQLDaoFactory implements DaoFactory{
+public class MySQLDaoFactory implements DaoFactory {
 
     private static Connection connection;
 
@@ -47,21 +45,21 @@ public class MySQLDaoFactory implements DaoFactory{
 
     @Override
     public ServicesDao getServicesDao(Connection connection) {
-        return null;
+        return new MySQLServices(connection);
     }
 
     @Override
     public PaymentsDao getPaymentsDao(Connection connection) {
-        return null;
+        return new MySQLPayments(connection);
     }
 
     @Override
     public MeasurementDao getMeasurementDao(Connection connection) {
-        return null;
+        return new MySQLMeasurement(connection);
     }
 
     @Override
     public FormPaymentsDao getFormPaymentsDao(Connection connection) {
-        return null;
+        return new MySQLFormPayments(connection);
     }
 }
