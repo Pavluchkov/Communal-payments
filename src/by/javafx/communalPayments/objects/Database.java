@@ -2,9 +2,11 @@ package by.javafx.communalPayments.objects;
 
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.daoImplements.MySQLDaoFactory;
+import by.javafx.communalPayments.interfaces.connectionInterfaces.ConnectionBuilder;
 import by.javafx.communalPayments.interfaces.daoInterfaces.*;
 import by.javafx.communalPayments.interfaces.observerInterfaces.Observer;
 import by.javafx.communalPayments.interfaces.observerInterfaces.Subject;
+import connectionImplements.ConnectionBuilderFactory;
 import javafx.collections.ObservableList;
 
 import java.sql.Connection;
@@ -14,31 +16,31 @@ import java.util.ArrayList;
 public class Database implements Subject {
 
     private static ArrayList<Observer> observers = new ArrayList<>();
-    //private IDatabase database = MySQLDatabase.getInstance();
+    private static Connection connection;
     private MainController mainController;
     private DaoFactory daoFactory = new MySQLDaoFactory();
-    private Connection connection;
 
     public Database(MainController mainController) {
         this.mainController = mainController;
+
     }
 
     public void setConnection() {
 
+        ConnectionBuilder connectionBuilder = ConnectionBuilderFactory.getSimpleConnection();
         try {
-            connection = daoFactory.getConnection();
-            //database.setConnectDatabase("jdbc:mysql://localhost:3306");
+            connection = connectionBuilder.getConnection();
         } catch (SQLException e) {
             mainController.printDialogError("Ошибка подключения", "Не удалось подключиться к серверу MySQL !", e.getMessage());
             System.exit(0);
         }
 
-//        try {
-//            database.availabilityCheckDatabase();
-//        } catch (SQLException e) {
-//            mainController.printDialogError("Ошибка подключения", "Не удалось подключиться к БД !", e.getMessage());
-//            System.exit(0);
-//        }
+        try {
+            connectionBuilder.availabilityCheckDatabase(connection);
+        } catch (SQLException e) {
+            mainController.printDialogError("Ошибка подключения", "Не удалось подключиться к БД !", e.getMessage());
+            System.exit(0);
+        }
 
     }
 
@@ -47,7 +49,6 @@ public class Database implements Subject {
         try {
             ObjectAccountDao objectAccountDao = daoFactory.getObjectAccountDao(connection);
             objectAccountDao.add(object);
-            //database.add(object);
             dataChange();
 
         } catch (SQLException e) {
@@ -63,7 +64,6 @@ public class Database implements Subject {
 
             CountersDao countersDao = daoFactory.getCountersDao(connection);
             countersDao.add(counter);
-            //database.add(counter);
             dataChange();
 
         } catch (SQLException e) {
@@ -78,7 +78,6 @@ public class Database implements Subject {
         try {
             ServicesDao servicesDao = daoFactory.getServicesDao(connection);
             servicesDao.add(service);
-            //database.add(service);
             dataChange();
 
         } catch (SQLException e) {
@@ -93,7 +92,6 @@ public class Database implements Subject {
         try {
             PaymentsDao paymentsDao = daoFactory.getPaymentsDao(connection);
             paymentsDao.add(payment);
-            //database.add(payment);
             dataChange();
 
         } catch (SQLException e) {
@@ -108,7 +106,6 @@ public class Database implements Subject {
         try {
             MeasurementDao measurementDao = daoFactory.getMeasurementDao(connection);
             measurementDao.add(measurement);
-            //database.add(measurement);
             dataChange();
 
         } catch (SQLException e) {
@@ -124,7 +121,6 @@ public class Database implements Subject {
         try {
             ObjectAccountDao objectAccountDao = daoFactory.getObjectAccountDao(connection);
             objectAccountDao.update(object, id);
-            //database.change(object, id);
             dataChange();
 
         } catch (SQLException e) {
@@ -139,7 +135,6 @@ public class Database implements Subject {
         try {
             CountersDao countersDao = daoFactory.getCountersDao(connection);
             countersDao.update(counter);
-            //database.change(counter);
             dataChange();
 
         } catch (SQLException e) {
@@ -155,7 +150,6 @@ public class Database implements Subject {
         try {
             ServicesDao servicesDao = daoFactory.getServicesDao(connection);
             servicesDao.update(service);
-            //database.change(service);
             dataChange();
 
         } catch (SQLException e) {
@@ -171,7 +165,6 @@ public class Database implements Subject {
         try {
             MeasurementDao measurementDao = daoFactory.getMeasurementDao(connection);
             measurementDao.changeLastMeasure(object, lastMeasure);
-            //database.changeLastMeasure(object, lastMeasure);
             dataChange();
 
         } catch (SQLException e) {
@@ -187,7 +180,6 @@ public class Database implements Subject {
         try {
             ObjectAccountDao objectAccountDao = daoFactory.getObjectAccountDao(connection);
             objectAccountDao.delete(object);
-            //database.delete(object);
             dataChange();
 
         } catch (SQLException e) {
@@ -203,7 +195,6 @@ public class Database implements Subject {
         try {
             CountersDao countersDao = daoFactory.getCountersDao(connection);
             countersDao.delete(counter);
-            //database.delete(counter);
             dataChange();
 
         } catch (SQLException e) {
@@ -219,7 +210,6 @@ public class Database implements Subject {
         try {
             ServicesDao servicesDao = daoFactory.getServicesDao(connection);
             servicesDao.delete(service);
-            //database.delete(service);
             dataChange();
 
         } catch (SQLException e) {
@@ -235,7 +225,6 @@ public class Database implements Subject {
         try {
             PaymentsDao paymentsDao = daoFactory.getPaymentsDao(connection);
             paymentsDao.delete(payment);
-            //database.delete(payment);
             dataChange();
 
         } catch (SQLException e) {
@@ -251,7 +240,6 @@ public class Database implements Subject {
         try {
             ObjectAccountDao objectAccountDao = daoFactory.getObjectAccountDao(connection);
             return objectAccountDao.getAll();
-            //return database.getListObjects(new ObjectAccounting());
 
         } catch (SQLException e) {
             mainController.printDialogError("Работа с базой данных", "Ошибка чтения данных из objectAccounting !", e.getMessage());
@@ -265,7 +253,6 @@ public class Database implements Subject {
         try {
             CountersDao countersDao = daoFactory.getCountersDao(connection);
             return countersDao.getAll();
-            //return database.getListObjects(new Counters());
 
         } catch (SQLException e) {
             mainController.printDialogError("Работа с базой данных", "Ошибка чтения данных из counters !", e.getMessage());
@@ -279,7 +266,6 @@ public class Database implements Subject {
         try {
             ServicesDao servicesDao = daoFactory.getServicesDao(connection);
             return servicesDao.getAll();
-            //return database.getListObjects(new Services());
 
         } catch (SQLException e) {
             mainController.printDialogError("Работа с базой данных", "Ошибка чтения данных из services !", e.getMessage());
@@ -293,7 +279,6 @@ public class Database implements Subject {
         try {
             PaymentsDao paymentsDao = daoFactory.getPaymentsDao(connection);
             return paymentsDao.getAll();
-            //return database.getListObjects(new Payments());
 
         } catch (SQLException e) {
             mainController.printDialogError("Работа с базой данных", "Ошибка чтения данных из payments !", e.getMessage());
@@ -307,7 +292,6 @@ public class Database implements Subject {
         try {
             FormPaymentsDao formPaymentsDao = daoFactory.getFormPaymentsDao(connection);
             return formPaymentsDao.getAll();
-            //return database.getListObjects(new FormPayments());
 
         } catch (SQLException e) {
             mainController.printDialogError("Работа с базой данных", "Ошибка чтения данных из formPayments !", e.getMessage());

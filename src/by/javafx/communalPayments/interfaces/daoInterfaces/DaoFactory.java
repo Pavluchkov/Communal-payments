@@ -1,11 +1,10 @@
 package by.javafx.communalPayments.interfaces.daoInterfaces;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 public interface DaoFactory {
 
-    Connection getConnection() throws SQLException;
+    //Connection getConnection() throws SQLException;
 
     ObjectAccountDao getObjectAccountDao(Connection connection);
 
