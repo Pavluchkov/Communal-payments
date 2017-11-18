@@ -1,4 +1,4 @@
-package connectionImplements;
+package by.javafx.communalPayments.connectionImplements;
 
 import by.javafx.communalPayments.interfaces.connectionInterfaces.ConnectionBuilder;
 

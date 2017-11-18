@@ -1,8 +1,8 @@
 package by.javafx.communalPayments.daoImplements;
 
 import by.javafx.communalPayments.interfaces.daoInterfaces.MeasurementDao;
-import by.javafx.communalPayments.objects.Counters;
-import by.javafx.communalPayments.objects.Measurement;
+import by.javafx.communalPayments.objectsPerfomance.Counters;
+import by.javafx.communalPayments.objectsPerfomance.Measurement;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

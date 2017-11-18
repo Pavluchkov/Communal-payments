@@ -1,8 +1,8 @@
 package by.javafx.communalPayments.controllers.services;
 
 import by.javafx.communalPayments.controllers.MainController;
-import by.javafx.communalPayments.objects.FormPayments;
-import by.javafx.communalPayments.objects.Services;
+import by.javafx.communalPayments.objectsPerfomance.FormPayments;
+import by.javafx.communalPayments.objectsPerfomance.Services;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

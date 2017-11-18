@@ -2,9 +2,9 @@ package by.javafx.communalPayments.controllers.counters;
 
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.controllers.payments.PaymentAddController;
-import by.javafx.communalPayments.objects.Counters;
-import by.javafx.communalPayments.objects.Measurement;
-import by.javafx.communalPayments.objects.Payments;
+import by.javafx.communalPayments.objectsPerfomance.Counters;
+import by.javafx.communalPayments.objectsPerfomance.Measurement;
+import by.javafx.communalPayments.objectsPerfomance.Payments;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;

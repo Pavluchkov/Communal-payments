@@ -1,9 +1,9 @@
 package by.javafx.communalPayments.controllers.report;
 
 import by.javafx.communalPayments.controllers.MainController;
-import by.javafx.communalPayments.objects.ObjectAccounting;
-import by.javafx.communalPayments.objects.Payments;
-import by.javafx.communalPayments.objects.Services;
+import by.javafx.communalPayments.objectsPerfomance.ObjectAccounting;
+import by.javafx.communalPayments.objectsPerfomance.Payments;
+import by.javafx.communalPayments.objectsPerfomance.Services;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.CategoryAxis;

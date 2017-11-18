@@ -1,9 +1,9 @@
 package by.javafx.communalPayments.controllers.counters;
 
 import by.javafx.communalPayments.controllers.MainController;
-import by.javafx.communalPayments.objects.Counters;
-import by.javafx.communalPayments.objects.ObjectAccounting;
-import by.javafx.communalPayments.objects.Services;
+import by.javafx.communalPayments.objectsPerfomance.Counters;
+import by.javafx.communalPayments.objectsPerfomance.ObjectAccounting;
+import by.javafx.communalPayments.objectsPerfomance.Services;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

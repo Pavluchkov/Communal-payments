@@ -1,6 +1,6 @@
 package by.javafx.communalPayments.interfaces.daoInterfaces;
 
-import by.javafx.communalPayments.objects.ObjectAccounting;
+import by.javafx.communalPayments.objectsPerfomance.ObjectAccounting;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;

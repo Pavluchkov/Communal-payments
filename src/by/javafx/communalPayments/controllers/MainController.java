@@ -13,7 +13,7 @@ import by.javafx.communalPayments.controllers.services.ServiceAddController;
 import by.javafx.communalPayments.controllers.services.ServiceChangeController;
 import by.javafx.communalPayments.controllers.services.ServiceDeleteController;
 import by.javafx.communalPayments.interfaces.observerInterfaces.Observer;
-import by.javafx.communalPayments.objects.*;
+import by.javafx.communalPayments.objectsPerfomance.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

@@ -1,4 +1,4 @@
-package by.javafx.communalPayments.objects;
+package by.javafx.communalPayments.objectsPerfomance;
 
 public class Counters extends MyObjects {
     private int id;

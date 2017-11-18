@@ -1,7 +1,7 @@
 package by.javafx.communalPayments.controllers.counters;
 
 import by.javafx.communalPayments.controllers.MainController;
-import by.javafx.communalPayments.objects.Counters;
+import by.javafx.communalPayments.objectsPerfomance.Counters;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

@@ -4,8 +4,6 @@ import java.sql.Connection;
 
 public interface DaoFactory {
 
-    //Connection getConnection() throws SQLException;
-
     ObjectAccountDao getObjectAccountDao(Connection connection);
 
     CountersDao getCountersDao(Connection connection);

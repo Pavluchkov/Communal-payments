@@ -1,4 +1,4 @@
-package by.javafx.communalPayments.objects;
+package by.javafx.communalPayments.objectsPerfomance;
 
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.daoImplements.MySQLDaoFactory;
@@ -6,7 +6,7 @@ import by.javafx.communalPayments.interfaces.connectionInterfaces.ConnectionBuil
 import by.javafx.communalPayments.interfaces.daoInterfaces.*;
 import by.javafx.communalPayments.interfaces.observerInterfaces.Observer;
 import by.javafx.communalPayments.interfaces.observerInterfaces.Subject;
-import connectionImplements.ConnectionBuilderFactory;
+import by.javafx.communalPayments.connectionImplements.ConnectionBuilderFactory;
 import javafx.collections.ObservableList;
 
 import java.sql.Connection;
