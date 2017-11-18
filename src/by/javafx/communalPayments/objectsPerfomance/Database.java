@@ -30,7 +30,7 @@ public class Database implements Subject {
         ConnectionBuilder connectionBuilder = ConnectionBuilderFactory.getSimpleConnection();
         try {
             connection = connectionBuilder.getConnection();
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             mainController.printDialogError("Ошибка подключения", "Не удалось подключиться к серверу MySQL !", e.getMessage());
             System.exit(0);
         }

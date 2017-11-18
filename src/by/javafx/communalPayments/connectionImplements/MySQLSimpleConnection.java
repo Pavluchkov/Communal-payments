@@ -7,16 +7,10 @@ import java.util.Properties;
 
 public class MySQLSimpleConnection implements ConnectionBuilder {
 
-    public MySQLSimpleConnection() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
-    public Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException, ClassNotFoundException {
+
+        Class.forName("com.mysql.jdbc.Driver");
 
         Properties properties = new Properties();
         properties.setProperty("user", "root");
