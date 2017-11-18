@@ -1,12 +1,12 @@
 package by.javafx.communalPayments.objectsPerfomance;
 
+import by.javafx.communalPayments.connectionImplements.ConnectionBuilderFactory;
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.daoImplements.MySQLDaoFactory;
 import by.javafx.communalPayments.interfaces.connectionInterfaces.ConnectionBuilder;
 import by.javafx.communalPayments.interfaces.daoInterfaces.*;
 import by.javafx.communalPayments.interfaces.observerInterfaces.Observer;
 import by.javafx.communalPayments.interfaces.observerInterfaces.Subject;
-import by.javafx.communalPayments.connectionImplements.ConnectionBuilderFactory;
 import javafx.collections.ObservableList;
 
 import java.sql.Connection;
@@ -35,7 +35,7 @@ public class Database implements Subject {
             System.exit(0);
         }
 
-        if(!connectionBuilder.createDatabase(connection)){
+        if (!connectionBuilder.createDatabase(connection)) {
             mainController.printDialogError("Ошибка подключения", "Не удалось подключиться к БД !", "Ошибка при создании БД !");
             System.exit(0);
         }

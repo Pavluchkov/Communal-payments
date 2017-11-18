@@ -132,13 +132,7 @@ public class MySQLSimpleConnection implements ConnectionBuilder {
             stmt.close();
 
         } catch (SQLException e) {
-            try {
-                connection.rollback();
-                return false;
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-                return false;
-            }
+            return false;
         }
         return true;
     }
