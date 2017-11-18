@@ -35,10 +35,8 @@ public class Database implements Subject {
             System.exit(0);
         }
 
-        try {
-            connectionBuilder.availabilityCheckDatabase(connection);
-        } catch (SQLException e) {
-            mainController.printDialogError("Ошибка подключения", "Не удалось подключиться к БД !", e.getMessage());
+        if(!connectionBuilder.createDatabase(connection)){
+            mainController.printDialogError("Ошибка подключения", "Не удалось подключиться к БД !", "Ошибка при создании БД !");
             System.exit(0);
         }
 
