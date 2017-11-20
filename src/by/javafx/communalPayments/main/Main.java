@@ -27,11 +27,5 @@ public class Main extends Application {
         primaryStage.getIcons().add(ico);
         primaryStage.show();
 
-//        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-//            @Override
-//            public void handle(WindowEvent event) {
-//
-//            }
-//        });
     }
 }

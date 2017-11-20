@@ -1,7 +1,7 @@
 package by.javafx.communalPayments.daoImplements;
 
 import by.javafx.communalPayments.interfaces.daoInterfaces.ServicesDao;
-import by.javafx.communalPayments.objectsPerfomance.Services;
+import by.javafx.communalPayments.representationObjects.Services;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

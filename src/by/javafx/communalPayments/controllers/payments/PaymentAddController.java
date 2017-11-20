@@ -2,7 +2,7 @@ package by.javafx.communalPayments.controllers.payments;
 
 import by.javafx.communalPayments.controllers.MainController;
 import by.javafx.communalPayments.controllers.counters.MeasureController;
-import by.javafx.communalPayments.objectsPerfomance.*;
+import by.javafx.communalPayments.representationObjects.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

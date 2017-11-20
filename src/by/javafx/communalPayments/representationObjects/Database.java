@@ -1,4 +1,4 @@
-package by.javafx.communalPayments.objectsPerfomance;
+package by.javafx.communalPayments.representationObjects;
 
 import by.javafx.communalPayments.connectionImplements.ConnectionBuilderFactory;
 import by.javafx.communalPayments.controllers.MainController;

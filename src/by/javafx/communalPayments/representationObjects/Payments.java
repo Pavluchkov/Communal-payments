@@ -1,4 +1,4 @@
-package by.javafx.communalPayments.objectsPerfomance;
+package by.javafx.communalPayments.representationObjects;
 
 import java.sql.Date;
 

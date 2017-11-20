@@ -1,7 +1,7 @@
 package by.javafx.communalPayments.controllers.payments;
 
 import by.javafx.communalPayments.controllers.MainController;
-import by.javafx.communalPayments.objectsPerfomance.Payments;
+import by.javafx.communalPayments.representationObjects.Payments;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
